@@ -5783,3 +5783,6 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+/* Added by Suneil*/
+body { padding-top: 70px;
+    padding-bottom: 70px; }

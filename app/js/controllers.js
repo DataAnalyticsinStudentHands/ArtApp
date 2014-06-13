@@ -2,9 +2,9 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('phonecatControllers', []);
+var publicArtControllers = angular.module('publicArtControllers', []);
 
-phonecatControllers.controller('PhoneListCtrl', ['$scope', '$http',
+publicArtControllers.controller('PhoneListCtrl', ['$scope', '$http',
   function($scope, $http) {
     $http.get('phones/phones.json').success(function(data) {
       $scope.phones = data;
@@ -13,7 +13,9 @@ phonecatControllers.controller('PhoneListCtrl', ['$scope', '$http',
     $scope.orderProp = 'age';
   }]);
 
-phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams',
+
+//Template for controller
+/*publicArtControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams',
   function($scope, $routeParams) {
     $scope.phoneId = $routeParams.phoneId;
-  }]);
+  }]);*/
