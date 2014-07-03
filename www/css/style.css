@@ -1,0 +1,78 @@
+.textcontainer {
+    width: 5em;
+    margin: 0 auto 1em auto;
+    padding: 1em;
+    font-family: "Oswald", Sans-Serif;
+    font-weight: 700;
+    font-size: 1000%;
+    color: white;
+    line-height:100%;
+}
+.textcontainer p{
+    display: inline-block; /* won't work _reliably_, if at all, in IE < 8
+                              but in other browsers will center the text
+                              and shrink the element to fit its text */
+    text-align: left;
+}
+
+/*it is what it sounds like*/
+#rectangle{
+    width: 490px;
+    height: 50px;
+    background: white;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    
+    
+}/*a comma a library image*/
+.headerimage {
+    width: 100%;
+    position: relative;
+    background-image: url(../img/acommaa.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    z-index: 1;
+    }  
+
+
+/*make links look good*/
+a:link {
+    text-decoration: none;
+    color: #fff;
+}
+a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+a:active {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+html, body{
+    width: 100%;
+	overflow-x: hidden; /* prevents horizontal scroll bars */
+	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
+	overflow: -moz-scrollbars-vertical;
+	height: 100%; /* fixes focus scrolling in Safari (OS X) */
+	background:#000;
+    background-image: url(../img/acommaa.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+	margin: 0;
+	padding: 0;
+	<!--font-family: 'Oswald', Sans-Serif;
+	font-size: 14px;
+	font-weight: 300;-->
+}
+
+/* Site Overlay*/
+.site-overlay{
+    display: none;
+    }

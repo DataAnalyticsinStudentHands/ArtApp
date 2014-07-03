@@ -1,0 +1,15 @@
+<div>
+    <input type="button" value="Start Watch" ng-click="button()">
+</div>
+<div class="arView" ng-show="phoneUp">
+    <h1>AR View</h1>
+    <p>x: {{currAcc.x}}</p>
+    <p>y: {{currAcc.y}}</p>
+    <p>z: {{currAcc.z}}</p>
+</div>
+<div class="mapView" ng-hide="phoneUp">
+    <h1>Map View</h1>
+    <p>x: {{currAcc.x}}</p>
+    <p>y: {{currAcc.y}}</p>
+    <p>z: {{currAcc.z}}</p>
+</div>
