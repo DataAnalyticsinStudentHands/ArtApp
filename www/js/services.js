@@ -94,7 +94,6 @@ locationServices.factory('geolocationServe', ['$q', function($q) {
 
       return q.promise;
     },
-
     clearWatch: function(watchID) {
       return navigator.geolocation.clearWatch(watchID);
     }

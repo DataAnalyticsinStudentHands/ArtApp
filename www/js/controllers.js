@@ -132,18 +132,31 @@ appControllers.controller('exploreCtrl', ['$scope','accelerometerServe','compass
   }]);
 
 
-appControllers.controller('tourListCtrl', ['$scope', '$http', 
-    function($scope, $http) {
+appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 
+    function($scope, $http, snapRemote) {
         $http.get('tours.json').success(function(data) {
             $scope.tours = data;
         });            
         
-        $scope.openMenu = false;
-        $scope.toggleMenu = function () {
-            $scope.$emit('toggleSlideMenu', $scope.openMenu = !$scope.openMenu);
-        };
-
-        $scope.$on('slideMenuToggled', function (event, isOpen) {
-            $scope.openMenu = isOpen;
+        $scope.sliderOptions = {disable: 'right', hyperextensible: false};
+        /*settings = {element: null,
+                    dragger: null,
+                    disable: 'none',
+                    addBodyClasses: true,
+                    hyperextensible: true,
+                    resistance: 0.5,
+                    flickThreshold: 50,
+                    transitionSpeed: 0.3,
+                    easing: 'ease',
+                    maxPosition: 266,
+                    minPosition: -266,
+                    tapToClose: true,
+                    touchToDrag: true,
+                    slideIntent: 40,
+                    minDragDistance: 5
+                    };*/
+        
+        snapRemote.getSnapper().then(function(snapper) {
+            snapper.open('left');
         });
     }]);

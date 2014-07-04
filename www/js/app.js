@@ -6,8 +6,7 @@ var publicArtApp = angular.module('publicArtApp', [
     'ui.router',
     'controllerModule',
     'locationServicesModule',
-    'MenuSlideout',
-    'ngTouch'
+    'snap'
 ]);
 
 
@@ -16,16 +15,16 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
     $stateProvider
         .state('index',{
             url:"",
-            templateUrl:"tpl/body.html"
+            templateUrl:"partials/origin.html"
         })
         .state('tours',{
             url:"/tours",
-            templateUrl:"tpl/tour.html",
+            templateUrl:"partials/tours.html",
             controller:"tourListCtrl"
         })
         .state('explore',{
             url:"/explore",
-            templateUrl:"tpl/explore (2).html",
+            templateUrl:"partials/ar.html",
             controller:"exploreCtrl"
         });
 }]);
