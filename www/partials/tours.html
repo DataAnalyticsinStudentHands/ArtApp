@@ -12,7 +12,7 @@
     <h1 snap-toggle="left" style="background-color: #50f0e4">View Tours</h1>
     <div style="background-color: #f0f050">
         <h1>Switching Maps</h1>
-        <div id="map-canvas" style="background-color: #080808; width: 100%; height: 400px">
+        <div id="map-canvas" style="background-color: #ebebda; width: 100%; height: 400px">
             
         </div>
     </div>
@@ -36,8 +36,9 @@
     text-align: center;
     z-index: 11; /* 1px higher than the overlay layer */
 }</style>
-<div class="modal" ng-show=selectedMarker ng-click="selectedMarker=null">
+<div class="modal" ng-show=selectedMarker >
     <div>
+        <h1 ng-click="selectedMarker=null" style="background-color: #f0f050">Close</h1>
         <h1>{{selectedMarker.title}}</h1>
         <img ng-src={{selectedMarker.image}}>
         <p>{{selectedMarker.description}}</p>

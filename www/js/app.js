@@ -26,5 +26,10 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
             url:"/explore",
             templateUrl:"partials/ar.html",
             controller:"exploreCtrl"
+        })
+        .state('test',{
+            url:"/test",
+            templateUrl:"partials/test.html",
+            controller:"testCtrl"
         });
 }]);
