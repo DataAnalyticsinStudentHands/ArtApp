@@ -138,6 +138,10 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote',
             $scope.tours = data;
         });            
         
+        $http.get('artwork.json').success(function(data) {
+            $scope.artwork = data;
+        }); 
+        
         $scope.sliderOptions = {disable: 'right', hyperextensible: false};
         /*settings = {element: null,
                     dragger: null,
@@ -159,4 +163,79 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote',
         snapRemote.getSnapper().then(function(snapper) {
             snapper.open('left');
         });
+        
+        var mapDiv = document.getElementById('map-canvas');
+        var mapOptions = {
+            center: new google.maps.LatLng(29.719950, -95.342234),
+            draggable: false,
+            disableDefaultUI: true,
+            zoom: 16
+        };
+        var map = new google.maps.Map(mapDiv, mapOptions);
+        
+        var markers = [];
+        $scope.selectedMarker = null;
+        var bounds = new google.maps.LatLngBounds();
+        //Creates marker object, adds it to map, adds it to markers array
+        function addMarker(location, art) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+            markers.push(marker);
+            bounds.extend(location);
+            map.fitBounds(bounds);
+            
+            google.maps.event.addListener(marker, 'click', function() {
+                console.log(art.title);
+                $scope.$apply(function () {
+                        $scope.selectedMarker = art;
+                    });
+                
+            });
+        }
+        
+        // Sets the map on all markers in the array.
+        function setAllMap(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setAllMap(null);
+        }
+
+        // Shows any markers currently in the array.
+        function showMarkers() {
+            setAllMap(map);
+        }
+
+        // Deletes all markers in the array by removing references to them.
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+            bounds = new google.maps.LatLngBounds();
+        }
+        
+        $scope.tourClick = function(tour) {
+            deleteMarkers();
+            for(var x=0; x<tour.artwork_included.length; x++){
+                
+                for (var y=0; y<$scope.artwork.length; y++){
+                    
+                    if (tour.artwork_included[x] == $scope.artwork[y].artwork_id){
+                        addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
+                    }
+                    
+                }
+                
+            }
+        };
+        
+        
+        
+        
     }]);

@@ -2,7 +2,7 @@
     <h1 ui-sref="index" style="background-color: #f0f050">Back</h1>
     <h1>Tour List</h1>
     <div ng-repeat="tour in tours">
-        <div snap-toggle="left" style="background-color: #f06250">
+        <div snap-toggle="left" ng-click="tourClick(tour)" style="background-color: #f06250">
             <h1>{{tour.title}}</h1>
         </div>
     </div>
@@ -12,100 +12,34 @@
     <h1 snap-toggle="left" style="background-color: #50f0e4">View Tours</h1>
     <div style="background-color: #f0f050">
         <h1>Switching Maps</h1>
-        <div>
-            <iframe
-              width="450"
-              height="450"
-              frameborder="0" style="border:0"
-              src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA&q=Houston">
-            </iframe>
-        </div>
-        <div>
-            <iframe
-              width="450"
-              height="450"
-              frameborder="0" style="border:0"
-              src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA&q=Austin">
-            </iframe>
-        </div>
-        <div>
-            <iframe
-              width="450"
-              height="450"
-              frameborder="0" style="border:0"
-              src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA&q=San Antonio">
-            </iframe>
-        </div>
+        <div id="map-canvas" style="background-color: #080808; width: 100%; height: 400px">
+            
         </div>
     </div>
     <h1 ui-sref="index" style="background-color: #50f0e4">Start Tour</h1>
 </snap-content>
 
-
-<!--
-<div>
-    <h1>Tours</h1>
-    <div ng-repeat="tour in tours">
-        <div>
-            <h2>{{tour.title}}</h2>
-            <p>By: {{tour.creator}}</p>
-            <p>Likes: {{tour.likes}}</p>
-        </div>
+<style>
+    .modal {
+    width: 90%;
+    height: 90%;
+    padding: 10px;
+    position: fixed;
+    top: 5%; 
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    margin-top: 0px;
+    margin-left: 0px;
+    background-color: #b40ff1;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 11; /* 1px higher than the overlay layer */
+}</style>
+<div class="modal" ng-show=selectedMarker ng-click="selectedMarker=null">
+    <div>
+        <h1>{{selectedMarker.title}}</h1>
+        <img ng-src={{selectedMarker.image}}>
+        <p>{{selectedMarker.description}}</p>
     </div>
 </div>
-
-<div class="page-wrapper">
-
-        <nav class="main-menu">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Rap Sheet</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-
-        <div class="content" menu-slideout>
-            <div class="menu-toggle-bar mobile-only">
-                <div class="menu-toggle" ng-click="toggleMenu()">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
-                </div>
-            </div>
-
-            <p>
-                <strong>
-                    Swipe to the right (or press menu button) to slide out the menu.
-                </strong>
-            </p>
-            <p>
-                <a href="https://github.com/CWSpear/angular-menu-slideout">(Source Code)</a>
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, minima, consectetur, sint iste est quo aperiam dolores debitis suscipit quia cum voluptatem distinctio ullam! Quidem, esse doloribus tempore quis laudantium.
-            </p>
-        </div>        
-    </div> -->

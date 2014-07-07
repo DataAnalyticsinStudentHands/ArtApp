@@ -3,7 +3,7 @@
     <head>
         <title>Title: Art App</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
         <script src='intelxdk.js'></script>
@@ -19,22 +19,19 @@
         <script src="js/services.js"></script>
         <script src="js/directives.js"></script>
         <script src="js/filters.js"></script>
-
-    <!--Slide out menu stuff
-        <script src="bower_components/angular-menu-slideout/angular-menu-slideout.js"></script>
-        <script src="bower_components/angular-touch/angular-touch.js"></script>
-        <link rel="stylesheet" href="bower_components/angular-menu-slideout/angular-menu-slideout.css">
-        <link rel="stylesheet" href="bower_components/angular-menu-slideout/slide-style.css">-->
         
     <!--Angular Snap-->
         <script src="bower_components/angular-snap/angular-snap.js"></script>
         <script src="bower_components/snapjs/snap.js"></script>
         <link rel="stylesheet" href="bower_components/angular-snap/angular-snap.css">
-
+        
+    <!--Google Maps-->
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
+        
     <!--Dan's css stuff-->
         <!--<link rel="stylesheet" href="css/style.css">-->
 
-    <!--Waiting till Intel plugins are ready-->
+    <!--Loggin when Intel plugins are ready-->
         <script>
             var onDeviceReady=function(){
                 console.log('device ready');

@@ -1,0 +1,42 @@
+[
+    {
+        "artwork_id": 1,
+        "title":"Rec Tower",
+        "location_lat":29.718487,
+        "location_long": -95.338219,
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "image": "http://lorempixel.com/400/200"
+    },
+    {
+        "artwork_id": 2,
+        "title":"Cougar woods dancing statue",
+        "location_lat":29.718514,
+        "location_long": -95.348025,
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "image": "http://lorempixel.com/400/200"
+    },
+    {
+        "artwork_id": 3,
+        "title":"Weird bird",
+        "location_lat":29.723293,
+        "location_long": -95.341210,
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "image": "http://lorempixel.com/400/200"
+    },
+    {
+        "artwork_id": 4,
+        "title":"Opera House",
+        "location_lat":29.725333,
+        "location_long": -95.344311,
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "image": "http://lorempixel.com/400/200"
+    },
+    {
+        "artwork_id": 5,
+        "title":"Blaffer",
+        "location_lat":29.724489,
+        "location_long": -95.342514,
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "image": "http://lorempixel.com/400/200"
+    }
+]

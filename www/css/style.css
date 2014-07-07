@@ -1,4 +1,4 @@
-.textcontainerDan {
+.textcontainer {
     width: 5em;
     margin: 0 auto 1em auto;
     padding: 1em;
@@ -8,7 +8,7 @@
     color: white;
     line-height:100%;
 }
-.textcontainerDan p{
+.textcontainer p{
     display: inline-block; /* won't work _reliably_, if at all, in IE < 8
                               but in other browsers will center the text
                               and shrink the element to fit its text */
