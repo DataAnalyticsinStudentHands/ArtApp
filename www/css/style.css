@@ -1,5 +1,21 @@
+html, body{
+    width: 100%;
+	overflow-x: hidden; /* prevents horizontal scroll bars */
+	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
+	overflow: -moz-scrollbars-vertical;
+	height: 100%; /* fixes focus scrolling in Safari (OS X) */
+	background:#000;
+    background-image: url(../img/acommaa.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+	margin: 0;
+	padding: 0;
+	font-family: 'Oswald', Sans-Serif;
+	
+}
+
 .textcontainer {
-    width: 7em;
+    width: 80%;
     margin: 0 auto;
 /*    padding: 1em;*/
     font-family: "Oswald", Sans-Serif;
@@ -26,7 +42,9 @@
     margin-right: auto;*/
     
     
-}/*a comma a library image*/
+}
+
+/*a comma a library image*/
 .headerimage {
     width: 100%;
     position: relative;
@@ -57,21 +75,7 @@ a:active {
 }
 
 
-html, body{
-    width: 100%;
-	overflow-x: hidden; /* prevents horizontal scroll bars */
-	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
-	overflow: -moz-scrollbars-vertical;
-	height: 100%; /* fixes focus scrolling in Safari (OS X) */
-	background:#000;
-    background-image: url(../img/acommaa.png);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-	margin: 0;
-	padding: 0;
-	font-family: 'Oswald', Sans-Serif;
-	
-}
+
 
 /* Site Overlay*/
 .site-overlay{
@@ -91,9 +95,8 @@ html, body{
     line-height: 120%;
     text-align: right;
 }
-.sub {
-    font-weight:100;
-}
+
+/*horizontal rule*/
 hr {
   background: #fff; 
   clear: both; 
@@ -104,7 +107,128 @@ hr {
   border: none; 
 }
 
-.buttoncontainer{
-    padding: 1em; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*this is the beginning of the responsive grid design css*/
+
+/*
+Use box-sizing: border-box
+
+Place at the top of your CSS file. The * will target all elements on the page.
+ 
+*/
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+/*
+Min-width Media Queries
+
+Introduce layout-specific rules only when you need them. Use min-width to layer complexity on your layout as the viewport widens. It’s easier to have all the media queries nearby, rather than at the end of the stylesheet or in a separate document.
+*/
+
+/* Small screens (default) */
+html { font-size: 100%; }
+ 
+/* Medium screens (640px) */
+@media (min-width: 40rem) { 
+  html { font-size: 112%; }
+}
+ 
+/* Large screens (1024px) */
+@media (min-width: 64rem) { 
+  html { font-size: 120%; }
+}
+
+/*
+CSS Box Model
+
+It’s important to understand the basics, like how elements are generated and behave in the browser, before diving into responsive web design. The CSS Box Model consists of four distinct parts.
+
+Content
+The content of the box, where text and images appear.
+
+Padding
+Clears an area around the content.
+
+Border
+A border that goes around the padding.
+
+Margin
+Clears an area around the border.
+
+What was once a bug is now a widely used CSS property. It basically means you can choose whether or not to include borders and padding in the width of your content.
+
+Without box-sizing: border-box
+Margin, borders and padding are drawn outside the set width of your content.
+ 
+With box-sizing: border-box
+Borders and padding are drawn inside the set width of your content. The margin is drawn outside.
+ 
+*/
+
+/*
+Create a Container
+
+A container holds all elements and controls the page’s maximum width. Using a container will make designing for responsive easier!
+*/
+
+.container {
+  margin: 0 auto;
+  max-width: 48rem;
+  width: 90%;
+}
+
+/*On larger screens, columns gain float: left in order to stack content horizontally. Columns now use padding for gutters, so you no longer need to worry about removing margins.*/
+ 
+
+@media (min-width: 40rem) {
+  .column {
+    float: left;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .column.full { width: 100%; }
+  .column.two-thirds { width: 66.7%; }
+  .column.half { width: 50%; }
+  .column.third { width: 33.3%; }
+  .column.fourth { width: 25%; }
+  .column.flow-opposite { float: right; }  
+}
+
+/*Columns are wrapped in rows to prevent other elements from stacking next to them, otherwise known as clearing issues. Rows are cleared using the popular clearfix, */
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+}
+ 
+.clearfix {
+  *zoom: 1;
+}
+
+
+/*Add the class .flow-opposite to columns where you want content to display first on mobile but appear on the right on larger screens.*/
+
+@media (min-width: 40rem) {
+  .column.flow-opposite { float: right; }
+}
