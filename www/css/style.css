@@ -1,59 +1,56 @@
 html, body{
-    width: 100%;
 	overflow-x: hidden; /* prevents horizontal scroll bars */
 	-webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
 	overflow: -moz-scrollbars-vertical;
 	height: 100%; /* fixes focus scrolling in Safari (OS X) */
-	background:#000;
-    background-image: url(../img/acommaa.png);
-    background-position: 50% 50%;
+    
+    font: 100%/1.5 "Oswald", sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;   
+}
+
+body{
+    background:#000;
+    background-image: url(../img/jimsanborn.jpg);
+    background-position:  center ;
     background-repeat: no-repeat;
-	margin: 0;
-	padding: 0;
-	font-family: 'Oswald', Sans-Serif;
-	
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    
+    
 }
 
 .textcontainer {
-    width: 80%;
-    margin: 0 auto;
-/*    padding: 1em;*/
+/*    width: 80%;*/
+/*    margin: 0 auto;*/
+/*    padding: 1rem;*/
     font-family: "Oswald", Sans-Serif;
     font-weight: 700;
-    font-size: 500%;
+    font-size: 5rem;
     color: white;
     line-height:100%;
+    margin: 0 auto;
     
 }
-.textcontainer p{
-    display: inline-block; /* won't work _reliably_, if at all, in IE < 8
-                              but in other browsers will center the text
-                              and shrink the element to fit its text */
-    text-align: left;
-/*    float: left;*/
-}
+
 
 /*it is what it sounds like*/
+/*
 #rectangle{
     width: 552px;
     height: 50px;
     background: white;
+*/
     /*margin-left: auto;
     margin-right: auto;*/
-    
+   
     
 }
 
-/*a comma a library image*/
-.headerimage {
-    width: 100%;
-    position: relative;
-    background-image: url(../img/acommaa.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #000;
-    z-index: 1;
-    }  
+
 
 
 /*make links look good*/
@@ -84,16 +81,27 @@ a:active {
 
 
 .menucontainer {
-    width: 6em;
-    margin: 0 auto 0 0;
-    padding: 1em;
-    font-family: "Oswald", Sans-Serif;
+    width: 40rem;
+    margin: 0;
+    padding: 0rem;
+    border: none;
     font-weight: 600;
-    font-size: 300%;
+    font-size: 3rem;
     background-color: #9EAF94;
     color: #fff;
-    line-height: 120%;
+    line-height: 4rem;
     text-align: right;
+    z-index: 2;
+/*
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0.2rem 0.2rem 0.2rem #000;
+*/
+}
+.sub {
+    font-weight: 100;
+    font-size: 2rem;
+    line-height: 1.6rem;
 }
 
 /*horizontal rule*/
@@ -103,7 +111,7 @@ hr {
   float: none; 
   width: 100%; 
   height: 1px;
-  margin: 0 0 0.5em;
+  margin: 0 0 0.6em;
   border: none; 
 }
 
@@ -140,17 +148,43 @@ Min-width Media Queries
 Introduce layout-specific rules only when you need them. Use min-width to layer complexity on your layout as the viewport widens. It’s easier to have all the media queries nearby, rather than at the end of the stylesheet or in a separate document.
 */
 
-/* Small screens (default) */
 html { font-size: 100%; }
- 
-/* Medium screens (640px) */
-@media (min-width: 40rem) { 
-  html { font-size: 112%; }
+
+@media (min-width: 320px) {
+    html { font-size: 50%; }
+    #rectangle{
+        width: 280px;
+        height: 30px;
+        background: white;}
+}
+@media (min-width: 480px) {
+    html { font-size: 80%; }
+    #rectangle{
+        width: 440px;
+        height: 30px;
+        background: white;}
 }
  
-/* Large screens (1024px) */
-@media (min-width: 64rem) { 
-  html { font-size: 120%; }
+@media (min-width: 640px) { 
+    html { font-size: 112%; }
+    #rectangle{
+        width: 620px;
+        height: 50px;
+        background: white;}
+}
+@media (min-width: 768px) { 
+    html { font-size: 112%; }
+    #rectangle{
+        width: 620px;
+        height: 50px;
+        background: white;}
+}
+@media (min-width: 1024px) { 
+    html { font-size: 112%; }
+    #rectangle{
+        width: 620px;
+        height: 50px;
+        background: white;}
 }
 
 /*
