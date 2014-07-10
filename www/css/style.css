@@ -26,7 +26,7 @@ body{
 .textcontainer {
 /*    width: 80%;*/
 /*    margin: 0 auto;*/
-/*    padding: 1rem;*/
+    padding: 2rem;
     font-family: "Oswald", Sans-Serif;
     font-weight: 700;
     font-size: 5rem;
@@ -148,8 +148,6 @@ Min-width Media Queries
 Introduce layout-specific rules only when you need them. Use min-width to layer complexity on your layout as the viewport widens. It’s easier to have all the media queries nearby, rather than at the end of the stylesheet or in a separate document.
 */
 
-html { font-size: 100%; }
-
 @media (min-width: 320px) {
     html { font-size: 50%; }
     #rectangle{
@@ -158,34 +156,36 @@ html { font-size: 100%; }
         background: white;}
 }
 @media (min-width: 480px) {
-    html { font-size: 80%; }
+    html { font-size: 78%; }
     #rectangle{
-        width: 440px;
-        height: 30px;
+        width: 434px;
+        height: 46px;
         background: white;}
 }
  
 @media (min-width: 640px) { 
-    html { font-size: 112%; }
+    html { font-size: 104%; }
     #rectangle{
-        width: 620px;
-        height: 50px;
+        width: 576px;
+        height: 61px;
         background: white;}
 }
 @media (min-width: 768px) { 
-    html { font-size: 112%; }
+    html { font-size: 124%; }
     #rectangle{
-        width: 620px;
-        height: 50px;
+        width: 690px;
+        height: 82px;
         background: white;}
 }
+/*
 @media (min-width: 1024px) { 
     html { font-size: 112%; }
     #rectangle{
-        width: 620px;
-        height: 50px;
+        width: 690px;
+        height: 82px;
         background: white;}
 }
+*/
 
 /*
 CSS Box Model
