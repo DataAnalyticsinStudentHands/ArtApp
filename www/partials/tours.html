@@ -1,24 +1,19 @@
 <snap-drawer>
-    <div class="menucontainer">
-    <h1 ui-sref="index">Back</h1>
-    <h1>Tour List</h1>
+    <div id="menucontainer">
+    <h1 ui-sref="index">Back</h1><br/>
     <div ng-repeat="tour in tours">
-        <div snap-toggle="left" ng-click="tourClick(tour)" style="background-color: #f6250">
-            <h1>{{tour.title}}</h1>
+        <div snap-toggle="left" ng-click="tourClick(tour)">
+            <h3>{{tour.title}}</h3>
+            <hr>
         </div>
     </div>
     </div>
 </snap-drawer>
 
 <snap-content snap-options="sliderOptions" style="background-color: #50f062">
-    <h1 snap-toggle="left" style="background-color: #50f0e4">View Tours</h1>
-    <div style="background-color: #f0f050">
-        <h1>Switching Maps</h1>
-        <div id="map-canvas" style="background-color: #ebebda; width: 100%; height: 400px">
-            
-        </div>
+    <div id="menucontainer">
+        <a snap-toggle="left" class="sub">View Tours</a> | <a ui-sref="index" class="sub">Start Tour</a>         <div id="map-canvas"></div>
     </div>
-    <h1 ui-sref="index" style="background-color: #50f0e4">Start Tour</h1>
 </snap-content>
 
 <style>
