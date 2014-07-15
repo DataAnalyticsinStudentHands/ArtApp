@@ -6,8 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
-        <script src='intelxdk.js'></script>
-        <script src='cordova.js'></script>
+        <!--<script src='intelxdk.js'></script>-->
 
     <!--Angular stuff-->
         <script src="vendor/angular/angular.js"></script>
@@ -30,35 +29,23 @@
         <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
         
     <!--Dan's css stuff-->
-        <!--<link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" type="text/css">-->
-
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
         
     <!--Loggin when Intel plugins are ready-->
         <script>
-            var cordovaR = false;
-            var intelxdkR = false;
-            document.addEventListener("deviceready", function(){
-                console.log('Cordova Ready:')
-                cordovaR = true;
-                if (intelxdkR) {
-                    intel.xdk.device.hideSplashScreen();
-                    console.log("...hideSplashScreen called...");
-                }
-            }, false);
-            
-            document.addEventListener("intel.xdk.device.ready",function(){ 
-                console.log('Intel Ready:');
-                intelxdkR = true;
-                if (cordovaR) {
-                    intel.xdk.device.hideSplashScreen();
-                    console.log("...hideSplashScreen called...");
-                }
-            },false);
+            var onDeviceReady=function(){
+                console.log('device ready');
+            };
+            document.addEventListener("deviceready", onDeviceReady, false);
         </script>
     </head>
 
-    <body style="background-color: #50a2f0">
-        <div ui-view></div>
+    <body>
+        <div ui-view>
+            
+        </div>
     </body>
 </html>
