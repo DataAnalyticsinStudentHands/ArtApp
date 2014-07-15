@@ -7,6 +7,7 @@
 
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
         <script src='intelxdk.js'></script>
+        <script src='cordova.js'></script>
 
     <!--Angular stuff-->
         <script src="vendor/angular/angular.js"></script>
@@ -35,10 +36,25 @@
         
     <!--Loggin when Intel plugins are ready-->
         <script>
-            var onDeviceReady=function(){
-                console.log('device ready');
-            };
-            document.addEventListener("deviceready", onDeviceReady, false);
+            var cordovaR = false;
+            var intelxdkR = false;
+            document.addEventListener("deviceready", function(){
+                console.log('Cordova Ready:')
+                cordovaR = true;
+                if (intelxdkR) {
+                    intel.xdk.device.hideSplashScreen();
+                    console.log("...hideSplashScreen called...");
+                }
+            }, false);
+            
+            document.addEventListener("intel.xdk.device.ready",function(){ 
+                console.log('Intel Ready:');
+                intelxdkR = true;
+                if (cordovaR) {
+                    intel.xdk.device.hideSplashScreen();
+                    console.log("...hideSplashScreen called...");
+                }
+            },false);
         </script>
     </head>
 

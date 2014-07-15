@@ -1,0 +1,36 @@
+<h1 ui-sref="index" style="background-color: #f0f050">Back</h1>
+<div class="arView" ng-show="phoneUp" style="background-color: #50f0bf">
+    <h1>AR View</h1>
+    <h1 id="compass"></h1>
+    <h1 id="direction"></h1>
+    <div id="arElements"></div>
+</div>
+<div class="mapView" ng-hide="phoneUp" style="background-color: #ea50f0">
+    <h1>Map View</h1>
+    <div id="map-canvas" style="background-color: #ebebda; width: 100%; height: 300px"></div>
+</div>
+<style>
+    .modal {
+    width: 90%;
+    height: 90%;
+    padding: 10px;
+    position: fixed;
+    top: 5%; 
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    margin-top: 0px;
+    margin-left: 0px;
+    background-color: #b40ff1;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 11; /* 1px higher than the overlay layer */}
+</style>
+<div class="modal" ng-show=selectedMarker >
+    <div>
+        <h1 ng-click="selectedMarker=null" style="background-color: #f0f050">Close</h1>
+        <h1>{{selectedMarker.title}}</h1>
+        <img ng-src={{selectedMarker.image}}>
+        <p>{{selectedMarker.description}}</p>
+    </div>
+</div>

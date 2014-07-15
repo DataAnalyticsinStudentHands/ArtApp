@@ -20,14 +20,13 @@ locationServices.factory('accelerometerServe', ['$q', function($q) {
     },
     watchAcceleration: function(options) {
       var q = $q.defer();
-
       var watchID = navigator.accelerometer.watchAcceleration(function(result) {
         // Do any magic you need
         q.notify({acc: result,id: watchID});
       }, function(err) {
         q.reject(err);
       }, options);
-
+        
       return q.promise;
     },
     clearWatch: function(watchID) {
