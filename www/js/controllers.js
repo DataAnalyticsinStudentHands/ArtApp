@@ -230,15 +230,17 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
           console.log("...Start AR called...");
-          //intel.xdk.display.startAR();
+          intel.xdk.display.startAR();
           document.body.style.backgroundColor="transparent";
+          document.body.style.backgroundImage='none';
       }
         
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           console.log("...Stop AR called...");
-          //intel.xdk.display.stopAR();
-          document.body.style.backgroundColor="#8a81e3";
+          intel.xdk.display.stopAR();
+          document.body.style.backgroundColor="#000";
+          document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
       } 
       
       //Add elements for AR view given the heading
@@ -258,7 +260,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
                   console.log(window.innerWidth);
                   /*text+='<div style="margin-left:'+((($scope.artwork[z]['bearing'] - heading.magneticHeading) * 5)+50)+'px;width:'+(window.innerWidth-100)+'px;>'+($scope.artwork[z].title+'<div>'+ Math.round($scope.artwork[z]['distance']) +' miles away</div></div>');*/
                   var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
-                  text+='<div style="margin-left:'+margin+'px">'+$scope.artwork[z].title +'</div><div>'+($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';
+                  text+='<div style="margin-left:'+margin+'px;color:#000">'+$scope.artwork[z].title +'</div><div style="color:#fff818;margin-left:'+window.innerWidth/2+'">'+Math.round($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';
               }
           }
           

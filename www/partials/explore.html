@@ -3,8 +3,8 @@
     <h1>AR View</h1>
     <h1 id="compass"></h1>
     <h1 id="direction"></h1>
-    <div id="arElements"></div>
 </div>
+<div id="arElements" style="backgroundColor:transparent"></div>
 <div class="mapView" ng-hide="phoneUp" style="background-color: #ea50f0">
     <h1>Map View</h1>
     <div id="map-canvas" style="background-color: #ebebda; width: 100%; height: 300px"></div>
@@ -26,7 +26,7 @@
     text-align: center;
     z-index: 11; /* 1px higher than the overlay layer */}
 </style>
-<div class="modal" ng-show=selectedMarker >
+<div class="modal" ng-show=selectedMarker>
     <div>
         <h1 ng-click="selectedMarker=null" style="background-color: #f0f050">Close</h1>
         <h1>{{selectedMarker.title}}</h1>

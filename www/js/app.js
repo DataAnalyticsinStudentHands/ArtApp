@@ -14,27 +14,23 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
     $stateProvider
         .state('index',{
             url:"",
-            templateUrl:"partials/origin.html",
-            stopWatches: true
+            templateUrl:"partials/origin.html"
         })
         .state('tours',{
             url:"/tours",
             templateUrl:"partials/tours.html",
-            controller:"tourListCtrl",
-            stopWatches: false
+            controller:"tourListCtrl"
         })
         .state('explore',{
             url:"/explore",
             templateUrl:"partials/explore.html",
-            controller:"exploreCtrl",
-            stopWatches: true
+            controller:"exploreCtrl"
             
         })
         .state('test',{
             url:"/test",
             templateUrl:"partials/test.html",
-            controller:"testCtrl",
-            stopWatches: false
+            controller:"testCtrl"
         });
 }]);
 
