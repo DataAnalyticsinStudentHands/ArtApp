@@ -1,11 +1,12 @@
 <snap-drawer>
     <div id="menucontainer">
-    <h1 ui-sref="index">Back</h1><br/>
+    <div class="sub" ui-sref="index">Back</div><br/>
     <div ng-repeat="tour in tours">
-        <div snap-toggle="left" ng-click="tourClick(tour)">
-            <h3>{{tour.title}}</h3>
-            <hr>
+        <div class="sub" snap-toggle="left" ng-click="tourClick(tour)">
+            {{tour.title}}
         </div>
+        <hr>
+        
     </div>
     </div>
 </snap-drawer>

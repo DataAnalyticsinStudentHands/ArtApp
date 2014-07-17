@@ -34,7 +34,7 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
                     };*/
         
         snapRemote.getSnapper().then(function(snapper) {
-            snapper.open('left');
+            //snapper.open('left');
         });
         
         var mapDiv = document.getElementById('map-canvas');
@@ -52,11 +52,17 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
         
         //Creates marker object, adds it to map, adds it to markers array
         function addMarker(location, art) {
+            var image = {
+                            url: "img/mapmarker.png",
+                            size: new google.maps.Size(27, 41),
+                            origin: new google.maps.Point(0,0),
+                            anchor: new google.maps.Point(10, 31)
+                          };
             console.log("...Add Marker called...");
             var marker = new google.maps.Marker({
                 position: location,
                 map: map,
-                animation: google.maps.Animation.DROP
+                icon: image
             });
             markers.push(marker);
             bounds.extend(location);
@@ -101,7 +107,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
         $scope.tourClick = function(tour) {
             console.log("Tour Clicked:");
             deleteMarkers();
-            $scope.getPosition();
             for(var x=0; x<tour.artwork_included.length; x++){
                 
                 for (var y=0; y<$scope.artwork.length; y++){
@@ -113,27 +118,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
                 }
                 
             }
-        };
-        
-        //Geolocation
-        $scope.currPosition = null;
-        $scope.getPosition = function() {
-            console.log('...Get Position called...');
-              geolocationServe.getCurrentPosition().then(function(position) {
-                  $scope.currPosition = position;
-                  var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                  var marker = new google.maps.Marker({
-                                position: location,
-                                map: map,
-                                animation: google.maps.Animation.DROP
-                               });
-                  markers.push(marker);
-                  bounds.extend(location);
-                  map.fitBounds(bounds);
-              }, function(err) {
-                  //Error
-                  alert(err);
-              });
         };
         
     }]);
@@ -186,10 +170,16 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       //Creates marker object, adds it to map, adds it to markers array
       function addMarker(location, art) {
           console.log("...Add Marker called...");
+          var image = {
+                            url: "img/mapmarker.png",
+                            size: new google.maps.Size(27, 41),
+                            origin: new google.maps.Point(0,0),
+                            anchor: new google.maps.Point(10, 31)
+                          };
           var marker = new google.maps.Marker({
               position: location,
               map: map,
-              animation: google.maps.Animation.DROP
+              icon: image
           });
           markers.push(marker);
           bounds.extend(location);
@@ -231,16 +221,23 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       function xdkStartAR() {
           console.log("...Start AR called...");
           intel.xdk.display.startAR();
-          document.body.style.backgroundColor="transparent";
-          document.body.style.backgroundImage='none';
+          if (document.body.style.backgroundColor!="transparent"){
+              document.body.style.backgroundColor="transparent";
+              document.body.style.backgroundImage='none';
+              intel.xdk.notification.beep(1);
+          }
       }
         
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           console.log("...Stop AR called...");
+          //alert("...Stop AR called...");
           intel.xdk.display.stopAR();
-          document.body.style.backgroundColor="#000";
-          document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
+          if (document.body.style.backgroundColor=="transparent"){
+              document.body.style.backgroundColor="#000";
+              document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
+              intel.xdk.notification.beep(1);
+          }
       } 
       
       //Add elements for AR view given the heading
@@ -258,7 +255,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
               if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
                   console.log('...Add AR Elements...');
                   console.log(window.innerWidth);
-                  /*text+='<div style="margin-left:'+((($scope.artwork[z]['bearing'] - heading.magneticHeading) * 5)+50)+'px;width:'+(window.innerWidth-100)+'px;>'+($scope.artwork[z].title+'<div>'+ Math.round($scope.artwork[z]['distance']) +' miles away</div></div>');*/
                   var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
                   text+='<div style="margin-left:'+margin+'px;color:#000">'+$scope.artwork[z].title +'</div><div style="color:#fff818;margin-left:'+window.innerWidth/2+'">'+Math.round($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';
               }
@@ -452,9 +448,10 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       $scope.$on("$destroy", function() {
           console.log("$DESTROY caught:");
+          intel.xdk.notification.vibrate();
+          destroyListeners();
           xdkStopAR();
           stopWatches();
-          destroyListeners();
           
       });
       
@@ -478,18 +475,23 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       function background() {
           console.log('SENT TO BACKGROUND');
+          intel.xdk.notification.vibrate();
+          intel.xdk.notification.beep(1);
           xdkStopAR();
           stopWatches();
       }
       
       function lock() {
           console.log('PHONE LOCKED');
+          intel.xdk.notification.vibrate();
+          intel.xdk.notification.beep(1);
           xdkStopAR();
           stopWatches();
       }
       
       function open() {
           console.log('OPEN/RESUME');
+          intel.xdk.notification.beep(2);
           startWatches();
       }
       
