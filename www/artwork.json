@@ -21,7 +21,7 @@
         "shape":["Hourglass"],
         "color":"Yellow",
         "art_movement": "Contemporary Art",
-        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
+        "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing, orci a feugiat semper, arcu diam accumsan magna, consequat vestibulum dui risus sit amet nisl. Vivamus sodales sodales ullamcorper. Quisque odio ligula, elementum ac risus nec, tempor mattis augue. Cum sociis natoque penatibm.,.mus et magnis dis parturient montes, nascetur ridiculus mus. Aenean porttitor, augue non gravida eleifend, tortor nisi semper mauris, eu venenatis urna elit in massa. Aliquam vitae elit nibh. Praesent volutpat massa non tincidunt ultricies.",
         "image": "http://lorempixel.com/400/200",
         "tags": ["Orientation","2000"]
     },
