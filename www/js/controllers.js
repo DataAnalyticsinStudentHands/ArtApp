@@ -229,7 +229,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
           console.log("...Start AR called...");
-          //intel.xdk.display.startAR();
+          intel.xdk.display.startAR();
           if (document.body.style.backgroundColor!="transparent"){
               document.body.style.backgroundColor="transparent";
               document.body.style.backgroundImage='none';
@@ -239,7 +239,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           console.log("...Stop AR called...");
-          //intel.xdk.display.stopAR();
+          intel.xdk.display.stopAR();
           if (document.body.style.backgroundColor=="transparent"){
               document.body.style.backgroundColor="#000";
               document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
@@ -257,12 +257,16 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           var div = document.createElement('div');
           var text = "";
           
-          for (var z=0; z<$scope.artwork.length; z++) {
+          /*for (var z=0; z<$scope.artwork.length; z++) {*/
+          for (var z=0; z<5; z++) {
               if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
                   console.log('...Add AR Elements...');
-                  console.log(window.innerWidth);
+                  /*var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/40)+0.5;*/
                   var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
-                  text+='<div style="margin-left:'+margin+'px;color:#000">'+$scope.artwork[z].title +'</div><div style="color:#fff818;margin-left:'+window.innerWidth/2+'">'+Math.round($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';
+                  text+='<div style="color:#000"><img src="img/armarker.png" style="margin-left:'+margin+'px">'+$scope.artwork[z].title +'</div>'
+                  
+                  /*var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
+                  text+='<div style="margin-left:'+margin+'px;color:#000">'+$scope.artwork[z].title +'</div><div style="color:#fff818;margin-left:'+window.innerWidth/2+'">'+Math.round($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';*/
               }
           }
           
