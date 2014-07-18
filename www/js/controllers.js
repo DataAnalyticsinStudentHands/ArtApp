@@ -142,17 +142,26 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
             initListeners();
         });
       
-      var mapDiv = document.getElementById('map-canvas');
+      var mapDiv = document.getElementById('map-view');
       var mapOptions = {
           center: new google.maps.LatLng(29.719950, -95.342234),
           draggable: true,
           disableDefaultUI: false,
+          streetViewControl: false,
+          overviewMapControl:true,
+          overviewMapControlOptions: {opened: false},
           zoom: 14
       };
       var map = null;
       var markers = [];
+      var yourMarker = {
+                            url: "img/yourMarker.png",
+                            size: new google.maps.Size(27, 41),
+                            origin: new google.maps.Point(0,0),
+                            anchor: new google.maps.Point(10, 31)
+                          };
       var currMarker = new google.maps.Marker({
-                            animation: google.maps.Animation.BOUNCE
+                            icon:yourMarker
                         });
       $scope.selectedMarker = null;
       var bounds = new google.maps.LatLngBounds();
@@ -220,23 +229,20 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
           console.log("...Start AR called...");
-          intel.xdk.display.startAR();
+          //intel.xdk.display.startAR();
           if (document.body.style.backgroundColor!="transparent"){
               document.body.style.backgroundColor="transparent";
               document.body.style.backgroundImage='none';
-              intel.xdk.notification.beep(1);
           }
       }
         
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           console.log("...Stop AR called...");
-          //alert("...Stop AR called...");
-          intel.xdk.display.stopAR();
+          //intel.xdk.display.stopAR();
           if (document.body.style.backgroundColor=="transparent"){
               document.body.style.backgroundColor="#000";
               document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
-              intel.xdk.notification.beep(1);
           }
       } 
       
@@ -245,7 +251,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           console.log('...Compass Direction...');
           var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N'];
           var direction = directions[Math.abs(parseInt((heading.magneticHeading) / 45) + 0)];
-          document.getElementById('compass').innerHTML = Math.round(heading.magneticHeading) + "      " + direction;
+          //document.getElementById('compass').innerHTML = Math.round(heading.magneticHeading) + "      " + direction;
           
           document.getElementById('arElements').innerHTML="";
           var div = document.createElement('div');
@@ -448,7 +454,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       $scope.$on("$destroy", function() {
           console.log("$DESTROY caught:");
-          intel.xdk.notification.vibrate();
           destroyListeners();
           xdkStopAR();
           stopWatches();
@@ -475,23 +480,18 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       function background() {
           console.log('SENT TO BACKGROUND');
-          intel.xdk.notification.vibrate();
-          intel.xdk.notification.beep(1);
           xdkStopAR();
           stopWatches();
       }
       
       function lock() {
           console.log('PHONE LOCKED');
-          intel.xdk.notification.vibrate();
-          intel.xdk.notification.beep(1);
           xdkStopAR();
           stopWatches();
       }
       
       function open() {
           console.log('OPEN/RESUME');
-          intel.xdk.notification.beep(2);
           startWatches();
       }
       

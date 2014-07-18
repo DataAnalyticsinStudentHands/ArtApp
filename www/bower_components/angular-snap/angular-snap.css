@@ -42,7 +42,8 @@ snap-drawer,
   height: auto;
   top: 0;
   bottom: 0;
-  overflow: auto;
+  overflow: hidden;
+/*  overflow: auto;*/
   -webkit-transition: top 0.2s linear;
   -moz-transition: top 0.2s linear;
   -o-transition: top 0.2s linear;
