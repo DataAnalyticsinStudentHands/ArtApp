@@ -1,0 +1,79 @@
+<style>
+    .modal {
+        width: 90%;
+        max-width: 50rem;
+        height: 90%;
+        padding: 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 15;
+/*
+        top: 5%; 
+        left: 5%;
+        right: 5%;
+        bottom: 5%;
+*/
+        margin-top: 0px;
+        margin-left: 0px;
+        text-align: center;
+        z-index: 11; /* 1px higher than the overlay layer */
+        background-color: #B684A4;
+        border-radius: 0 0 10px 0;
+        box-shadow: 10px 10px 5px 0 #888888;
+    }
+    
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 10;
+    }
+ 
+    .description {
+        text-align: justify;
+        font-family: "Lato", serif;
+        font-weight: 200;
+        font-size: 1rem;
+        color: white;
+        
+     /* for word breaks */    
+        -ms-word-break: break-all;
+        word-break: break-all;
+
+     /* Non standard for webkit */
+        word-break: break-word;
+
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        -webkit-hyphenate-limit-lines: 2;
+        -webkit-hyphenate-limit-zone: 10%;
+    }
+    
+    
+}
+</style>
+<div class="overlay" ng-show=selectedMarker ng-click="close();"></div>
+<div class="modal" ng-show=selectedMarker>
+    <article>
+        <input type="checkbox" id="read_more" role="button">
+        <label for="read_more" onclick=""><span>Read More</span><span>Hide</span></label>     
+        <figure>
+            <img src={{selectedMarker.image}} alt="Unable to Load Image" />
+        </figure>  
+        <section>
+            <b>{{selectedMarker.title}}</b> 
+            <i>{{selectedMarker.artist_first}} {{selectedMarker.artist_last}}, {{selectedMarker.artist_dob}}</i><br/>
+        </section>
+        <section>
+            <p class="description">
+                One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. 
+            </p>
+        </section>
+    </article>
+</div>

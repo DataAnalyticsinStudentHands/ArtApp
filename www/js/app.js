@@ -6,7 +6,8 @@ var publicArtApp = angular.module('publicArtApp', [
     'ui.router',
     'controllerModule',
     'locationServicesModule',
-    'snap'
+    'snap',
+    'ngSanitize'
 ]);
 
 

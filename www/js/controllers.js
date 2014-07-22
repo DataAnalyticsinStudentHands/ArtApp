@@ -5,6 +5,13 @@ var appControllers = angular.module('controllerModule', []);
 
 appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geolocationServe',
     function($scope, $http, snapRemote, geolocationServe) {
+        
+        //closes profile page
+        $scope.selectedMarker = null;
+        $scope.close = function(){
+            $scope.selectedMarker=null;
+        }
+        
         $http.get('tours.json').success(function(data) {
             $scope.tours = data;
             console.log("JSON (tour.json) read sucess: ");
@@ -33,10 +40,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
                     minDragDistance: 5
                     };*/
         
-        snapRemote.getSnapper().then(function(snapper) {
-            //snapper.open('left');
-        });
-        
         var mapDiv = document.getElementById('map-canvas');
         var mapOptions = {
             center: new google.maps.LatLng(29.719950, -95.342234),
@@ -47,7 +50,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
         var map = new google.maps.Map(mapDiv, mapOptions);
         
         var markers = [];
-        $scope.selectedMarker = null;
         var bounds = new google.maps.LatLngBounds();
         
         //Creates marker object, adds it to map, adds it to markers array
@@ -122,8 +124,18 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
         
     }]);
 
-appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe','compassServe','geolocationServe',
-  function($scope, $http, accelerometerServe, compassServe, geolocationServe) {
+appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe','compassServe','geolocationServe','$sce','$compile',
+  function($scope, $http, accelerometerServe, compassServe, geolocationServe, $sce,$compile) {
+      //open camera
+      $scope.openCamera = function() {
+          intel.xdk.camera.takePicture(70,true,'jpg');
+      };
+      
+      //closes profile page
+      $scope.selectedMarker = null;
+      $scope.close = function(){
+          $scope.selectedMarker=null;
+      };
       
       $scope.currAcc = null;
       var accWatchID = null;
@@ -133,6 +145,10 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       var geoWatchID = null;
       var geoWatchIntelID = null;
       $scope.phoneUp = false;
+      $scope.toggle = false;
+      $scope.onCampus = true;
+      $scope.maxD = 0;
+      $scope.minD = 0;
       
       $http.get('artwork.json').success(function(data) {
             $scope.artwork = data;
@@ -163,8 +179,11 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       var currMarker = new google.maps.Marker({
                             icon:yourMarker
                         });
-      $scope.selectedMarker = null;
       var bounds = new google.maps.LatLngBounds();
+      $scope.campusCircle = new google.maps.Circle({
+              center: new google.maps.LatLng(29.721677, -95.341912),
+              radius:1000
+      });
       
       //Initializes map markers
       function initMap() {
@@ -174,6 +193,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           for (var y=0; y<$scope.artwork.length; y++){
               addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
           }
+          
       }
       
       //Creates marker object, adds it to map, adds it to markers array
@@ -226,10 +246,19 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           bounds = new google.maps.LatLngBounds();
       }  
       
+      //Toggle AR/Map view
+      $scope.toggleView = function(){
+          if ($scope.toggle){
+              $scope.toggle = false;
+          }else{
+              $scope.toggle = true;
+          }
+      }
+      
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
           console.log("...Start AR called...");
-          intel.xdk.display.startAR();
+          //intel.xdk.display.startAR();
           if (document.body.style.backgroundColor!="transparent"){
               document.body.style.backgroundColor="transparent";
               document.body.style.backgroundImage='none';
@@ -239,7 +268,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           console.log("...Stop AR called...");
-          intel.xdk.display.stopAR();
+          //intel.xdk.display.stopAR();
           if (document.body.style.backgroundColor=="transparent"){
               document.body.style.backgroundColor="#000";
               document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
@@ -248,31 +277,27 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       //Add elements for AR view given the heading
       function addArElements(heading) {
-          console.log('...Compass Direction...');
+          //console.log('...Compass Direction...');
           var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N'];
           var direction = directions[Math.abs(parseInt((heading.magneticHeading) / 45) + 0)];
-          //document.getElementById('compass').innerHTML = Math.round(heading.magneticHeading) + "      " + direction;
           
-          document.getElementById('arElements').innerHTML="";
-          var div = document.createElement('div');
-          var text = "";
-          
-          /*for (var z=0; z<$scope.artwork.length; z++) {*/
-          for (var z=0; z<5; z++) {
+          var html="";
+          for (var z=0; z<$scope.artwork.length; z++) {
               if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
-                  console.log('...Add AR Elements...');
-                  /*var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/40)+0.5;*/
-                  var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
-                  text+='<div style="color:#000"><img src="img/armarker.png" style="margin-left:'+margin+'px">'+$scope.artwork[z].title +'</div>'
-                  
-                  /*var margin = (($scope.artwork[z]['bearing'] - heading.magneticHeading)/20)*(window.innerWidth/2);
-                  text+='<div style="margin-left:'+margin+'px;color:#000">'+$scope.artwork[z].title +'</div><div style="color:#fff818;margin-left:'+window.innerWidth/2+'">'+Math.round($scope.artwork[z]['bearing'] - heading.magneticHeading) +'</div>';*/
+                  //console.log('...Add AR Elements...');
+                  var margin = (((($scope.artwork[z]['bearing'] - heading.magneticHeading)+20)/40)*100)-9;
+                  var zInd = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
+                  var top = ((zInd/10)*20)+45;
+                  html += '<img ng-click="selectMarker('+z+')" src="img/armarker.png" style="position:absolute;left:'+margin+'%;top:'+top+'%;width:18%;height:auto;z-index:'+zInd+';border:5px solid yellow">';
               }
           }
-          
-          div.innerHTML = text;
-          document.getElementById('arElements').appendChild(div);
+          $scope.arHTML = html;
       }
+      
+      $scope.selectMarker = function(art){
+          console.log("HELLLOOOO");
+          $scope.selectedMarker=$scope.artwork[art];
+      };
 
       function calculateBearing(){
           console.log('...Calculate Bearing...');
@@ -294,6 +319,12 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
               var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
               var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
               var distance = 3958.76  * c;
+              if (distance>$scope.maxD){
+                  $scope.maxD = distance;
+              }
+              if (distance<$scope.minD){
+                  $scope.minD = distance;
+              }
               $scope.artwork[z]['distance']=distance;
           }
       }
@@ -317,10 +348,13 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
                   function(result) {
                       $scope.currAcc = result.acc;
                       accWatchID = result.id;
-                      if (result.acc.y > 7.5){
+                      if (result.acc.y > 7.5 && !$scope.toggle){
                           $scope.phoneUp = true;
                           xdkStartAR();
-                      }else if (result.acc.y < 6){
+                      }else if (result.acc.y < 6 && !$scope.toggle){
+                          $scope.phoneUp = false;
+                          xdkStopAR();
+                      }else if ($scope.toggle){
                           $scope.phoneUp = false;
                           xdkStopAR();
                       }
@@ -390,9 +424,14 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
                       $scope.currPosition = result.loc;
                       geoWatchID = result.id;
                       var pos = new google.maps.LatLng(result.loc.coords.latitude, result.loc.coords.longitude);
+                      if(!campusCircle.contains(pos)) {
+                         $scope.onCampus = false;  
+                      }
                       currMarker.setPosition(pos);
-                      bounds.extend(pos);
-                      map.fitBounds(bounds);
+                      if (!bounds.contains(pos)){
+                          bounds.extend(pos);
+                          map.fitBounds(bounds);
+                      }
                       currMarker.setMap(map);
                       calculateBearing();
                   }
@@ -424,8 +463,18 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
                       $scope.currPosition = position;
                       var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                       currMarker.setPosition(pos);
-                      bounds.extend(pos);
-                      map.fitBounds(bounds);
+                      if(!($scope.campusCircle.getBounds().contains(pos))) {
+                         $scope.onCampus = false;
+                         $scope.toggle = true;
+                      }else{
+                          $scope.onCampus = true;
+                          $scope.toggle = false;
+                      }
+                      currMarker.setPosition(pos);
+                      if (!bounds.contains(pos)){
+                          bounds.extend(pos);
+                          map.fitBounds(bounds);
+                      }
                       currMarker.setMap(map);
                       calculateBearing();
                   }, function(err) {
@@ -503,129 +552,18 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
 
 appControllers.controller('testCtrl', ['$scope','geolocationServe',
     function($scope,geolocationServe) {
-        
-        var arDiv = document.getElementById('arElements');
-        arDiv.innerHTML = "HELLO";
-        
-        var div = document.createElement('div');
-        var text = "";
-        $scope.button = function() {
-            for (var z=0; z<8; z++) {
-                console.log(z);
-                text+='<div> Hello '+z+'</div>';
-            }
-            div.innerHTML = text;
-            document.getElementById('arElements').appendChild(div);
-        };
-        
-        
-        /*var mapDiv = document.getElementById('map-canvas');
-        var mapOptions = {
-              center: new google.maps.LatLng(29.719950, -95.342234),
-              draggable: true,
-              disableDefaultUI: false,
-              zoom: 14
-        };
-        var map = null;
-        var markers = [];
-        var bounds = new google.maps.LatLngBounds();
-        
-        console.log("...Initialize Map called...");
-        map = new google.maps.Map(mapDiv, mapOptions);
-        
-        
-        $scope.getPositionCordova = function() {
-              geolocationServe.getCurrentPosition().then(function(position) {
-                  alert('success');
-                  addMarker(position, "Cordova getPosition");
-              }, function(err) {
-                  //Error
-                  alert('error');
-              });
-        };
-        
-        $scope.getPositionCordovaHigh = function() {
-              geolocationServe.getCurrentPosition({timeout: 15000,enableHighAccuracy: true}).then(function(position) {
-                  alert('success');
-                  addMarker(position, "Cordova getPosition");
-              }, function(err) {
-                  //Error
-                  alert('error');
-              });
-        };
-        
-        $scope.getPositionIntel = function() {
-              intel.xdk.geolocation.getCurrentPosition(function(position) {
-                  alert('success');
-                  addMarker(position, "Intel getPosition");
-              }, function(err) {
-                  //Error
-                  alert('error');
-              });
-        };
-        
-        $scope.watchTimer = null;
-        $scope.watchPositionIntel = function() {
-            var currMarker = new google.maps.Marker({
-                  position: new google.maps.LatLng(29.719950, -95.342234),
-                  map: map
-              });
-            markers.push(currMarker);
-              $scope.watchTimer = intel.xdk.geolocation.watchPosition(function(position) {
-                  alert('success');
-                  currMarker.setPosition(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
-                  bounds.extend(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
-                    map.fitBounds(bounds);
-              }, function(err) {
-                  //Error
-                  alert('error');
-              }, {enableHighAccuracy: true});
-        };
-        
-        $scope.clearWatch = function() {
-            intel.xdk.geolocation.clearWatch($scope.watchTimer);
-        };
-        
-        
-        
-          function addMarker(location, text) {
-              console.log("...Add Marker called...");
-              var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(location.coords.latitude,location.coords.longitude),
-                  map: map
-              });
-              markers.push(marker);
-              bounds.extend(new google.maps.LatLng(location.coords.latitude,location.coords.longitude));
-              map.fitBounds(bounds);
-            
-              var infowindow = new google.maps.InfoWindow({
-                  content: text + '<br>' + 'Accuracy: '+location.coords.accuracy+'<br>'+'Timestamp: '+location.timestamp
-              });
-
-              google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.open(map, marker);
-              });
+      $scope.button = function() {
+          if (localStorage.getItem('name'))
+          {alert('Name exists');
+              document.getElementById("test").innerHTML = localStorage.getItem("name");}
+          else{
+              document.getElementById("test").innerHTML = "You don't have a name";
+              localStorage.setItem("name","Suneil");
+              alert('set name to something')
           }
+      };
         
-            // Deletes all markers in the array by removing references to them.
-          $scope.deleteMarkers = function() {
-              clearMarkers();
-              markers = [];
-              bounds = new google.maps.LatLngBounds();
-          }
-        
-            // Sets the map on all markers in the array.
-          function setAllMap(map) {
-              for (var i = 0; i < markers.length; i++) {
-                  markers[i].setMap(map);
-              }
-          }
-
-          // Removes the markers from the map, but keeps them in the array.
-          function clearMarkers() {
-              setAllMap(null);
-          }
-*/
-          
-      
+        $scope.arHTML = '<img src="img/armarker.png">';
+      //$scope.arHTML = $sce.trustAsHtml('I am an <code>HTML</code>string with ' +'<a href="#">links!</a> and other <em>stuff</em>');
+    
     }]);
