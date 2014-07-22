@@ -12,17 +12,16 @@
 
 <snap-content snap-options="sliderOptions" style="background-color: #50f062">
     <div id="menucontainer">
-        <a snap-toggle="left" class="sub">view tours</a> | <a ui-sref="index" class="sub">start tour</a>         <div id="map-canvas"></div>
+        <a snap-toggle="left" class="sub">view tours</a> | <a ui-sref="index" class="sub">start tour</a><div id="map-canvas"></div>
     </div>
 </snap-content>
 
 
 <style>
     .modal {
-        width: 90%;
-        max-width: 50rem;
-        height: 90%;
-        padding: 2rem;
+        width: 100%;
+        max-width: 40rem;
+        height: 100%;
         position: fixed;
 /*
         top: 5%; 
@@ -36,7 +35,7 @@
         z-index: 11; /* 1px higher than the overlay layer */
         background-color: #B684A4;
         border-radius: 0 0 10px 0;
-        box-shadow: 10px 10px 5px 0 #888888;
+        box-shadow: 2px 2px 20px 0px #000;
     }
     
     .overlay {
@@ -55,6 +54,7 @@
         font-weight: 200;
         font-size: 1rem;
         color: white;
+       
         
      /* for word breaks */    
         -ms-word-break: break-all;
@@ -73,7 +73,36 @@
     
     
 }
+.container {
+    height: 90%;
+    width: 90%;
+    background-color: rgb(23, 157, 255);
+    border: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+    
+img {
+    max-width: 100%;
+}
+p {
+    text-align: justify;
+    font-family: 'Lato', sans-serif;
+    
+}
+b {
+    font-weight: 700;
+    font-size: 2rem;
+    font-family: 'Oswald', sans-serif;
+}
+i {
+    font-family: 'Lato', sans-serif;
+}
+.description {
+/*    padding: 1rem;*/
+}
 </style>
+<!--
 
 <div class="overlay" ng-show=selectedMarker ng-click="selectedMarker=null"></div>
 <div class="modal" ng-show=selectedMarker>
@@ -93,4 +122,17 @@
             </p>
         </section>
     </article>
+</div>
+-->
+
+
+<div class="overlay" ng-show=selectedMarker ng-click="selectedMarker=null"></div>
+<div class="modal" ng-show=selectedMarker>
+    <div class="container">
+    <img src={{selectedMarker.image}} alt="Unable to Load Image" /><br/>
+            <b>{{selectedMarker.title}}</b><br/>
+            <i>{{selectedMarker.artist_first}} {{selectedMarker.artist_last}}, {{selectedMarker.artist_dob}}</i><br/>
+            <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.
+    </p>
+    </div>
 </div>
