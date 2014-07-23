@@ -16,11 +16,13 @@
 */
         margin-top: 0px;
         margin-left: 0px;
-        text-align: center;
+        text-align: left;
         z-index: 11; /* 1px higher than the overlay layer */
         background-color: #B684A4;
-        border-radius: 0 0 10px 0;
-        box-shadow: 10px 10px 5px 0 #888888;
+        border-radius: 10px 0 10px 0;
+        box-shadow: 2px 2px 5px 0 #000;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
     
     .overlay {
@@ -31,6 +33,13 @@
         width: 100%;
         background-color: rgba(0,0,0,0.5);
         z-index: 10;
+    }
+    
+    .container {
+        height: 90%;
+        width: 90%;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
  
     .description {
@@ -55,25 +64,69 @@
         -webkit-hyphenate-limit-zone: 10%;
     }
     
+    b {
+        font-family: 'Lato', serif;
+        font-size: 2rem;
+    }
+    
+    i {
+        font-family: 'Lato', sans-serif;
+    }
+    
+    .description {
+        padding: 1rem;
+    }
+    
+    img {
+        max-width: 100%;
+    }
+    #footer {
+        position: relative;
+        margin-top: -2em;
+    }
     
 }
 </style>
-<div class="overlay" ng-show=selectedMarker ng-click="close();"></div>
+
+<div class="overlay" ng-show=selectedMarker ng-click="close()"></div>
 <div class="modal" ng-show=selectedMarker>
-    <article>
-        <input type="checkbox" id="read_more" role="button">
-        <label for="read_more" onclick=""><span>Read More</span><span>Hide</span></label>     
-        <figure>
-            <img src={{selectedMarker.image}} alt="Unable to Load Image" />
-        </figure>  
-        <section>
-            <b>{{selectedMarker.title}}</b> 
-            <i>{{selectedMarker.artist_first}} {{selectedMarker.artist_last}}, {{selectedMarker.artist_dob}}</i><br/>
-        </section>
-        <section>
-            <p class="description">
-                One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. 
-            </p>
-        </section>
-    </article>
+    <div class="container">
+        <img src={{selectedMarker.image}} alt="Unable to Load Image" /><br/>
+        <b>{{selectedMarker.title}}</b><br/>
+        <i>{{selectedMarker.artist_first}} {{selectedMarker.artist_last}}, {{selectedMarker.artist_dob}}</i><br/>
+        <p class="description">{{selectedMarker.description}}</p>
+        <div id="footer">
+            <img ng-click=close() src="img/close.svg">
+            <style>
+                .add {
+                    fill:#FFFFFF;
+                }
+                .add.active {
+                    fill: red;
+                }
+                .fav {
+                    fill:#FFFFFF;
+                }
+                .fav.active {
+                    fill: red;
+                }
+            </style>
+            <span id="add_button_svg">
+                <svg ng-init="addActive = false" ng-click="addActive = !addActive" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="82.529px" height="82.529px" viewBox="0 0 82.529 82.529" enable-background="new 0 0 82.529 82.529" xml:space="preserve">
+                    <circle fill="#6798AC" cx="41.264" cy="41.265" r="41.265"/>
+                    <g ng-class="{'add': !addActive, 'add active': addActive}">
+                        <rect x="35.883" y="17" width="11" height="47"/>
+                        <rect x="17.883" y="35" width="47" height="11"/>
+                    </g>
+                </svg>
+            </span>
+        
+            <span id="favorite_button_svg">
+                <svg ng-init="favActive = false" ng-click="favActive = !favActive" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="82.529px" height="82.529px" viewBox="0 0 82.529 82.529" enable-background="new 0 0 82.529 82.529" xml:space="preserve">
+                <circle fill="#6798AC" cx="41.264" cy="41.265" r="41.265"/>
+                <path ng-class="{'fav': !favActive, 'fav active': favActive}" d="M58.016 26.693c-6.045-2.799-13.953-0.166-16.75 5.865 -2.797-6.031-10.703-8.667-16.75-5.865 -6.439 2.986-9.52 10.615-4.432 19.616 3.609 6.404 10.012 11.229 21.182 19.881 11.168-8.652 17.572-13.48 21.182-19.881C67.533 37.309 64.453 29.68 58.016 26.693z"/>
+                </svg>
+            </span>
+        </div> 
+    </div>
 </div>

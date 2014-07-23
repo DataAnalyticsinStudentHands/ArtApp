@@ -124,8 +124,8 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
         
     }]);
 
-appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe','compassServe','geolocationServe','$sce','$compile',
-  function($scope, $http, accelerometerServe, compassServe, geolocationServe, $sce,$compile) {
+appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe','compassServe','geolocationServe',
+  function($scope, $http, accelerometerServe, compassServe, geolocationServe) {
       //open camera
       $scope.openCamera = function() {
           intel.xdk.camera.takePicture(70,true,'jpg');
@@ -218,6 +218,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
               console.log(art.title);
               $scope.$apply(function () {
                   $scope.selectedMarker = art;
+                  console.log($scope.selectedMarker.title);
               });
           });
       }
@@ -257,9 +258,9 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
-          console.log("...Start AR called...");
           //intel.xdk.display.startAR();
           if (document.body.style.backgroundColor!="transparent"){
+              console.log("...Start AR called...");
               document.body.style.backgroundColor="transparent";
               document.body.style.backgroundImage='none';
           }
@@ -267,9 +268,9 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
         
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
-          console.log("...Stop AR called...");
           //intel.xdk.display.stopAR();
           if (document.body.style.backgroundColor=="transparent"){
+              console.log("...Stop AR called...");
               document.body.style.backgroundColor="#000";
               document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
           }
