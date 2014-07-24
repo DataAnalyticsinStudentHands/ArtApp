@@ -3,42 +3,18 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geolocationServe',
-    function($scope, $http, snapRemote, geolocationServe) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snapRemote', 'geolocationServe',
+    function($rootScope, $scope, $http, snapRemote, geolocationServe) {
+        $scope.showAdd = false;
         
-        //closes profile page
+        //Uses local storage instead of http requests
+        $scope.tours = JSON.parse(localStorage.getItem("tours"));
+        $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+        $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
+        
         $scope.selectedMarker = null;
-        $scope.close = function(){
-            $scope.selectedMarker=null;
-        }
-        
-        $http.get('tours.json').success(function(data) {
-            $scope.tours = data;
-            console.log("JSON (tour.json) read sucess: ");
-        });            
-        
-        $http.get('artwork.json').success(function(data) {
-            $scope.artwork = data;
-            console.log("JSON (artwork.json) read sucess: ");
-        }); 
         
         $scope.sliderOptions = {disable: 'right', hyperextensible: false};
-        /*settings = {element: null,
-                    dragger: null,
-                    disable: 'none',
-                    addBodyClasses: true,
-                    hyperextensible: true,
-                    resistance: 0.5,
-                    flickThreshold: 50,
-                    transitionSpeed: 0.3,
-                    easing: 'ease',
-                    maxPosition: 266,
-                    minPosition: -266,
-                    tapToClose: true,
-                    touchToDrag: true,
-                    slideIntent: 40,
-                    minDragDistance: 5
-                    };*/
         
         var mapDiv = document.getElementById('map-canvas');
         var mapOptions = {
@@ -48,7 +24,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
             zoom: 16
         };
         var map = new google.maps.Map(mapDiv, mapOptions);
-        
         var markers = [];
         var bounds = new google.maps.LatLngBounds();
         
@@ -60,7 +35,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
                             origin: new google.maps.Point(0,0),
                             anchor: new google.maps.Point(10, 31)
                           };
-            console.log("...Add Marker called...");
             var marker = new google.maps.Marker({
                 position: location,
                 map: map,
@@ -71,11 +45,7 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
             map.fitBounds(bounds);
             
             google.maps.event.addListener(marker, 'click', function() {
-                console.log(art.title);
-                $scope.$apply(function () {
-                        $scope.selectedMarker = art;
-                    });
-                
+                $scope.openProfile(art);
             });
         }
         
@@ -88,7 +58,6 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
 
         // Removes the markers from the map, but keeps them in the array.
         function clearMarkers() {
-            console.log("...Clear Markers called...");
             setAllMap(null);
         }
 
@@ -99,15 +68,29 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
 
         // Deletes all markers in the array by removing references to them.
         function deleteMarkers() {
-            console.log("...Delete Markers called...");
             clearMarkers();
             markers = [];
             bounds = new google.maps.LatLngBounds();
         }
         
+        //closes profile page and resets fav/add button
+        $scope.closeProfile = function(){
+            console.log('close profile');
+            $scope.selectedMarker=null;
+            $rootScope.favActive = false;
+        };
+        
+        //opens profile and set fav/add as active or not
+        $scope.openProfile = function(art){
+          console.log('open profile');
+            $scope.$apply(function () {
+                  $scope.selectedMarker = art;
+                  console.log("is fav: "+$rootScope.isFavorite(art.artwork_id));                         $rootScope.favActive = $rootScope.isFavorite(art.artwork_id);
+            });
+        };
+        
         //When tour name is clicked the corresponding markers are added.
         $scope.tourClick = function(tour) {
-            console.log("Tour Clicked:");
             deleteMarkers();
             for(var x=0; x<tour.artwork_included.length; x++){
                 
@@ -122,21 +105,47 @@ appControllers.controller('tourListCtrl', ['$scope', '$http', 'snapRemote', 'geo
             }
         };
         
+        //adds markers for favorites tour
+        $scope.favTourClick = function() {
+            deleteMarkers();
+            $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
+            if ($scope.favorites!=null) {
+                for(var x=0; x<$scope.favorites.length; x++){
+
+                    for (var y=0; y<$scope.artwork.length; y++){
+
+                        if ($scope.favorites[x] == $scope.artwork[y].artwork_id){
+                            addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
+                        }
+
+                    }
+
+                }
+            }else{alert("You don't have any favorites yet!")}
+        };
+        
+        //adds markers for artwork add within the last X months
+        $scope.newTourClick = function() {
+            deleteMarkers();
+            for (var y=0; y<$scope.artwork.length; y++){
+                    
+                    if ($scope.artwork[y].date_made > 2000){
+                        addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
+                    }
+                    
+                }
+        };
+        
     }]);
 
-appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe','compassServe','geolocationServe',
-  function($scope, $http, accelerometerServe, compassServe, geolocationServe) {
-      //open camera
-      $scope.openCamera = function() {
-          intel.xdk.camera.takePicture(70,true,'jpg');
-      };
+appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','accelerometerServe','compassServe','geolocationServe',
+  function($rootScope, $scope, $http, accelerometerServe, compassServe, geolocationServe) {
+      $scope.showAdd = true;
       
-      //closes profile page
+      
+      
+      
       $scope.selectedMarker = null;
-      $scope.close = function(){
-          $scope.selectedMarker=null;
-      };
-      
       $scope.currAcc = null;
       var accWatchID = null;
       $scope.currHeading = null;
@@ -150,13 +159,9 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       $scope.maxD = 0;
       $scope.minD = 0;
       
-      $http.get('artwork.json').success(function(data) {
-            $scope.artwork = data;
-            console.log("JSON read sucess: ");
-            initMap();
-            open();
-            initListeners();
-        });
+      //Uses local storage instead of http requests
+      $scope.tours = JSON.parse(localStorage.getItem("tours"));
+      $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
       
       var mapDiv = document.getElementById('map-view');
       var mapOptions = {
@@ -187,7 +192,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       //Initializes map markers
       function initMap() {
-          console.log("...Initialize Map called...");
           map = new google.maps.Map(mapDiv, mapOptions);
           
           for (var y=0; y<$scope.artwork.length; y++){
@@ -198,7 +202,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       
       //Creates marker object, adds it to map, adds it to markers array
       function addMarker(location, art) {
-          console.log("...Add Marker called...");
           var image = {
                             url: "img/mapmarker.png",
                             size: new google.maps.Size(27, 41),
@@ -215,11 +218,7 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           map.fitBounds(bounds);
           
           google.maps.event.addListener(marker, 'click', function() {
-              console.log(art.title);
-              $scope.$apply(function () {
-                  $scope.selectedMarker = art;
-                  console.log($scope.selectedMarker.title);
-              });
+                $scope.openProfile(art);
           });
       }
       
@@ -245,7 +244,31 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           clearMarkers();
           markers = [];
           bounds = new google.maps.LatLngBounds();
-      }  
+      }
+      
+      //open camera
+      $scope.openCamera = function() {
+          intel.xdk.camera.takePicture(70,true,'jpg');
+      };
+      
+      //closes profile page
+      $scope.closeProfile = function(){
+            console.log('close profile');
+            $scope.selectedMarker=null;
+            $rootScope.favActive = false;
+            $rootScope.addActive = false;
+        };
+      
+      $scope.openProfile = function(art){
+          console.log('open profile');
+            $scope.$apply(function () {
+                $scope.selectedMarker = art;
+                console.log("is fav: "+$rootScope.isFavorite(art.artwork_id));
+                $rootScope.favActive = $rootScope.isFavorite(art.artwork_id);
+                console.log("is focused: "+$rootScope.isFocused(art.artwork_id));
+                $rootScope.addActive = $rootScope.isFocused(art.artwork_id);
+            });
+        };
       
       //Toggle AR/Map view
       $scope.toggleView = function(){
@@ -284,19 +307,32 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           
           var html="";
           for (var z=0; z<$scope.artwork.length; z++) {
+              
               if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
-                  //console.log('...Add AR Elements...');
+                  console.log($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id']));
                   var margin = (((($scope.artwork[z]['bearing'] - heading.magneticHeading)+20)/40)*100)-9;
                   var zInd = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
                   var top = ((zInd/10)*20)+45;
-                  html += '<img ng-click="selectMarker('+z+')" src="img/armarker.png" style="position:absolute;left:'+margin+'%;top:'+top+'%;width:18%;height:auto;z-index:'+zInd+';border:5px solid yellow">';
+                  if ($rootScope.focusedArt.length ===0){
+                      html += '<img ng-click="selectMarker('+z+
+                            ')" src="img/armarker.png" style="position:absolute;left:'+margin+
+                              '%;top:'+top+
+                              '%;width:18%;height:auto;z-index:'+zInd+
+                              ';border:5px solid yellow">';
+                  }else if ($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id'])>-1){
+                      html += '<img ng-click="selectMarker('+z+
+                            ')" src="img/armarker.png" style="position:absolute;left:'+margin+
+                              '%;top:'+top+
+                              '%;width:18%;height:auto;z-index:'+zInd+
+                              ';border:5px solid yellow">';
+                  }
+
               }
           }
           $scope.arHTML = html;
       }
       
       $scope.selectMarker = function(art){
-          console.log("HELLLOOOO");
           $scope.selectedMarker=$scope.artwork[art];
       };
 
@@ -340,7 +376,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
 
       $scope.watchAcceleration = function() {
-          console.log('...Watch Acceleration called...');
           var aOptions = {frequency: 1000};
           if (accWatchID == null) {
               accWatchID = accelerometerServe.watchAcceleration(aOptions).then(
@@ -365,7 +400,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
       
       $scope.clearAccWatch = function() {
-          console.log('...Clear Acceleration Watch called...');
           accelerometerServe.clearWatch(accWatchID);
           accWatchID = null;
       };
@@ -380,7 +414,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
       
       $scope.watchHeading = function() {
-          console.log('...Watch Heading called...');
           var options = { frequency: 500 }; // Update every 1 seconds
           if (compWatchID == null) {
                 compWatchID = compassServe.watchHeading(options).then(
@@ -398,11 +431,9 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
       
       $scope.clearCompWatch = function() {
-          console.log('...Clear Compass Watch called...');
           compassServe.clearWatch(compWatchID);
           compWatchID = null;
       };
-      
                                           
       //Geolocation CORDOVA
       $scope.getPosition = function() {
@@ -415,7 +446,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
 
       $scope.watchPosition = function() {
-          console.log('...Watch Position called...');
           var gOptions = {maximumAge: 3000, timeout: 6000, enableHighAccuracy: true};
           if (geoWatchID == null) {
               geoWatchID = geolocationServe.watchPosition(gOptions).then(
@@ -442,7 +472,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       };
 
       $scope.clearGeoWatch = function() {
-          console.log('...Clear Geo Watch called...');
           geolocationServe.clearWatch(geoWatchID)
       };
       
@@ -458,7 +487,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
         };
         
       $scope.watchPositionIntel = function() {
-              console.log('...Watch Position called...');
               if (geoWatchIntelID == null) {
                   geoWatchIntelID = intel.xdk.geolocation.watchPosition(function(position) {
                       $scope.currPosition = position;
@@ -486,7 +514,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
         };
         
         $scope.clearGeoWatchIntel = function() {
-            console.log('...Clear Geo Watch called...');
             intel.xdk.geolocation.clearWatch(geoWatchIntelID);
         };
       
@@ -507,7 +534,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       }
       
       $scope.$on("$destroy", function() {
-          console.log("$DESTROY caught:");
           destroyListeners();
           xdkStopAR();
           stopWatches();
@@ -515,7 +541,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       });
       
       function initListeners() {
-          console.log('...Initilize Listeners called...');
           //pause fires when device locks 
           //when a device is locked the app is sent to background first
           //so locking the screen while in the app fires both pause and suspend event
@@ -526,7 +551,6 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
       }
       
       function destroyListeners() {
-          console.log('...Destroy Listeners called...');
           document.removeEventListener("intel.xdk.device.pause", lock,false);
           document.removeEventListener("intel.xdk.device.suspend", background,false);
           document.removeEventListener("intel.xdk.device.resume", open,false);
@@ -549,22 +573,36 @@ appControllers.controller('exploreCtrl', ['$scope','$http','accelerometerServe',
           startWatches();
       }
       
+      
+      //Start everything
+      initMap();
+      open();
+      initListeners();
+      
   }]);
 
-appControllers.controller('testCtrl', ['$scope','geolocationServe',
+appControllers.controller('searchCtrl', ['$scope','geolocationServe',
     function($scope,geolocationServe) {
-      $scope.button = function() {
-          if (localStorage.getItem('name'))
-          {alert('Name exists');
-              document.getElementById("test").innerHTML = localStorage.getItem("name");}
-          else{
-              document.getElementById("test").innerHTML = "You don't have a name";
-              localStorage.setItem("name","Suneil");
-              alert('set name to something')
-          }
-      };
-        
-        $scope.arHTML = '<img src="img/armarker.png">';
-      //$scope.arHTML = $sce.trustAsHtml('I am an <code>HTML</code>string with ' +'<a href="#">links!</a> and other <em>stuff</em>');
-    
+        $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+        $scope.names = [
+    'Lolita Dipietro',
+    'Annice Guernsey',
+    'Gerri Rall',
+    'Ginette Pinales',
+    'Lon Rondon',
+    'Jennine Marcos',
+    'Roxann Hooser',
+    'Brendon Loth',
+    'Ilda Bogdan',
+    'Jani Fan',
+    'Grace Soller',
+    'Everette Costantino',
+    'Andy Hume',
+    'Omar Davie',
+    'Jerrica Hillery',
+    'Charline Cogar',
+    'Melda Diorio',
+    'Rita Abbott',
+    'Setsuko Minger',
+    'Aretha Paige'];
     }]);

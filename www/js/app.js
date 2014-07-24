@@ -30,7 +30,8 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
         })
         .state('search',{
             url:"/search",
-            templateUrl:"partials/search.html"
+            templateUrl:"partials/search.html",
+            controller:"searchCtrl"
             
         })
         .state('test',{
@@ -40,10 +41,87 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
         });
 }]);
 
-publicArtApp.run(['$rootScope', 
-        function($rootScope){
-            $rootScope.$on('$stateChangeStart', 
+publicArtApp.run(['$rootScope', '$http',
+        function($rootScope, $http){
+            /*$rootScope.$on('$stateChangeStart', 
                            function(event, toState, toParams, fromState, fromParams){
                                console.log(fromState.name+"-------> Routing to ------>"+toState.name);
-                           });
+                           });*/
+            
+            if (localStorage.getItem("tours_version")!="1.1") {
+                $http.get('tours.json').success(function(data) {
+                    localStorage.setItem("tours_version","1.1");
+                    localStorage.setItem("tours",JSON.stringify(data));
+                    console.log("...localstorage (tour.json) sucess...");
+                });
+            }
+            
+            if (localStorage.getItem("tours_version")!="1.1") {
+                  $http.get('artwork.json').success(function(data) {
+                    localStorage.setItem("artwork_version","1.1");
+                    localStorage.setItem("artwork",JSON.stringify(data));
+                    console.log("...localstorage (artwork.json) sucess...");
+                });
+            }
+            
+            localStorage.removeItem("favorites");
+            $rootScope.favActive = false;
+            $rootScope.favorite = function (id,toggle) {
+                var temp = [];
+                if (localStorage.getItem("favorites")!=null) {
+                    temp = JSON.parse(localStorage.getItem("favorites"));
+                } 
+                
+                if (toggle){
+                    console.log("add favorite: "+id);
+                    temp.push(id);
+                }else{
+                    console.log("remove favorite: "+id);
+                    var index = temp.indexOf(id);
+                    if (index > -1) {
+                        temp.splice(index, 1);
+                    }
+                }
+                
+                console.log(temp);
+                localStorage.setItem("favorites",JSON.stringify(temp));
+            };
+            
+            $rootScope.isFavorite = function (id) {
+                var temp = [];
+                if (localStorage.getItem("favorites")!=null) {
+                    temp = JSON.parse(localStorage.getItem("favorites"));
+                }
+                
+                for(var q=0; q<temp.length;q++) {
+                    if (temp[q]==id){
+                       return true; 
+                    }
+                }
+                return false;
+            };
+            
+            $rootScope.addActive = false;
+            $rootScope.focusedArt = [];
+            $rootScope.focusArt = function(id, toggle) {
+                if (toggle){
+                    $rootScope.focusedArt.push(id);
+                }else{
+                    var index = $rootScope.focusedArt.indexOf(id);
+                    if (index > -1) {
+                        $rootScope.focusedArt.splice(index, 1);
+                    }
+                }
+                console.log("focused: "+$rootScope.focusedArt);
+            };
+            
+            $rootScope.isFocused = function(id) {
+                for(var q=0; q<$rootScope.focusedArt.length;q++) {
+                    if ($rootScope.focusedArt[q]==id){
+                       return true; 
+                    }
+                }
+                return false;
+            };
+            
         }]);

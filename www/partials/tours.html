@@ -1,6 +1,16 @@
 <snap-drawer>
     <div id="menucontainer">
     <br/><a ui-sref="index" style="font-size: 2rem;">back</a><br/><br/><br/>
+    <div>
+        <div snap-toggle="left" ng-click="favTourClick()">
+            <a style="font-size: 2rem;">Favorites</a><br/><br/>
+            <hr>
+        </div>
+        <div snap-toggle="left" ng-click="newTourClick()">
+            <a style="font-size: 2rem;">New</a><br/><br/>
+            <hr>
+        </div>
+    </div>
     <div ng-repeat="tour in tours">
         <div snap-toggle="left" ng-click="tourClick(tour)">
             <a style="font-size: 2rem;">{{tour.title}}</a><br/><br/>
