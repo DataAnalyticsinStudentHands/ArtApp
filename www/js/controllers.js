@@ -500,10 +500,8 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
                       currMarker.setPosition(pos);
                       if(!($scope.campusCircle.getBounds().contains(pos))) {
                          $scope.onCampus = false;
-                         $scope.toggle = true;
                       }else{
                           $scope.onCampus = true;
-                          $scope.toggle = false;
                       }
                       currMarker.setPosition(pos);
                       if (!bounds.contains(pos)){
