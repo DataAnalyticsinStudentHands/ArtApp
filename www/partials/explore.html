@@ -1,37 +1,42 @@
-<style>
-    body {
-        background-color:black;
-}
-    #navcontainer{
-        width: 5rem;
-        padding: 1rem;
-        z-index: 11;
-        position: absolute;
-        background-color:none;
-    }
-    #testbuttons{
-        width: 20rem;
-        background-color: #f0f050;
-    }
-</style>
 
-<div id="waiting_for_location" ng-hide=currPosition class="overlay"></div>
-<div id="to_far_from_campus" ng-hide=onCampus class="overlay"></div>
 
+<!--
+for waiting currPosition
+for toofar onCampus
+-->
+<div id="wrapper">
+    <div id="center">
+    <div ng-hide=currPosition>
+        
+        <p class="message">Locating you,<br/>please wait…</p>
+    
+    </div>
+
+    <div ng-hide=onCampus>
+    
+        <p class="message">limited functions<br/>off campus…</p>
+    
+    </div>
+    </div>
+</div>
+
+
+
+<!--arrrgh! these be the buttons, matey-->
 <div id="navcontainer">
-    <a ui-sref="index"><img src="img/back.svg" /></a><br/>
-    <a ng-click=openCamera()><img src="img/camera.svg" /></a><br/>
+    <a ui-sref="index"><img src="img/back.svg" class="sizeofbutton" /></a><br/>
+    <a ng-click=openCamera()><img src="img/camera.svg" class="sizeofbutton"/></a><br/>
     <a ng-click=toggleView()>
         <style>
                 .map {
                     fill:#FFFFFF;
                 }
                 .map.active {
-                    fill: red;
+                    fill: #FE7F78;
                 }
             </style>
         <span id="map_toggle_svg">
-            <svg ng-init="mapActive = false" ng-click="mapActive = !mapActive" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="82.529px" height="82.529px" viewBox="0 0 82.529 82.529" enable-background="new 0 0 82.529 82.529" xml:space="preserve">
+            <svg ng-init="mapActive = false" ng-click="mapActive = !mapActive" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="82.529px" height="82.529px" viewBox="0 0 82.529 82.529" enable-background="new 0 0 82.529 82.529" xml:space="preserve" class="sizeofbutton">
                 <circle fill="#6798AC" cx="41.265" cy="41.265" r="41.043"/>
                 <g ng-class="{'map': !mapActive, 'map active': mapActive}">
                     <polygon points="23.813,29.676 23.813,67.686 7.265,58.131 7.265,20.121     "/>
@@ -65,11 +70,16 @@
     </g>
   </g>
 </svg></span></a><br/>
-    <a ui-sref="search"><img src="img/search.svg" /></a>
+    <a ui-sref="search"><img src="img/search.svg" class="sizeofbutton"/></a>
+</div>
+<div id="navcontainertwo" ng-show="$root.focus">
+<img ng-click=$root.clearFocus() src="img/close.svg" class="sizeofbutton">
 </div>
 
+
+
 <div class="arView" ng-show="phoneUp" style="height:100%;width:100%;">
-    <div id="arElements" style="backgroundColor:transparent;width: 100%; height: 100%;border:5px solid red;">
+    <div id="arElements" style="backgroundColor:transparent;width: 100%; height: 100%;">
         <dir id="dir" content="arHTML"></dir>
     </div>
 </div>

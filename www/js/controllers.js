@@ -30,7 +30,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         //Creates marker object, adds it to map, adds it to markers array
         function addMarker(location, art) {
             var image = {
-                            url: "img/mapmarker.png",
+                            url: "img/mapmarker.svg",
                             size: new google.maps.Size(27, 41),
                             origin: new google.maps.Point(0,0),
                             anchor: new google.maps.Point(10, 31)
@@ -141,7 +141,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
 appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','accelerometerServe','compassServe','geolocationServe',
   function($rootScope, $scope, $http, accelerometerServe, compassServe, geolocationServe) {
       $scope.showAdd = true;
-      
+      $rootScope.focus = $rootScope.someFocus();
       
       
       
@@ -176,7 +176,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       var map = null;
       var markers = [];
       var yourMarker = {
-                            url: "img/yourMarker.png",
+                            url: "img/yourMarker.svg",
                             size: new google.maps.Size(27, 41),
                             origin: new google.maps.Point(0,0),
                             anchor: new google.maps.Point(10, 31)
@@ -257,8 +257,10 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
             $scope.selectedMarker=null;
             $rootScope.favActive = false;
             $rootScope.addActive = false;
+            $rootScope.focus = $rootScope.someFocus();
         };
       
+      //opens profile
       $scope.openProfile = function(art){
           console.log('open profile');
             $scope.$apply(function () {
@@ -301,7 +303,6 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       
       //Add elements for AR view given the heading
       function addArElements(heading) {
-          //console.log('...Compass Direction...');
           var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N'];
           var direction = directions[Math.abs(parseInt((heading.magneticHeading) / 45) + 0)];
           
@@ -309,22 +310,26 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
           for (var z=0; z<$scope.artwork.length; z++) {
               
               if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
-                  console.log($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id']));
                   var margin = (((($scope.artwork[z]['bearing'] - heading.magneticHeading)+20)/40)*100)-9;
-                  var zInd = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
-                  var top = ((zInd/10)*20)+45;
+                  var Ind = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
+                  var zInd = 10-Ind;
+                  var top = ((Ind/10)*30)+35;
+                  var scaleFactor = ((top-35)/30)*20;
+                  var scale = 25-scaleFactor;
                   if ($rootScope.focusedArt.length ===0){
-                      html += '<img ng-click="selectMarker('+z+
-                            ')" src="img/armarker.png" style="position:absolute;left:'+margin+
-                              '%;top:'+top+
-                              '%;width:18%;height:auto;z-index:'+zInd+
-                              ';border:5px solid yellow">';
+                      html += '<img ng-click="selectMarker('+z+','+zInd+
+                            ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
+                              '%;bottom:'+top+
+                              '%;width:auto;height:'+scale+
+                              '%;z-index:'+zInd+
+                              ';">';
                   }else if ($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id'])>-1){
-                      html += '<img ng-click="selectMarker('+z+
-                            ')" src="img/armarker.png" style="position:absolute;left:'+margin+
-                              '%;top:'+top+
-                              '%;width:18%;height:auto;z-index:'+zInd+
-                              ';border:5px solid yellow">';
+                      html += '<img ng-click="selectMarker('+z+','+zInd+
+                            ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
+                              '%;bottom:'+top+
+                              '%;width:auto;height:'+scale+
+                              '%;z-index:'+zInd+
+                              ';">';
                   }
 
               }
@@ -332,8 +337,9 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
           $scope.arHTML = html;
       }
       
-      $scope.selectMarker = function(art){
+      $scope.selectMarker = function(art,x){
           $scope.selectedMarker=$scope.artwork[art];
+          console.log("z index: "+x);
       };
 
       function calculateBearing(){
@@ -581,28 +587,33 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       
   }]);
 
-appControllers.controller('searchCtrl', ['$scope','geolocationServe',
-    function($scope,geolocationServe) {
+appControllers.controller('searchCtrl', ['$scope','$rootScope',
+    function($scope,$rootScope) {
         $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
-        $scope.names = [
-    'Lolita Dipietro',
-    'Annice Guernsey',
-    'Gerri Rall',
-    'Ginette Pinales',
-    'Lon Rondon',
-    'Jennine Marcos',
-    'Roxann Hooser',
-    'Brendon Loth',
-    'Ilda Bogdan',
-    'Jani Fan',
-    'Grace Soller',
-    'Everette Costantino',
-    'Andy Hume',
-    'Omar Davie',
-    'Jerrica Hillery',
-    'Charline Cogar',
-    'Melda Diorio',
-    'Rita Abbott',
-    'Setsuko Minger',
-    'Aretha Paige'];
+        
+        $scope.showAdd = true;
+        
+        $scope.selectedMarker = null;
+        
+        //closes profile page
+      $scope.closeProfile = function(){
+            console.log('close profile');
+            $scope.selectedMarker=null;
+            $rootScope.favActive = false;
+            $rootScope.addActive = false;
+            $rootScope.focus = $rootScope.someFocus();
+        };
+      
+      //opens profile
+      $scope.openProfile = function(art){
+          console.log('open profile');
+            //$scope.$apply(function () {
+                $scope.selectedMarker = art;
+                console.log("is fav: "+$rootScope.isFavorite(art.artwork_id));
+                $rootScope.favActive = $rootScope.isFavorite(art.artwork_id);
+                console.log("is focused: "+$rootScope.isFocused(art.artwork_id));
+                $rootScope.addActive = $rootScope.isFocused(art.artwork_id);
+            //});
+        };
+        
     }]);

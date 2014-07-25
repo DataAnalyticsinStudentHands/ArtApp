@@ -103,6 +103,7 @@ publicArtApp.run(['$rootScope', '$http',
             
             $rootScope.addActive = false;
             $rootScope.focusedArt = [];
+            $rootScope.focus = false;
             $rootScope.focusArt = function(id, toggle) {
                 if (toggle){
                     $rootScope.focusedArt.push(id);
@@ -122,6 +123,19 @@ publicArtApp.run(['$rootScope', '$http',
                     }
                 }
                 return false;
+            };
+            
+            $rootScope.someFocus = function() {
+                if ($rootScope.focusedArt.length>0){
+                    return true;
+                }else{
+                    return false;
+                }
+            };
+            
+            $rootScope.clearFocus = function() {
+                $rootScope.focusedArt = [];
+                $rootScope.focus = false;
             };
             
         }]);
