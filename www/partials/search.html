@@ -2,9 +2,17 @@
 <div style="height:100%;width:100%;background:#eeeeee">
     <a ui-sref="index" ><b>BACK</b></a>
     <input type="search" ng-model="search" placeholder="Type Search..." style="color:black;width:100%">
-    <div ng-repeat="art in artwork | filter:search">
+    <div style="width:100%;">
+        <div ng-click="order='distance';getPositionIntel()" style="width:33.3%;float:left">Nearby</div>
+        <div ng-click="order='likes';" style="width:33.3%;float:left">Popular</div>
+        <div ng-click="order='date_made';" style="width:33.3%;float:left">Recent</div>
+    </div>
+    <div ng-repeat="art in artwork | filter:search | orderBy:order">
         <div ng-click="openProfile(art)">
-            <a style="color:#6798AC">{{art.title}}</a><br/><i style="color:#FE7F78">               {{art.artist_first}} {{art.artist_last}}</i><br/>
+            {{art.title}}
+            {{art.artist_first}}
+            {{art.artist_last}}
+            {{art.date_made}}
         </div>
     </div>
     <div ng-include="'partials/profile.html'"></div>

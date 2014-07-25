@@ -15,6 +15,9 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         $scope.selectedMarker = null;
         
         $scope.sliderOptions = {disable: 'right', hyperextensible: false};
+        snapRemote.getSnapper().then(function(snapper) {
+            snapper.open('left');
+        });
         
         var mapDiv = document.getElementById('map-canvas');
         var mapOptions = {
@@ -345,8 +348,6 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       function calculateBearing(){
           console.log('...Calculate Bearing...');
           for (var z=0; z<$scope.artwork.length; z++){
-              new google.maps.LatLng($scope.artwork[z].location_lat, $scope.artwork[z].location_long);
-              
               var pinLat = $scope.artwork[z].location_lat;
               var pinLng = $scope.artwork[z].location_long;
               var dLat = ($scope.currPosition.coords.latitude-pinLat)* Math.PI / 180;
@@ -593,6 +594,8 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         
         $scope.selectedMarker = null;
         
+        $scope.order = 'date_made';
+        
         //closes profile page
       $scope.closeProfile = function(){
             console.log('close profile');
@@ -613,5 +616,35 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
                 $rootScope.addActive = $rootScope.isFocused(art.artwork_id);
             //});
         };
+        
+        $scope.getPositionIntel = function() {
+              intel.xdk.geolocation.getCurrentPosition(function(position) {
+                  console.log("Got Position");
+                  calculateDistance(position);
+              }, function(err) {
+                  //Error
+                  alert('error');
+              });
+        };
+        
+        function calculateDistance(pos){
+          for (var z=0; z<$scope.artwork.length; z++){
+              var pinLat = $scope.artwork[z].location_lat;
+              var pinLng = $scope.artwork[z].location_long;
+              var dLat = (pos.coords.latitude-pinLat)* Math.PI / 180;
+              var dLon = (pos.coords.longitude-pinLng)* Math.PI / 180;
+              var lat1 = pinLat * Math.PI / 180;
+              var lat2 = pos.coords.latitude * Math.PI / 180;
+              
+              var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+              var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+              var distance = 3958.76  * c;
+              $scope.artwork[z]['distance']=distance;
+          }
+        }
+        
+        $scope.getPositionIntel();
+        
+        
         
     }]);
