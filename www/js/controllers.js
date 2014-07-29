@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snapRemote', 'geolocationServe',
-    function($rootScope, $scope, $http, snapRemote, geolocationServe) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', '$http', 'snapRemote', 'geolocationServe',
+    function($rootScope, $scope, $state, $http, snapRemote, geolocationServe) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -13,6 +13,9 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
         
         $scope.selectedMarker = null;
+        
+        $scope.tourArt = [];
+        
         
         $scope.sliderOptions = {disable: 'right', hyperextensible: false};
         snapRemote.getSnapper().then(function(snapper) {
@@ -32,6 +35,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         
         //Creates marker object, adds it to map, adds it to markers array
         function addMarker(location, art) {
+            $scope.tourArt.push(art);
             var image = {
                             url: "img/mapmarker.svg",
                             size: new google.maps.Size(27, 41),
@@ -95,6 +99,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         //When tour name is clicked the corresponding markers are added.
         $scope.tourClick = function(tour) {
             deleteMarkers();
+            $scope.tourArt = [];
             for(var x=0; x<tour.artwork_included.length; x++){
                 
                 for (var y=0; y<$scope.artwork.length; y++){
@@ -111,6 +116,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         //adds markers for favorites tour
         $scope.favTourClick = function() {
             deleteMarkers();
+            $scope.tourArt = [];
             $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
             if ($scope.favorites!=null) {
                 for(var x=0; x<$scope.favorites.length; x++){
@@ -130,6 +136,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
         //adds markers for artwork add within the last X months
         $scope.newTourClick = function() {
             deleteMarkers();
+            $scope.tourArt = [];
             for (var y=0; y<$scope.artwork.length; y++){
                     
                     if ($scope.artwork[y].date_made > 2000){
@@ -139,14 +146,19 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snap
                 }
         };
         
+        //start tour
+        $scope.startTour = function() {
+            $rootScope.showTour = true;
+            $rootScope.tourPieces = $scope.tourArt;
+            $state.go('explore');
+        };
+        
     }]);
 
-appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','accelerometerServe','compassServe','geolocationServe',
-  function($rootScope, $scope, $http, accelerometerServe, compassServe, geolocationServe) {
+appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$state','$http','accelerometerServe','compassServe','geolocationServe',
+  function($rootScope, $scope, $state, $http, accelerometerServe, compassServe, geolocationServe) {
       $scope.showAdd = true;
       $rootScope.focus = $rootScope.someFocus();
-      
-      
       
       $scope.selectedMarker = null;
       $scope.currAcc = null;
@@ -160,11 +172,23 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       $scope.toggle = false;
       $scope.onCampus = true;
       $scope.maxD = 0;
-      $scope.minD = 0;
+      $scope.minD = 100;
+      $scope.camInUse = false;
       
       //Uses local storage instead of http requests
-      $scope.tours = JSON.parse(localStorage.getItem("tours"));
-      $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+      if ($rootScope.showTour){
+          $scope.artwork = $rootScope.tourPieces;
+      }else{
+          $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+      };
+      
+      $scope.back = function() {
+          if ($rootScope.showTour){
+              $state.go('tours');
+          }else{
+              $state.go('index');
+          }
+      };
       
       var mapDiv = document.getElementById('map-view');
       var mapOptions = {
@@ -199,6 +223,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
           
           for (var y=0; y<$scope.artwork.length; y++){
               addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
+              
           }
           
       }
@@ -251,7 +276,13 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       
       //open camera
       $scope.openCamera = function() {
+          xdkStopAR();
+          $scope.camInUse = true;
           intel.xdk.camera.takePicture(70,true,'jpg');
+          function cameraDone() {console.log("Hello");$scope.camInUse = false;;}
+          document.addEventListener("intel.xdk.camera.picture.add",cameraDone);
+          document.addEventListener("intel.xdk.camera.picture.cancel",cameraDone);
+          
       };
       
       //closes profile page
@@ -287,7 +318,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
           //intel.xdk.display.startAR();
-          if (document.body.style.backgroundColor!="transparent"){
+          if (document.body.style.backgroundColor!="transparent" && !$scope.camInUse){
               console.log("...Start AR called...");
               document.body.style.backgroundColor="transparent";
               document.body.style.backgroundImage='none';
@@ -297,7 +328,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
       // stop intel.xdk augmented reality mode        
       function xdkStopAR() {
           //intel.xdk.display.stopAR();
-          if (document.body.style.backgroundColor=="transparent"){
+          if (document.body.style.backgroundColor=="transparent" && !$scope.camInUse){
               console.log("...Stop AR called...");
               document.body.style.backgroundColor="#000";
               document.body.style.backgroundImage="url('img/jimsanborn.jpg')";
@@ -311,30 +342,39 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
           
           var html="";
           for (var z=0; z<$scope.artwork.length; z++) {
+              var margin = (((($scope.artwork[z]['bearing'] - heading.magneticHeading)+20)/40)*100)-9;
+              var Ind = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
+              var zInd = Math.round(10-Ind);
+              var top = ((Ind/10)*30)+35;
+              var scaleFactor = ((top-35)/30)*20;
+              var scale = 25-scaleFactor;
               
-              if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
-                  var margin = (((($scope.artwork[z]['bearing'] - heading.magneticHeading)+20)/40)*100)-9;
-                  var Ind = (($scope.artwork[z]['distance']-$scope.minD)/($scope.maxD-$scope.minD))*10;
-                  var zInd = 10-Ind;
-                  var top = ((Ind/10)*30)+35;
-                  var scaleFactor = ((top-35)/30)*20;
-                  var scale = 25-scaleFactor;
-                  if ($rootScope.focusedArt.length ===0){
-                      html += '<img ng-click="selectMarker('+z+','+zInd+
-                            ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
-                              '%;bottom:'+top+
-                              '%;width:auto;height:'+scale+
-                              '%;z-index:'+zInd+
+              if ($scope.artwork[z]['distance']==$scope.minD && $scope.artwork[z]['distance']<=0.01858638447759765){
+                  //console.log("Closest: "+$scope.artwork[z]['title'] );
+                  html += '<img ng-click="selectMarker('+z+','+zInd+
+                            ')" src="img/mapmarker.svg" style="position:absolute;left:'+25+
+                              '%;top:'+90+
+                              '%;width:50%;height:auto;z-index:'+zInd+
                               ';">';
-                  }else if ($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id'])>-1){
-                      html += '<img ng-click="selectMarker('+z+','+zInd+
-                            ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
-                              '%;bottom:'+top+
-                              '%;width:auto;height:'+scale+
-                              '%;z-index:'+zInd+
-                              ';">';
-                  }
+              }else{
+                  if(Math.abs($scope.artwork[z]['bearing'] - heading.magneticHeading) <= 20){
+                      if ($rootScope.focusedArt.length ===0){
+                          html += '<img ng-click="selectMarker('+z+','+zInd+
+                                ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
+                                  '%;bottom:'+top+
+                                  '%;width:auto;height:'+scale+
+                                  '%;z-index:'+zInd+
+                                  ';">';
+                      }else if ($rootScope.focusedArt.indexOf($scope.artwork[z]['artwork_id'])>-1){
+                          html += '<img ng-click="selectMarker('+z+','+zInd+
+                                ')" src="img/mapmarker.svg" style="position:absolute;left:'+margin+
+                                  '%;bottom:'+top+
+                                  '%;width:auto;height:'+scale+
+                                  '%;z-index:'+zInd+
+                                  ';">';
+                      }
 
+                  }
               }
           }
           $scope.arHTML = html;
@@ -371,6 +411,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
               }
               $scope.artwork[z]['distance']=distance;
           }
+
       }
       
       //Accelerometer                                    
@@ -542,7 +583,8 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
           destroyListeners();
           xdkStopAR();
           stopWatches();
-          
+          $rootScope.showTour = false;
+          $rootScope.tourPieces = [];
       });
       
       function initListeners() {
@@ -589,12 +631,21 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','$http','acceler
 appControllers.controller('searchCtrl', ['$scope','$rootScope',
     function($scope,$rootScope) {
         $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+        $scope.artists = [];
+        for (var x=0;x<$scope.artwork.length;x++) {
+            var temp = $scope.artwork[x].artist_name;
+            if ($scope.artists.indexOf(temp)==-1){
+                $scope.artists.push(temp);
+            }
+        }
         
         $scope.showAdd = true;
         
         $scope.selectedMarker = null;
         
         $scope.order = 'date_made';
+        
+        $scope.reverse = false;
         
         //closes profile page
       $scope.closeProfile = function(){
@@ -643,6 +694,16 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
           }
         }
         
+        $scope.setSearch = function (text) {
+            $scope.search = text;
+        };
+        
+        $scope.searchFunction = function() {
+            return function(dude) {
+                
+            };
+        };
+
         $scope.getPositionIntel();
         
         

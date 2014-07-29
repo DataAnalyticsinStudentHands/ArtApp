@@ -1,0 +1,7 @@
+<div ng-repeat="art in artwork | filter:search | orderBy:order:reverse">
+        <div ng-click="openProfile(art)">
+            {{art.title}}
+            {{art.artist_name}}
+            {{art.date_made}}
+        </div>
+</div>

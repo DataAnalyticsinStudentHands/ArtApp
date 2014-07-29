@@ -24,8 +24,8 @@ for toofar onCampus
 
 <!--arrrgh! these be the buttons, matey-->
 <div id="navcontainer">
-    <a ui-sref="index"><img src="img/back.svg" class="sizeofbutton" /></a><br/>
-    <a ng-click=openCamera()><img src="img/camera.svg" class="sizeofbutton"/></a><br/>
+    <a ng-click=back()><img src="img/back.svg" class="sizeofbutton" /></a><br/>
+    <!--<a ng-click=openCamera()><img src="img/camera.svg" class="sizeofbutton"/></a><br/>-->
     <a ng-click=toggleView()>
         <style>
                 .map {
@@ -70,7 +70,7 @@ for toofar onCampus
     </g>
   </g>
 </svg></span></a><br/>
-    <a ui-sref="search"><img src="img/search.svg" class="sizeofbutton"/></a>
+    <a ui-sref="search.artist"><img src="img/search.svg" class="sizeofbutton"/></a>
 </div>
 <div id="navcontainertwo" ng-show="$root.focus">
 <img ng-click=$root.clearFocus() src="img/close.svg" class="sizeofbutton">

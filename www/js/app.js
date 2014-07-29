@@ -29,15 +29,26 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
             
         })
         .state('search',{
+            abstract:true,
             url:"/search",
             templateUrl:"partials/search.html",
             controller:"searchCtrl"
             
         })
-        .state('test',{
-            url:"/test",
-            templateUrl:"partials/test.html",
-            controller:"testCtrl"
+        .state('search.artwork',{
+            url:"/search/art",
+            views:{"content":{templateUrl:"partials/search.artwork.html"}}
+            
+        })
+        .state('search.artist',{
+            url:"/search/artist",
+            views:{"content":{templateUrl:"partials/search.artist.html"}}
+            
+        })
+        .state('tourExplore',{
+            url:"/tour/expore",
+            templateUrl:"partials/explore.html",
+            controller:"exploreCtrl"
         });
 }]);
 
@@ -48,7 +59,7 @@ publicArtApp.run(['$rootScope', '$http',
                                console.log(fromState.name+"-------> Routing to ------>"+toState.name);
                            });*/
             
-            if (localStorage.getItem("tours_version")!="1.1") {
+            if (localStorage.getItem("tours_version")!="1.0") {
                 $http.get('tours.json').success(function(data) {
                     localStorage.setItem("tours_version","1.1");
                     localStorage.setItem("tours",JSON.stringify(data));
@@ -56,7 +67,7 @@ publicArtApp.run(['$rootScope', '$http',
                 });
             }
             
-            if (localStorage.getItem("tours_version")!="1.1") {
+            if (localStorage.getItem("tours_version")!="1.0") {
                   $http.get('artwork.json').success(function(data) {
                     localStorage.setItem("artwork_version","1.1");
                     localStorage.setItem("artwork",JSON.stringify(data));
@@ -137,5 +148,9 @@ publicArtApp.run(['$rootScope', '$http',
                 $rootScope.focusedArt = [];
                 $rootScope.focus = false;
             };
+            
+            
+            $rootScope.showTour = false;
+            $rootScope.tourPieces = null;
             
         }]);

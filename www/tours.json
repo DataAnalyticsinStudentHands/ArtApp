@@ -1,85 +1,74 @@
 [
-    {
-        "tour_id": 1,
-        "artwork_included": [1,2,3],
-        "predefined": true,
-        "times_taken": 50,
-        "likes": 2,
-        "estimated_time": 30,
-        "estimated_distance": 6,
-        "title": "Modern Art",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "2/1/2014",
-        "artistic_attributes":["test", "new", "boring"] 
-    },
-    {
-        "tour_id": 2,
-        "artwork_included": [1,3,5],
-        "predefined": true,
-        "times_taken": 40,
-        "likes": 8,
-        "estimated_time": 40,
-        "estimated_distance": 9,
-        "title": "Old Art",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "2/1/2014",
-        "artistic_attributes":["painting","bronze"] 
-    },
-    {
-        "tour_id": 3,
-        "artwork_included": [3,4,5],
-        "predefined": true,
-        "times_taken": 20,
-        "likes": 5,
-        "estimated_time": 30,
-        "estimated_distance": 6,
-        "title": "Fun Art",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "2/1/2014",
-        "artistic_attributes":["sculpture","color","large"] 
-    },
-    {
-        "tour_id": 4,
-        "artwork_included": [2,4,1],
-        "predefined": true,
-        "times_taken": 30,
-        "likes": 10,
-        "estimated_time": 40,
-        "estimated_distance": 6,
-        "title": "Kid Friendly Art",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "2/1/2014",
-        "artistic_attributes":["large", "color"] 
-    },
-    {
-        "tour_id": 5,
-        "artwork_included": [1, 6, 7, 8, 9, 10, 11, 12, 13],
-        "predefined": true,
-        "times_taken": 33,
-        "likes": 13,
-        "estimated_time": 47,
-        "estimated_distance": 10,
-        "title": "Orientation",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "7/9/2014",
-        "artistic_attributes":["new to campus"]
-    },
-    {"tour_id": 6,
-        "artwork_included": [2, 8, 9],
-        "predefined": true,
-        "times_taken": 23,
-        "likes": 17,
-        "estimated_time":1,
-        "estimated_distance": 10,
-        "title": "Dorm Art",
-        "picture": "",
-        "creator": "Mike",
-        "date_created": "7/9/2014",
-        "artistic_attributes":["new to campus"]
-    }
+{
+"tour_id":1,
+"tour_title":"New Acquisitions",
+"artwork_included":[14,15,26,37,43,44],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/23/14",
+"artistic_attributes":"Art from 2012"
+},
+{
+"tour_id":2,
+"tour_title":"Arts",
+"artwork_included":[13,17,29,39,40,47],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/23/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":3,
+"tour_title":"Athletics",
+"artwork_included":[21,35],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/28/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":4,
+"tour_title":"Central",
+"artwork_included":[12,16,20,27,28,33,36,38],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/23/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":5,
+"tour_title":"Professional",
+"artwork_included":[11,18,31,32],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/23/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":6,
+"tour_title":"Residential",
+"artwork_included":[15,19,26,30,41,42],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/23/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":7, 
+"tour_title":"Cullen North",
+"artwork_included":[23,24],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/28/14",
+"artistic_attributes":"Precint"
+},
+{
+"tour_id":8,
+"tour_title":"Biomedical",
+"artwork_included":[14,22,25],
+"times_taken":0,
+"creator":"Mike",
+"date_created":"7/25/14",
+"artistic_attributes":"Precint"
+}
 ]
