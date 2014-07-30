@@ -231,7 +231,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$state','$http
       //Creates marker object, adds it to map, adds it to markers array
       function addMarker(location, art) {
           var image = {
-                            url: "img/mapmarker.png",
+                            url: "img/mapmarker.svg",
                             size: new google.maps.Size(27, 41),
                             origin: new google.maps.Point(0,0),
                             anchor: new google.maps.Point(10, 31)
@@ -351,7 +351,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$state','$http
               
               if ($scope.artwork[z]['distance']==$scope.minD && $scope.artwork[z]['distance']<=0.01858638447759765){
                   //console.log("Closest: "+$scope.artwork[z]['title'] );
-                  html += '<img ng-click="selectMarker('+z+','+zInd+
+                  html += '<h1 align="center" style="position:absolute;top:70%;left:0px;">Look around, your near Art!</h1><img ng-click="selectMarker('+z+','+zInd+
                             ')" src="img/mapmarker.svg" style="position:absolute;left:'+25+
                               '%;top:'+90+
                               '%;width:50%;height:auto;z-index:'+zInd+
