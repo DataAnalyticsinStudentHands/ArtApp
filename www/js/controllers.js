@@ -38,9 +38,10 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', '$ht
             $scope.tourArt.push(art);
             var image = {
                             url: "img/mapmarker.svg",
-                            size: new google.maps.Size(27, 41),
+                            scaledSize: new google.maps.Size(40,60)
+                            /*size: new google.maps.Size(40, 60),
                             origin: new google.maps.Point(0,0),
-                            anchor: new google.maps.Point(10, 31)
+                            anchor: new google.maps.Point(20, 60)*/
                           };
             var marker = new google.maps.Marker({
                 position: location,
