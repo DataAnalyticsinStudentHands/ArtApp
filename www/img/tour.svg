@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 500 100"
+         xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+        <text ui-sref="tours"
+            x="10" y="90" 
+            style="font-family: 'MiloOT-Text';
+                   fill:#fffcfc;
+                   font-size:124;">
+          TOUR
+        </text>
+</svg>

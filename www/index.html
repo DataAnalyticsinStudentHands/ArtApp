@@ -1,9 +1,10 @@
 <!DOCTYPE html><!--HTML5 doctype-->
 <html lang="en" ng-app="publicArtApp">
     <head>
-        <title>Title: Art App</title>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />-->
+        <title>University of Houston Public Art App</title>
+        <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
         <script src='intelxdk.js'></script>
@@ -19,8 +20,9 @@
         <script src="js/services.js"></script>
         <script src="js/directives.js"></script>
         <script src="js/filters.js"></script>
-        
-    <!--Angular Snap-->
+        <link href="http://code.ionicframework.com/1.0.0-beta.1/css/ionic.min.css" rel="stylesheet">
+        <script src="http://code.ionicframework.com/1.0.0-beta.1/js/ionic.bundle.min.js"></script>
+<!--    Angular Snap-->
         <script src="bower_components/angular-snap/angular-snap.js"></script>
         <script src="bower_components/snapjs/snap.js"></script>
         <link rel="stylesheet" href="bower_components/angular-snap/angular-snap.css">
@@ -31,8 +33,11 @@
     <!--Dan's css stuff-->
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" type="text/css">
+<!--        <link rel="stylesheet" href="css/league-gothic/LeagueGothic-Regular.otf">-->
+
+<!--        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+-->
         
     <!--Loggin when Intel plugins are ready-->
         <script>
@@ -43,7 +48,7 @@
                 cordovaR = true;
                 if (intelxdkR) {
                     intel.xdk.device.hideSplashScreen();
-                    console.log("...hideSplashScreen called...");
+                    //alert("...hideSplashScreen called...");
                 }
             }, false);
             
@@ -60,6 +65,6 @@
     </head>
 
     <body>
-        <div ui-view style="height:100%;width:100%"></div>
+        <div id="indexWrapper" ui-view ></div>
     </body>
 </html>

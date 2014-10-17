@@ -3,8 +3,11 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', '$http', 'snapRemote', 'geolocationServe',
+appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ionic', '$http', 'snapRemote', 'geolocationServe',
     function($rootScope, $scope, $state, $http, snapRemote, geolocationServe) {
+        ionic.Platform.ready(function() {
+    navigator.splashscreen.hide();
+  });
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -156,7 +159,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', '$ht
         
     }]);
 
-appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$state','$http','accelerometerServe','compassServe','geolocationServe',
+appControllers.controller('exploreCtrl', ['$rootScope','$scope','ionic', '$state','$http','accelerometerServe','compassServe','geolocationServe',
   function($rootScope, $scope, $state, $http, accelerometerServe, compassServe, geolocationServe) {
       $scope.showAdd = true;
       $rootScope.focus = $rootScope.someFocus();

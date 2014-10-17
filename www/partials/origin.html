@@ -1,11 +1,14 @@
-<div class="logotitle">
-    <b>AR</b>tour 
-    <img ui-sref="search.artist" src="img/search.svg" class="logosearch" >
+<div id="logotitle">
+    <img id="titleImg" ng-src="img/title.svg"/>
+    <img ui-sref="search.artist" src="img/search.svg" id="logosearch" >
 </div>
-<div class="textcontainer">
-    
-    <h1 ui-sref="tours">TOUR</h1>
-    <h1 ui-sref="explore">EXPLORE</h1>
-    <div id="rectangle"></div>
-    
-</div>
+<div id="textcontainer">
+    <div id="tourList" ui-sref="tours" >
+        <img ng-src="img/tour.svg"/>
+    </div>
+    <div id="exploreList" ui-sref="explore" >
+        <img ng-src="img/explore.svg"/>
+    </div>
+</div>   
+<img id="uhLogo" ng-src="img/uh-oneline-white.png"/>
+
