@@ -54,11 +54,7 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
 
 publicArtApp.run(['$rootScope', '$http',
         function($rootScope, $http){
-            /*$rootScope.$on('$stateChangeStart', 
-                           function(event, toState, toParams, fromState, fromParams){
-                               console.log(fromState.name+"-------> Routing to ------>"+toState.name);
-                           });*/
-            
+            /*Reads tour.json and set data into localstorage only if there is new version*/
             if (localStorage.getItem("tours_version")!="1.0") {
                 $http.get('tours.json').success(function(data) {
                     localStorage.setItem("tours_version","1.1");
@@ -67,6 +63,7 @@ publicArtApp.run(['$rootScope', '$http',
                 });
             }
             
+            /*Reads artwork.json and set data into localstorage only if there is new version*/
             if (localStorage.getItem("tours_version")!="1.0") {
                   $http.get('artwork.json').success(function(data) {
                     localStorage.setItem("artwork_version","1.1");
@@ -75,8 +72,21 @@ publicArtApp.run(['$rootScope', '$http',
                 });
             }
             
+            /*Resets favorites each time app is opened for testing purposes*/
             localStorage.removeItem("favorites");
+            
+            /*Variables that control whether an artworks profile page should have its favorite(heart)/focus(plus sign) toggled on or off. Default is off*/
             $rootScope.favActive = false;
+            $rootScope.addActive = false;
+            /*This will be the variable indicating whether any pieces have been focused*/
+            $rootScope.focus = false;
+            /*When navigating to explore mode from the tour page this will be true to indicate that only tourPieces should be displayed in explore mode*/
+            $rootScope.showTour = false;
+            /*Will hold the artwork id's for the selected tour when user clicks start tour in the tours section of the app*/
+            $rootScope.tourPieces = null;
+            
+            
+            /*Given artwork id and state of the heart toggle button either the id is added into the list of localstorage favorites or the id is removed from the list of favorites*/
             $rootScope.favorite = function (id,toggle) {
                 var temp = [];
                 if (localStorage.getItem("favorites")!=null) {
@@ -98,6 +108,7 @@ publicArtApp.run(['$rootScope', '$http',
                 localStorage.setItem("favorites",JSON.stringify(temp));
             };
             
+            /*Given an artwork id the function returns true or false whether the artwork is stored as a favorite in local storage*/
             $rootScope.isFavorite = function (id) {
                 var temp = [];
                 if (localStorage.getItem("favorites")!=null) {
@@ -112,9 +123,8 @@ publicArtApp.run(['$rootScope', '$http',
                 return false;
             };
             
-            $rootScope.addActive = false;
+            /*Given artwork id and state of the focus toggle button either the id is added into the array focusedArt or the id is removed from focusedArt*/
             $rootScope.focusedArt = [];
-            $rootScope.focus = false;
             $rootScope.focusArt = function(id, toggle) {
                 if (toggle){
                     $rootScope.focusedArt.push(id);
@@ -127,6 +137,7 @@ publicArtApp.run(['$rootScope', '$http',
                 console.log("focused: "+$rootScope.focusedArt);
             };
             
+            /*Given an artwork id the function returns true or false whether the artwork is stored as a focused artwork in focusedArt*/
             $rootScope.isFocused = function(id) {
                 for(var q=0; q<$rootScope.focusedArt.length;q++) {
                     if ($rootScope.focusedArt[q]==id){
@@ -136,6 +147,7 @@ publicArtApp.run(['$rootScope', '$http',
                 return false;
             };
             
+            /*Returns true or false for whether there is any artwork that is focused*/
             $rootScope.someFocus = function() {
                 if ($rootScope.focusedArt.length>0){
                     return true;
@@ -144,13 +156,11 @@ publicArtApp.run(['$rootScope', '$http',
                 }
             };
             
+            /*Deletes all focused art id's from the array focusedArt*/
             $rootScope.clearFocus = function() {
                 $rootScope.focusedArt = [];
                 $rootScope.focus = false;
             };
             
-            
-            $rootScope.showTour = false;
-            $rootScope.tourPieces = null;
             
         }]);

@@ -11,7 +11,7 @@
         <script src='cordova.js'></script>
 
     <!--Angular stuff-->
-        <script src="vendor/angular/angular.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
         <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
 
@@ -31,7 +31,8 @@
         <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
         
     <!--Dan's css stuff-->
-        <link rel="stylesheet" href="css/normalize.css">
+        <!--normalize is not being used-->
+        <!--<link rel="stylesheet" href="css/normalize.css">-->
         <link rel="stylesheet" href="css/style.css">
 <!--        <link rel="stylesheet" href="css/league-gothic/LeagueGothic-Regular.otf">-->
 
@@ -41,6 +42,8 @@
         
     <!--Loggin when Intel plugins are ready-->
         <script>
+            
+            /*The following code calls intels hide splash screen function after both cordova and intelxdk libraries are loaded*/
             var cordovaR = false;
             var intelxdkR = false;
             document.addEventListener("deviceready", function(){
