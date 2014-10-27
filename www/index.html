@@ -1,73 +1,72 @@
-<!DOCTYPE html><!--HTML5 doctype-->
+<!DOCTYPE html>
+<!--HTML5 doctype-->
 <html lang="en" ng-app="publicArtApp">
-    <head>
-        <title>University of Houston Public Art App</title>
-        <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>University of Houston Public Art App</title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
-        <script src='intelxdk.js'></script>
-        <script src='cordova.js'></script>
+    <script src='intelxdk.js'></script>
+    <script src='cordova.js'></script>
 
     <!--Angular stuff-->
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
 
-        <script src="js/app.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/directives.js"></script>
-        <script src="js/filters.js"></script>
-        <link href="http://code.ionicframework.com/1.0.0-beta.1/css/ionic.min.css" rel="stylesheet">
-        <script src="http://code.ionicframework.com/1.0.0-beta.1/js/ionic.bundle.min.js"></script>
-<!--    Angular Snap-->
-        <script src="bower_components/angular-snap/angular-snap.js"></script>
-        <script src="bower_components/snapjs/snap.js"></script>
-        <link rel="stylesheet" href="bower_components/angular-snap/angular-snap.css">
-        
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
+    
+    <!--    Angular Snap-->
+    <script src="lib/angular-snap/angular-snap.js"></script>
+    <script src="lib/snapjs/snap.js"></script>
+    <link rel="stylesheet" href="lib/angular-snap/angular-snap.css">
+
     <!--Google Maps-->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
-        
-    <!--Dan's css stuff-->
-        <!--normalize is not being used-->
-        <!--<link rel="stylesheet" href="css/normalize.css">-->
-        <link rel="stylesheet" href="css/style.css">
-<!--        <link rel="stylesheet" href="css/league-gothic/LeagueGothic-Regular.otf">-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
 
-<!--        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
--->
-        
+    
     <!--Loggin when Intel plugins are ready-->
-        <script>
-            
-            /*The following code calls intels hide splash screen function after both cordova and intelxdk libraries are loaded*/
-            var cordovaR = false;
-            var intelxdkR = false;
-            document.addEventListener("deviceready", function(){
-                console.log('Cordova Ready:')
-                cordovaR = true;
-                if (intelxdkR) {
-                    intel.xdk.device.hideSplashScreen();
-                    //alert("...hideSplashScreen called...");
-                }
-            }, false);
-            
-            document.addEventListener("intel.xdk.device.ready",function(){ 
-                console.log('Intel Ready:');
-                intelxdkR = true;
-                intel.xdk.device.setRotateOrientation("portrait");
-                if (cordovaR) {
-                    intel.xdk.device.hideSplashScreen();
-                    console.log("...hideSplashScreen called...");
-                }
-            },false);
-        </script>
-    </head>
+    <script>
+        /*The following code calls intels hide splash screen function after both cordova and intelxdk libraries are loaded*/
+        var cordovaR = false;
+        var intelxdkR = false;
+        document.addEventListener("deviceready", function () {
+            console.log('Cordova Ready:')
+            cordovaR = true;
+            if (intelxdkR) {
+                intel.xdk.device.hideSplashScreen();
+                //alert("...hideSplashScreen called...");
+            }
+        }, false);
 
-    <body>
-        <div id="indexWrapper" ui-view ></div>
-    </body>
+        document.addEventListener("intel.xdk.device.ready", function () {
+            console.log('Intel Ready:');
+            intelxdkR = true;
+            intel.xdk.device.setRotateOrientation("portrait");
+            if (cordovaR) {
+                intel.xdk.device.hideSplashScreen();
+                console.log("...hideSplashScreen called...");
+            }
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div id="indexWrapper" ui-view></div>
+</body>
+
 </html>
