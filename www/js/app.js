@@ -1,5 +1,3 @@
-/*global angular, console*/
-
 'use strict';
 
 /* App Module */
@@ -15,43 +13,46 @@ var publicArtApp = angular.module('publicArtApp', [
 
 publicArtApp.config(['$stateProvider', function($stateProvider) {
     $stateProvider
-        .state('index',{
+        .state('ARtours',{
             url:"",
-            templateUrl:"partials/origin.html"
-        })
-        .state('tours',{
-            url:"/tours",
-            templateUrl:"partials/tours.html",
-            controller:"tourListCtrl"
-        })
-        .state('explore',{
-            url:"/explore",
-            templateUrl:"partials/explore.html",
-            controller:"exploreCtrl"
-            
+            views: {
+                "tour": {
+                    templateUrl:"partials/tours.html",
+                    controller:"tourListCtrl"
+                },
+                "explore": {
+                    templateUrl:"partials/explore.html",
+                    controller:"exploreCtrl"
+                }
+               }
         })
         .state('search',{
             abstract:true,
             url:"/search",
             templateUrl:"partials/search.html",
             controller:"searchCtrl"
-            
         })
         .state('search.artwork',{
             url:"/search/art",
-            views:{"content":{templateUrl:"partials/search.artwork.html"}}
-            
+            views:{
+                "content":{
+                    templateUrl:"partials/search.artwork.html"
+                }
+            }
         })
         .state('search.artist',{
             url:"/search/artist",
-            views:{"content":{templateUrl:"partials/search.artist.html"}}
-            
-        })
-        .state('tourExplore',{
-            url:"/tour/expore",
-            templateUrl:"partials/explore.html",
-            controller:"exploreCtrl"
+            views:{
+                "content":{
+                    templateUrl:"partials/search.artist.html"
+                }
+            }
         });
+//        .state('tourExplore',{
+//            url:"/tour/explore",
+//            templateUrl:"partials/explore.html",
+//            controller:"exploreCtrl"
+//        });
 }]);
 
 publicArtApp.run(['$rootScope', '$http', '$ionicPlatform',
@@ -78,7 +79,7 @@ publicArtApp.run(['$rootScope', '$http', '$ionicPlatform',
                 $http.get('tours.json').success(function(data) {
                     localStorage.setItem("tours_version","1.1");
                     localStorage.setItem("tours",JSON.stringify(data));
-                    console.log("...localstorage (tour.json) sucess...");
+                    console.log("...localstorage (tour.json) success...");
                 });
             }
             
@@ -87,7 +88,7 @@ publicArtApp.run(['$rootScope', '$http', '$ionicPlatform',
                   $http.get('artwork.json').success(function(data) {
                     localStorage.setItem("artwork_version","1.1");
                     localStorage.setItem("artwork",JSON.stringify(data));
-                    console.log("...localstorage (artwork.json) sucess...");
+                    console.log("...localstorage (artwork.json) success...");
                 });
             }
             

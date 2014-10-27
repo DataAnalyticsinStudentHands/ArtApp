@@ -1,10 +1,14 @@
-<snap-drawer>
+<!--<snap-drawer>
+    Let's just get rid of the snap stuff
+</snap-drawer>-->
+
+<ion-content snap-options="sliderOptions" style="background-color: #50f062">
     <div id="menucontainer">
-    <br/><a ui-sref="index" style="font-size: 2rem;"><b>BACK</b></a><br/><br/><br/>
+        <a snap-toggle="left" class="sub"><b>{{test}}</b></a> <span ng-show=tourArt>| <a ng-click=startTour() class="sub"><b>START</b></a></span><div id="map-canvas"></div>
+    
     <div>
         <div snap-toggle="left" >
             <a ng-click="favTourClick()" >Favorites</a><br/><br/>
-<!--            <hr>-->
     </div>
     <div id="exploreList" ui-sref="explore" >
         <img ng-src="img/explore.svg"/>
@@ -21,11 +25,6 @@
         </div>
     </div>
     </div>
-</snap-drawer>
 
-<snap-content snap-options="sliderOptions" style="background-color: #50f062">
-    <div id="menucontainer">
-        <a snap-toggle="left" class="sub"><b>VIEW</b></a> <span ng-show=tourArt>| <a ng-click=startTour() class="sub"><b>START</b></a></span><div id="map-canvas"></div>
-    </div>
-</snap-content>
 <div ng-include="'partials/profile.html'"></div>
+</ion-content>

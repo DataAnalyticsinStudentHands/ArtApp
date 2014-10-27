@@ -10,6 +10,8 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ion
   });
         $scope.showAdd = false;
         
+        //alert('loaded');
+        
         //Uses local storage instead of http requests
         $scope.tours = JSON.parse(localStorage.getItem("tours"));
         $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
@@ -154,7 +156,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ion
         $scope.startTour = function() {
             $rootScope.showTour = true;
             $rootScope.tourPieces = $scope.tourArt;
-            $state.go('explore');
+            $state.go('ARtours');
         };
         
     }]);
@@ -186,7 +188,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','ionic', '$state
           $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
       };
       
-      $scope.back = function() {
+      $scope.back = function() { //probably cut
           if ($rootScope.showTour){
               $state.go('tours');
           }else{

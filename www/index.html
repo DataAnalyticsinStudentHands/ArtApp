@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--HTML5 doctype-->
-<html lang="en" ng-app="publicArtApp">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -14,12 +14,14 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    
 
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
     <script src='intelxdk.js'></script>
     <script src='cordova.js'></script>
+    <!-- ionic/angularjs js -->
+<!--    <script src="lib/ionic/js/ionic.bundle.js"></script>-->
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
 
     <!--Angular stuff-->
     <script src="lib/angular-sanitize/angular-sanitize.js"></script>
@@ -30,7 +32,7 @@
     <script src="js/directives.js"></script>
     <script src="js/filters.js"></script>
     
-    <!--    Angular Snap-->
+    <!--    Angular Snap -->
     <script src="lib/angular-snap/angular-snap.js"></script>
     <script src="lib/snapjs/snap.js"></script>
     <link rel="stylesheet" href="lib/angular-snap/angular-snap.css">
@@ -65,8 +67,16 @@
     </script>
 </head>
 
-<body>
-    <div id="indexWrapper" ui-view></div>
+<body  ng-app="publicArtApp">
+<!--    <div id="indexWrapper"></div> position might need redo-->
+    <ion-side-menus>
+        <ion-side-menu-content drag-content="true">
+            <ion-nav-view name="explore"></ion-nav-view>
+        </ion-side-menu-content>
+        <ion-side-menu side="left" expose-aside-when="large">
+            <ion-nav-view animation="slide-left-right" name="tour"></ion-nav-view>
+        </ion-side-menu>
+    </ion-side-menus>
 </body>
 
 </html>
