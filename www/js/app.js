@@ -55,25 +55,21 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
 //        });
 }]);
 
-publicArtApp.run(['$rootScope', '$http', '$ionicPlatform',
-        function($rootScope, $http, $ionicPlatform){
+publicArtApp.run(['$rootScope', '$http', 
+        function($rootScope, $http){
             
             
-  $ionicPlatform.ready(function() {
+  //$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+   /* if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
-    }
-  });
+    }*/
+ // });
 
-            
-            
-            
-            
             /*Reads tour.json and set data into localstorage only if there is new version*/
             if (localStorage.getItem("tours_version")!="1.0") {
                 $http.get('tours.json').success(function(data) {

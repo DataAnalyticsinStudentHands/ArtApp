@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ionic', '$http', 'snapRemote', 'geolocationServe',
-    function($rootScope, $scope, $state, $http, snapRemote, geolocationServe) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$http', 'snapRemote', 'geolocationServe',
+    function($rootScope, $scope, $http, snapRemote, geolocationServe) {
         ionic.Platform.ready(function() {
     navigator.splashscreen.hide();
   });
@@ -136,7 +136,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ion
                     }
 
                 }
-            }else{alert("You don't have any favorites yet!")}
+            }else{alert("You don't have any favorites yet!");}
         };
         
         //adds markers for artwork add within the last X months
@@ -161,8 +161,8 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope', '$state', 'ion
         
     }]);
 
-appControllers.controller('exploreCtrl', ['$rootScope','$scope','ionic', '$state','$http','accelerometerServe','compassServe','geolocationServe',
-  function($rootScope, $scope, $state, $http, accelerometerServe, compassServe, geolocationServe) {
+appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$http','accelerometerServe','compassServe','geolocationServe',
+  function($rootScope, $scope, $http, accelerometerServe, compassServe, geolocationServe) {
       $scope.showAdd = true;
       $rootScope.focus = $rootScope.someFocus();
       
@@ -182,11 +182,11 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','ionic', '$state
       $scope.camInUse = false;
       
       //Uses local storage instead of http requests
-      if ($rootScope.showTour){
-          $scope.artwork = $rootScope.tourPieces;
-      }else{
+//      if ($rootScope.showTour){
+//          $scope.artwork = $rootScope.tourPieces;
+//      }else{
           $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
-      };
+//      }
       
       $scope.back = function() { //probably cut
           if ($rootScope.showTour){
@@ -319,7 +319,7 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope','ionic', '$state
           }else{
               $scope.toggle = true;
           }
-      }
+      };
       
       // start intel.xdk augmented reality mode, adds camera in background       
       function xdkStartAR() {
