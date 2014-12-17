@@ -6,7 +6,6 @@ var publicArtApp = angular.module('publicArtApp', [
     'ionic',
     'controllerModule',
     'locationServicesModule',
-    'snap',
     'ngSanitize'
 ]);
 
@@ -20,9 +19,9 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
                     templateUrl:"partials/tours.html",
                     controller:"tourListCtrl"
                 },
-                "explore": {
-                    templateUrl:"partials/explore.html",
-                    controller:"exploreCtrl"
+                "imslide": {
+                    templateUrl:"partials/imslide.html",
+                    controller:"imslideCtrl"
                 }
                }
         })

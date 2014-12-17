@@ -2,28 +2,21 @@
     Let's just get rid of the snap stuff
 </snap-drawer>-->
 
-<ion-content snap-options="sliderOptions" style="background-color: #50f062">
-    <div id="menucontainer">
-        <a snap-toggle="left" class="sub"><b>{{test}}</b></a> <span ng-show=tourArt>| <a ng-click=startTour() class="sub"><b>START</b></a></span><div id="map-canvas"></div>
+<ion-content style="background-color: #50f062">
+    <div class="list">
+        <span  ng-show=tourArt><a class="item" ng-click=startTour()><b>START</b></a></span>
     
-    <div>
-        <div snap-toggle="left" >
-            <a ng-click="favTourClick()" >Favorites</a><br/><br/>
-    </div>
-    <div id="exploreList" ui-sref="explore" >
-        <img ng-src="img/explore.svg"/>
-    </div>
+<!--        <div id="map-canvas"></div>-->
+        
+        <a class="item" ng-click="favTourClick()" >Favorites</a>
+        <a class="item" ng-click="testFunc()" >Explore</a>
         <!--<div snap-toggle="left" ng-click="newTourClick()">
             <a style="font-size: 2rem;">New</a><br/><br/>
             <hr>
         </div>-->
-    </div>
-    <div ng-repeat="tour in tours" class="row responsive-sm">
-        <div ng-click="tourClick(tour)">
-            <a style="font-size: 2rem;">{{tour.tour_title}}</a><br/><br/>
-            <hr>
+        <div ng-click="tourClick(tour)" ng-repeat="tour in tours" class="item">
+            {{tour.tour_title}}
         </div>
-    </div>
     </div>
 
 <div ng-include="'partials/profile.html'"></div>

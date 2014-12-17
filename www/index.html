@@ -17,7 +17,7 @@
     
 
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
-    <script src='intelxdk.js'></script>
+<!--    <script src='intelxdk.js'></script>-->
     <script src='cordova.js'></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -33,9 +33,11 @@
 <!--    <script src="js/filters.js"></script>-->
     
     <!--    Angular Snap -->
+<!--
     <script src="lib/angular-snap/angular-snap.js"></script>
     <script src="lib/snapjs/snap.js"></script>
     <link rel="stylesheet" href="lib/angular-snap/angular-snap.css">
+-->
 
     <!--Google Maps-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
@@ -55,23 +57,23 @@
             }
         }, false);
 
-        document.addEventListener("intel.xdk.device.ready", function () {
-            console.log('Intel Ready:');
-            intelxdkR = true;
-            intel.xdk.device.setRotateOrientation("portrait");
-            if (cordovaR) {
-                intel.xdk.device.hideSplashScreen();
-                console.log("...hideSplashScreen called...");
-            }
-        }, false);
+//        document.addEventListener("intel.xdk.device.ready", function () {
+//            console.log('Intel Ready:');
+//            intelxdkR = true;
+//            intel.xdk.device.setRotateOrientation("portrait");
+//            if (cordovaR) {
+//                intel.xdk.device.hideSplashScreen();
+//                console.log("...hideSplashScreen called...");
+//            }
+//        }, false);
     </script>
 </head>
 
 <body  ng-app="publicArtApp">
 <!--    <div id="indexWrapper"></div> position might need redo-->
-    <ion-side-menus>
-        <ion-side-menu-content drag-content="true">
-            <ion-nav-view name="explore"></ion-nav-view>
+    <ion-side-menus delegate-handle="main-menu">
+        <ion-side-menu-content drag-content="false">
+            <ion-nav-view name="imslide"></ion-nav-view>
         </ion-side-menu-content>
         <ion-side-menu side="left" expose-aside-when="large">
             <ion-nav-view animation="slide-left-right" name="tour"></ion-nav-view>
