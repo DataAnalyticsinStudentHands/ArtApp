@@ -1,0 +1,37 @@
+<ion-view title="ImageSlide">
+    <ion-header-bar align-title="center" class="bar-dark">
+        <div class="buttons">
+            <button class="button" ng-click="menuToggle()">Left Button</button>
+        </div>
+        <h1 class="title">Title!</h1>
+        <div class="buttons">
+<!--            <button class="button">Right Button</button>-->
+        </div>
+    </ion-header-bar>
+    
+<!--    <ion-content>-->
+        <ion-slide-box on-slide-changed="slideHasChanged($index)">
+            <ion-slide>
+                <div class="box blue"><img ng-src="http://www.housuggest.org/images/ARtour/1/manual.png"
+                                           ng-style="{'width' : '100%'}"></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box yellow"><img ng-src="http://www.housuggest.org/images/ARtour/2/lawrenceargent.png"
+                                             ng-style="{'width' : '100%'}"></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box green"><img ng-src="http://www.housuggest.org/images/ARtour/3/jesusbautistamoroles.png"
+                                             ng-style="{'width' : '100%'}"></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box pink"><img ng-src="http://www.housuggest.org/images/ARtour/4/scottburton.png"
+                                           ng-style="{'width' : '100%'}"></div>
+            </ion-slide>
+<!--
+            <ion-slide>
+                <div class="box pink"><h1>MAP GOES HERE</h1></div>
+            </ion-slide>
+-->
+        </ion-slide-box>
+<!--    </ion-content>-->
+</ion-view>

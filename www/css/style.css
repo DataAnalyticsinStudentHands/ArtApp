@@ -20,6 +20,13 @@ body{
     -o-background-size: cover;
 }
 
+.box {
+/*    display:block;*/
+/*    width:20%;*/
+/*    max-width:600px;*/
+/*    margin:auto*/
+}
+
 /*
 origin.html - all to be deleted, but left in for reference for splash page
 */
