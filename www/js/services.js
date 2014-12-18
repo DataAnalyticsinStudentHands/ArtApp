@@ -36,8 +36,17 @@ utilServices.factory('tourInfo', ['$q', function($q) {
 
     var tour = null;
     var artwork = null;
+    var tourSelected = false;
     
   return {
+    getTourSelected: function(){
+        
+        return tourSelected;
+    },
+    setTourSelected: function(input){
+        
+        tourSelected = input;
+    },
     getTour: function(){
         
         return tour;

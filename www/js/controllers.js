@@ -24,6 +24,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
             
             $scope.artwork = Restangular.stripRestangular(success);
             tourInfo.setArtwork($scope.artwork);
+            tourInfo.setTourSelected(false);
         },
         function(error){
             
@@ -133,6 +134,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
             var tourArt = [];
             
             tourInfo.setTour(tour);
+            tourInfo.setTourSelected(true);
             
             for(var i=0;i<tour.artwork_included.length;i++){
                 
@@ -764,11 +766,12 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate) {
         
         $scope.tourGet = tourInfo.getTour;
         $scope.artworkGet = tourInfo.getArtwork;
+        $scope.tourSelected = tourInfo.getTourSelected;
         
         $scope.genImList = function(artOb){
             
@@ -776,6 +779,18 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
             
             return test;
         }
+        
+        $scope.genArtList = function(){
+            
+            if($scope.tourSelected()){
+                
+                return $scope.artworkGet();
+            }
+            else{
+                
+                return null;
+            }
+        };
         
         $scope.slideHasChanged = function(index){
             
