@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular',
-    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular','$ionicSlideBoxDelegate',
+    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular, $ionicSlideBoxDelegate) {
         ionic.Platform.ready(function() {
     //navigator.splashscreen.hide();
   });
@@ -142,6 +142,9 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
             }
             
             tourInfo.setArtwork(tourArt);
+            
+            
+            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
             
 //            deleteMarkers();
 //            $scope.tourArt = [];
