@@ -12,9 +12,14 @@
 <!--    <ion-content>-->
         <ion-slide-box on-slide-changed="slideHasChanged($index)">
 
-            <ion-slide>
+            <ion-slide ng-repeat="artOb in artworkGet()">
+<!--
                 <div class="box blue"><img ng-src="img/{{tourGet() ? tourGet().tour_id : 1}}.jpg"
                                            ng-style="{'width' : '100%'}"></div>
+-->
+            <div class="box blue"><img ng-src="{{genImList(artOb)}}"
+                                       ng-style="{'width' : '100%'}">       </div>
+                
             </ion-slide>
             <!--
             <ion-slide>

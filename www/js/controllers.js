@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo',
-    function($rootScope, $scope, $http, geolocationServe, tourInfo) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular',
+    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular) {
         ionic.Platform.ready(function() {
     //navigator.splashscreen.hide();
   });
@@ -14,7 +14,22 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         
         //Uses local storage instead of http requests
         $scope.tours = JSON.parse(localStorage.getItem("tours"));
-        $scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+        //$scope.artwork = JSON.parse(localStorage.getItem("artwork"));
+        
+        var artProm = Restangular.all('artobjects').getList();
+        
+        artProm.then(function(success){
+            
+            
+            
+            $scope.artwork = Restangular.stripRestangular(success);
+            tourInfo.setArtwork($scope.artwork);
+        },
+        function(error){
+            
+            console.log("Artwork GET request failed");
+        });
+        
         $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
         
         $scope.selectedMarker = null;
@@ -754,6 +769,13 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
         
         $scope.tourGet = tourInfo.getTour;
         $scope.artworkGet = tourInfo.getArtwork;
+        
+        $scope.genImList = function(artOb){
+            
+            var test = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            
+            return test;
+        }
         
         $scope.slideHasChanged = function(index){
             
