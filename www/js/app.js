@@ -6,7 +6,8 @@ var publicArtApp = angular.module('publicArtApp', [
     'ionic',
     'controllerModule',
     'locationServicesModule',
-    'ngSanitize'
+    'ngSanitize',
+    'utilModule'
 ]);
 
 

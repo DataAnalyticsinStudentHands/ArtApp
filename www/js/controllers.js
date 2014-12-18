@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe',
-    function($rootScope, $scope, $http, geolocationServe) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo',
+    function($rootScope, $scope, $http, geolocationServe, tourInfo) {
         ionic.Platform.ready(function() {
     //navigator.splashscreen.hide();
   });
@@ -115,7 +115,16 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         //When tour name is clicked the corresponding markers are added.
         $scope.tourClick = function(tour) {
             
-            console.log(tour);
+            var tourArt = [];
+            
+            tourInfo.setTour(tour);
+            
+            for(var i=0;i<tour.artwork_included.length;i++){
+                
+                tourArt.push($scope.artwork[tour.artwork_included[i]]);
+            }
+            
+            tourInfo.setArtwork(tourArt);
             
 //            deleteMarkers();
 //            $scope.tourArt = [];
@@ -740,12 +749,15 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo) {
+        
+        $scope.tourGet = tourInfo.getTour;
+        $scope.artworkGet = tourInfo.getArtwork;
         
         $scope.slideHasChanged = function(index){
             
-            console.log($window.innerWidth);
+            console.log($scope.tourGet());
         };
         
         $scope.menuToggle = function(){
