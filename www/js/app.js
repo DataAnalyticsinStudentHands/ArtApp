@@ -13,20 +13,30 @@ var publicArtApp = angular.module('publicArtApp', [
 ]);
 
 
-publicArtApp.config(['$stateProvider', function($stateProvider) {
+publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
+    $urlRouterProvider.otherwise("/tour");
     $stateProvider
-        .state('ARtours',{
-            url:"",
-            views: {
-                "tour": {
+        .state('tour',{
+            url:"/tour",
+            views:{
+                "menu":{
                     templateUrl:"partials/tours.html",
                     controller:"tourListCtrl"
                 },
-                "imslide": {
+                "content":{
+                    templateUrl:"partials/main.html",
+                    controller:"mainCtrl"
+                }
+            }
+        })
+        .state('tour.imslide',{
+            url:"/imslide/:tourID",
+            views:{
+                "content@":{
                     templateUrl:"partials/imslide.html",
                     controller:"imslideCtrl"
                 }
-               }
+            }
         })
         .state('search',{
             abstract:true,
@@ -55,10 +65,12 @@ publicArtApp.config(['$stateProvider', function($stateProvider) {
 //            templateUrl:"partials/explore.html",
 //            controller:"exploreCtrl"
 //        });
+    
+    //$urlRouterProvider.otherwise('tour')
 }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth',
-        function($rootScope, $http, Restangular, Auth){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
+        function($rootScope, $http, Restangular, Auth, tourInfo){
             
             
   //$ionicPlatform.ready(function() {
@@ -80,6 +92,7 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth',
             loginResultPromise.then(function(result) {
                     
                 Auth.confirmCredentials();
+                tourInfo.loadData();
             });
 
             /*Reads tour.json and set data into localstorage only if there is new version*/

@@ -50,6 +50,7 @@
 
     
     <!--Loggin when Intel plugins are ready-->
+<!--
     <script>
         /*The following code calls intels hide splash screen function after both cordova and intelxdk libraries are loaded*/
         var cordovaR = false;
@@ -63,26 +64,27 @@
             }
         }, false);
 
-//        document.addEventListener("intel.xdk.device.ready", function () {
-//            console.log('Intel Ready:');
-//            intelxdkR = true;
-//            intel.xdk.device.setRotateOrientation("portrait");
-//            if (cordovaR) {
-//                intel.xdk.device.hideSplashScreen();
-//                console.log("...hideSplashScreen called...");
-//            }
-//        }, false);
+        document.addEventListener("intel.xdk.device.ready", function () {
+            console.log('Intel Ready:');
+            intelxdkR = true;
+            intel.xdk.device.setRotateOrientation("portrait");
+            if (cordovaR) {
+                intel.xdk.device.hideSplashScreen();
+                console.log("...hideSplashScreen called...");
+            }
+        }, false);
     </script>
+-->
 </head>
 
 <body  ng-app="publicArtApp">
 <!--    <div id="indexWrapper"></div> position might need redo-->
     <ion-side-menus delegate-handle="main-menu">
         <ion-side-menu-content drag-content="false">
-            <ion-nav-view name="imslide"></ion-nav-view>
+            <ion-nav-view name="content"></ion-nav-view>
         </ion-side-menu-content>
         <ion-side-menu side="left" expose-aside-when="large">
-            <ion-nav-view animation="slide-left-right" name="tour"></ion-nav-view>
+            <ion-nav-view animation="slide-left-right" name="menu"></ion-nav-view>
         </ion-side-menu>
     </ion-side-menus>
 </body>

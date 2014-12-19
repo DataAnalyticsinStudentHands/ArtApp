@@ -8,15 +8,24 @@
     
 <!--        <div id="map-canvas"></div>-->
         
-        <a class="item" ng-click="favTourClick()" >My Favorites</a>
+        <a class="item item-icon-left" ng-click="favTourClick()" >
+            <i class="icon ion-star"></i>
+            My Favorites
+        </a>
         <a class="item" ng-click="testFunc()" ><h1>Explore</h1></a>
-        <!--<div snap-toggle="left" ng-click="newTourClick()">
-            <a style="font-size: 2rem;">New</a><br/><br/>
-            <hr>
-        </div>-->
-        <div ng-click="tourClick(tour)" ng-repeat="tour in tours" class="item">
+<!--
+        <div ng-click="tourClick(tour)" ng-repeat="tour in toursGet()" class="item">
             {{tour.tour_title}}
         </div>
+-->
+        <div ng-click="menuShow=!menuShow" class="item item-icon-left item-divider" ng-init="menuShow=false">
+            <i ng-hide="menuShow" class="icon ion-arrow-down-b"></i>
+            <i ng-show="menuShow" class="icon ion-arrow-right-b"></i>
+            Public Art Tours
+        </div>
+        <a ng-hide="menuShow" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item">
+            <h3>{{tour.tour_title}}</h3>
+        </a>
     </div>
 
 <div ng-include="'partials/profile.html'"></div>

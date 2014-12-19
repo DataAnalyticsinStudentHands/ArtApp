@@ -3,7 +3,7 @@
         <div class="buttons">
             <button class="button" ng-click="menuToggle()">Left Button</button>
         </div>
-        <h1 class="title">{{tourGet() ? tourGet().tour_id : 'Default Title for Default Title Testing Purposes'}}</h1>
+        <h1 class="title">{{tourID}}</h1>
         <div class="buttons">
 <!--            <button class="button">Right Button</button>-->
         </div>
@@ -12,7 +12,7 @@
 <!--    <ion-content>-->
         <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)">
 
-            <ion-slide ng-repeat="artOb in genArtList()">
+            <ion-slide ng-repeat="artOb in artworkGet(tourID)">
 <!--
                 <div class="box blue"><img ng-src="img/{{tourGet() ? tourGet().tour_id : 1}}.jpg"
                                            ng-style="{'width' : '100%'}"></div>

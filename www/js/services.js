@@ -32,28 +32,35 @@ locationServices.factory('geolocationServe', ['$q', function($q) {
   }
 }]);
 
-utilServices.factory('tourInfo', ['$q', function($q) {
+utilServices.factory('tourInfo', ['$q','Restangular',
+                                  function($q,Restangular) {
 
-    var tour = null;
+    var tours = null;
     var artwork = null;
-    var tourSelected = false;
     
-  return {
-    getTourSelected: function(){
+  var outOb = {
+    loadData: function(){
         
-        return tourSelected;
+        var artProm = Restangular.all('artobjects').getList();
+        
+        artProm.then(function(success){
+            
+            artwork = Restangular.stripRestangular(success);
+        },
+        function(error){
+            
+            console.log("Artwork GET request failed");
+        });
+        
+        tours = JSON.parse(localStorage.getItem("tours"));
     },
-    setTourSelected: function(input){
+    getTours: function(){
         
-        tourSelected = input;
+        return tours;
     },
-    getTour: function(){
+    setTours: function(input){
         
-        return tour;
-    },
-    setTour: function(input){
-        
-        tour = input;
+        tours = input;
     },
     getArtwork: function(){
         
@@ -62,6 +69,45 @@ utilServices.factory('tourInfo', ['$q', function($q) {
     setArtwork: function(input){
         
         artwork = input;
+    },
+    getTourByID: function(id){
+        
+        if(tours){
+            
+            var temp = tours.filter(function(element){
+                
+                return element.tour_id == id;
+            });
+            
+            return temp[0];
+        }
+        else{
+            
+            return null;
+        }
     }
   }
+  
+  outOb.getArtworkByTourID = function(id){
+        
+        var tour = outOb.getTourByID(id);
+        
+        if(tour){
+            
+            var tourArt = [];
+            
+            for(var i=0;i<tour.artwork_included.length;i++){
+                
+                tourArt.push(artwork[tour.artwork_included[i]]);
+            }
+            
+            return tourArt;
+        }
+        else{
+         
+            return null;
+        }
+    }
+  
+  return outOb;
 }]);

@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular','$ionicSlideBoxDelegate',
-    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular, $ionicSlideBoxDelegate) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
+    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
         ionic.Platform.ready(function() {
     //navigator.splashscreen.hide();
   });
@@ -13,23 +13,8 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         //alert('loaded');
         
         //Uses local storage instead of http requests
-        $scope.tours = JSON.parse(localStorage.getItem("tours"));
+        $scope.toursGet = tourInfo.getTours;
         //$scope.artwork = JSON.parse(localStorage.getItem("artwork"));
-        
-        var artProm = Restangular.all('artobjects').getList();
-        
-        artProm.then(function(success){
-            
-            
-            
-            $scope.artwork = Restangular.stripRestangular(success);
-            tourInfo.setArtwork($scope.artwork);
-            tourInfo.setTourSelected(false);
-        },
-        function(error){
-            
-            console.log("Artwork GET request failed");
-        });
         
         $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
         
@@ -131,20 +116,7 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         //When tour name is clicked the corresponding markers are added.
         $scope.tourClick = function(tour) {
             
-            var tourArt = [];
-            
-            tourInfo.setTour(tour);
-            tourInfo.setTourSelected(true);
-            
-            for(var i=0;i<tour.artwork_included.length;i++){
-                
-                tourArt.push($scope.artwork[tour.artwork_included[i]]);
-            }
-            
-            tourInfo.setArtwork(tourArt);
-            
-            
-            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
+            $state.go('tour.imslide');
             
 //            deleteMarkers();
 //            $scope.tourArt = [];
@@ -769,40 +741,34 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         
-        $scope.tourGet = tourInfo.getTour;
-        $scope.artworkGet = tourInfo.getArtwork;
-        $scope.tourSelected = tourInfo.getTourSelected;
+        $scope.tourID = $stateParams.tourID;
+        $scope.tourGet = tourInfo.getTourByID;
+        $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
             
-            var test = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
             
-            return test;
+            return outStr;
         }
-        
-        $scope.genArtList = function(){
-            
-            if($scope.tourSelected()){
-                
-                return $scope.artworkGet();
-            }
-            else{
-                
-                return null;
-            }
-        };
         
         $scope.slideHasChanged = function(index){
             
-            console.log($scope.tourGet());
+            console.log($scope.tourGet($scope.tourID));
         };
         
         $scope.menuToggle = function(){
             
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
+        
+    }]);
+
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+        
         
     }]);
