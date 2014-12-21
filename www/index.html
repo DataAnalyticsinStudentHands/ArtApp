@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!--HTML5 doctype-->
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -47,38 +46,9 @@
 
     <!--Google Maps-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
-
-    
-    <!--Loggin when Intel plugins are ready-->
-<!--
-    <script>
-        /*The following code calls intels hide splash screen function after both cordova and intelxdk libraries are loaded*/
-        var cordovaR = false;
-        var intelxdkR = false;
-        document.addEventListener("deviceready", function () {
-            console.log('Cordova Ready:')
-            cordovaR = true;
-            if (intelxdkR) {
-                intel.xdk.device.hideSplashScreen();
-                //alert("...hideSplashScreen called...");
-            }
-        }, false);
-
-        document.addEventListener("intel.xdk.device.ready", function () {
-            console.log('Intel Ready:');
-            intelxdkR = true;
-            intel.xdk.device.setRotateOrientation("portrait");
-            if (cordovaR) {
-                intel.xdk.device.hideSplashScreen();
-                console.log("...hideSplashScreen called...");
-            }
-        }, false);
-    </script>
--->
 </head>
 
 <body  ng-app="publicArtApp">
-<!--    <div id="indexWrapper"></div> position might need redo-->
     <ion-side-menus delegate-handle="main-menu">
         <ion-side-menu-content drag-content="false">
             <ion-nav-view name="content"></ion-nav-view>
@@ -88,5 +58,4 @@
         </ion-side-menu>
     </ion-side-menus>
 </body>
-
 </html>

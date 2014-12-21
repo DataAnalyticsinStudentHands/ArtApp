@@ -1,23 +1,12 @@
-<!--<snap-drawer>
-    Let's just get rid of the snap stuff
-</snap-drawer>-->
-
+<ion-view title="Menu">
+<ion-nav-bar class="bar-dark"></ion-nav-bar>
 <ion-content style="background-color: #50f062">
     <div class="list">
-        <span  ng-show=tourArt><a class="item" ng-click=startTour()><b>START</b></a></span>
-    
-<!--        <div id="map-canvas"></div>-->
-        
         <a class="item item-icon-left" ng-click="favTourClick()" >
             <i class="icon ion-star"></i>
             My Favorites
         </a>
         <a class="item" ng-click="testFunc()" ><h1>Explore</h1></a>
-<!--
-        <div ng-click="tourClick(tour)" ng-repeat="tour in toursGet()" class="item">
-            {{tour.tour_title}}
-        </div>
--->
         <div ng-click="menuShow=!menuShow" class="item item-icon-left item-divider" ng-init="menuShow=false">
             <i ng-hide="menuShow" class="icon ion-arrow-down-b"></i>
             <i ng-show="menuShow" class="icon ion-arrow-right-b"></i>
@@ -27,6 +16,5 @@
             <h3>{{tour.tour_title}}</h3>
         </a>
     </div>
-
-<div ng-include="'partials/profile.html'"></div>
 </ion-content>
+</ion-view>

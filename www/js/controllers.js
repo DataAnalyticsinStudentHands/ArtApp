@@ -743,28 +743,22 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
 
 appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
-            
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
-            
             return outStr;
         }
         
         $scope.slideHasChanged = function(index){
-            
             console.log($scope.tourGet($scope.tourID));
         };
         
         $scope.menuToggle = function(){
-            
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
-        
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
