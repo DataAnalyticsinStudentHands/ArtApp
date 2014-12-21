@@ -1,12 +1,8 @@
 <ion-view title="ImageSlide">
     <ion-header-bar align-title="center" class="bar-dark">
-        <div class="buttons">
-            <button class="button" ng-click="menuToggle()">Left Button</button>
-        </div>
-        <h1 class="title">{{tourID}}</h1>
-        <div class="buttons">
-            
-        </div>
+        <button ng-hide="$exposeAside.active" class="button button-icon button-clear ion-navicon" ng-click="menuToggle()"></button>
+        <h1 class="title">{{tourGet(tourID).tour_title}}</h1>
+        <button class="button button-icon button-clear " ng-click="loadAR()">Start Tour</button>
     </ion-header-bar>
     <ion-content>
         <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)">

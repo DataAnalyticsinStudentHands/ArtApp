@@ -180,9 +180,8 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         
         
         $scope.testFunc = function(){
-            
             console.log('HEYEYEYEYEYE');
-            state.go('search.artwork');
+            $state.go('search.artwork');
         }
     }]);
 
@@ -651,12 +650,10 @@ appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$http','accele
           startWatches();
       }
       
-      
       //Start everything
       initMap();
       open();
       initListeners();
-      
   }]);
 
 appControllers.controller('searchCtrl', ['$scope','$rootScope',
@@ -736,9 +733,6 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         };
 
         $scope.getPositionIntel();
-        
-        
-        
     }]);
 
 appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
@@ -759,10 +753,12 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
         $scope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
+        $rootScope.loadAR = function() {
+            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+        }
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        
         
     }]);
