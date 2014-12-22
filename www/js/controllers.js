@@ -6,8 +6,9 @@ var appControllers = angular.module('controllerModule', []);
 appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
     function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
         ionic.Platform.ready(function() {
-    //navigator.splashscreen.hide();
-  });
+            //navigator.splashscreen.hide();
+        });
+        
         $scope.showAdd = false;
         
         //alert('loaded');
@@ -22,12 +23,10 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         
         $scope.tourArt = [];
         
-        
-        $scope.sliderOptions = {disable: 'right', hyperextensible: false};
-//        snapRemote.getSnapper().then(function(snapper) {
-//            snapper.open('left');
-//        });
-        
+        $scope.testFunc = function(){
+            console.log('HEYEYEYEYEYE');
+            $state.go('search.artwork');
+        }
         /*********************************************/
         /*MY COMMENT STUFF STARTS AT map-canvas!!!!!!*/
         /*********************************************/
@@ -103,35 +102,31 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
 //          console.log('open profile');
 //            $scope.$apply(function () {
 //                  $scope.selectedMarker = art;
-//                  console.log("is fav: "+$rootScope.isFavorite(art.artwork_id));                         $rootScope.favActive = $rootScope.isFavorite(art.artwork_id);
+//                  console.log("is fav: "+$rootScope.isFavorite(art.artwork_id));
+//                  $rootScope.favActive = $rootScope.isFavorite(art.artwork_id);
 //            });
 //        };
 //        
 
-        
-        
-        
-        
-        
         //When tour name is clicked the corresponding markers are added.
-        $scope.tourClick = function(tour) {
-            
-            $state.go('tour.imslide');
-            
-//            deleteMarkers();
-//            $scope.tourArt = [];
-//            for(var x=0; x<tour.artwork_included.length; x++){
-//                
-//                for (var y=0; y<$scope.artwork.length; y++){
-//                    
-//                    if (tour.artwork_included[x] == $scope.artwork[y].artwork_id){
-//                        addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
-//                    }
-//                    
-//                }
-//                
-//            }
-        };
+//        $scope.tourClick = function(tour) {
+//            
+//            $state.go('tour.imslide');
+//            
+////            deleteMarkers();
+////            $scope.tourArt = [];
+////            for(var x=0; x<tour.artwork_included.length; x++){
+////                
+////                for (var y=0; y<$scope.artwork.length; y++){
+////                    
+////                    if (tour.artwork_included[x] == $scope.artwork[y].artwork_id){
+////                        addMarker(new google.maps.LatLng($scope.artwork[y].location_lat, $scope.artwork[y].location_long), $scope.artwork[y]);
+////                    }
+////                    
+////                }
+////                
+////            }
+//        };
         
         
         
@@ -172,17 +167,11 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
 //        };
         
         //start tour
-        $scope.startTour = function() {
-            $rootScope.showTour = true;
-            $rootScope.tourPieces = $scope.tourArt;
-            $state.go('ARtours');
-        };
-        
-        
-        $scope.testFunc = function(){
-            console.log('HEYEYEYEYEYE');
-            $state.go('search.artwork');
-        }
+//        $scope.startTour = function() {
+//            $rootScope.showTour = true;
+//            $rootScope.tourPieces = $scope.tourArt;
+//            $state.go('ARtours');
+//        };
     }]);
 
 appControllers.controller('exploreCtrl', ['$rootScope','$scope', '$http','accelerometerServe','compassServe','geolocationServe',
@@ -740,6 +729,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
+        $scope.visible_art_title = $scope.artworkGet($scope.tourID)[0].title;
         
         $scope.genImList = function(artOb){
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
@@ -747,18 +737,20 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
         }
         
         $scope.slideHasChanged = function(index){
-            console.log($scope.tourGet($scope.tourID));
+            $scope.visible_art_title = $scope.artworkGet($scope.tourID)[index].title;
+            console.log($scope.visible_art_title);
         };
         
         $scope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
+        
         $rootScope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
-        }
+        };
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        
+        $scope.artworkGet = tourInfo.getArtwork;
     }]);
