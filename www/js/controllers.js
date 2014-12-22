@@ -738,14 +738,13 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
         
         $scope.slideHasChanged = function(index){
             $scope.visible_art_title = $scope.artworkGet($scope.tourID)[index].title;
-            console.log($scope.visible_art_title);
         };
         
         $scope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
         
-        $rootScope.loadAR = function() {
+        $scope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
         };
     }]);
@@ -753,4 +752,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.artworkGet = tourInfo.getArtwork;
+        $scope.loadAR = function() {
+            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+        };
     }]);

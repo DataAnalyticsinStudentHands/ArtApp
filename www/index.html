@@ -48,12 +48,16 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
 </head>
 
-<body  ng-app="publicArtApp">
+<body ng-app="publicArtApp">
     <ion-side-menus delegate-handle="main-menu">
-        <ion-side-menu-content drag-content="false">
+        <ion-side-menu-content drag-content="true">
+            <ion-nav-bar class="bar-dark">
+                <button ng-hide="$exposeAside.active" class="button button-icon button-clear ion-navicon" ng-click="menuToggle()"></button>
+            </ion-nav-bar>
             <ion-nav-view name="content"></ion-nav-view>
         </ion-side-menu-content>
         <ion-side-menu side="left" expose-aside-when="large">
+            <ion-nav-bar class="bar-dark"></ion-nav-bar>
             <ion-nav-view animation="slide-left-right" name="menu"></ion-nav-view>
         </ion-side-menu>
     </ion-side-menus>
