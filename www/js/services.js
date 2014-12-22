@@ -37,8 +37,30 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
 
     var tours = null;
     var artwork = null;
-    var tourProm = null;
-    var artworkProm = null;
+    var colArray = null;
+        
+    // Groups artwork in columns of 3 for box slider purposes
+    var genColArray = function(){
+        
+        colArray = [];
+        
+        for(var i=0;i<Math.floor(artwork.length/3);i++){
+            
+            colArray[i] = [];
+            
+            for(var j=0;j<3;j++){
+                
+                if(i*j<artwork.length){
+                    
+                    colArray[i][j] = artwork[i*j];
+                }
+                else{
+                    
+                    colArray[i][j] = null;
+                }
+            }
+        }
+    }
     
   var outOb = {
     loadData: function(){
@@ -71,6 +93,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
         if(tempArtwork){
 
             artwork = tempArtwork;
+            
+            
         }
         else{
 
