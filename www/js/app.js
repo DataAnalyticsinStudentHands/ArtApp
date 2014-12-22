@@ -126,7 +126,6 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
             /*Will hold the artwork id's for the selected tour when user clicks start tour in the tours section of the app*/
             $rootScope.tourPieces = null;
             
-            
             /*Given artwork id and state of the heart toggle button either the id is added into the list of localstorage favorites or the id is removed from the list of favorites*/
             $rootScope.favorite = function (id,toggle) {
                 var temp = [];

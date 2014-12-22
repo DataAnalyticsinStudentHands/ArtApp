@@ -13,12 +13,7 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    
-
     <!--IntelXDK AR stuff: COMMENT OUT IF YOU ARE GETTING ERRORS IN LIVEPREVIEW-->
-<!--    <script src='intelxdk.js'></script>-->
-    <script src='cordova.js'></script>
-    <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 <!--    <script src="lib/ionic/js/ionic.bundle.min.js"></script>-->
 
@@ -31,13 +26,6 @@
     <script src="js/directives.js"></script>
 <!--    <script src="js/filters.js"></script>-->
     
-    <!--    Angular Snap -->
-<!--
-    <script src="lib/angular-snap/angular-snap.js"></script>
-    <script src="lib/snapjs/snap.js"></script>
-    <link rel="stylesheet" href="lib/angular-snap/angular-snap.css">
--->
-    
     <!--    Restangular Stuff-->
     <script src="modules/dbServices.js"></script>
     <script src="modules/sha512.js"></script>
@@ -48,7 +36,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDb6dcBwQGLa1gjxKh0ki1W1qMtcZYsCGA" type="text/javascript"></script>
 </head>
 
-<body ng-app="publicArtApp">
+<body ng-app="publicArtApp" ng-controller="menuCtrl">
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="ar_js/sampleIndices.js"></script>
     <script type="text/javascript" src="ar_js/loadingPoisFromApplicationModel.js"></script>

@@ -724,8 +724,8 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         $scope.getPositionIntel();
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window', 'tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,tourInfo,$stateParams) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
@@ -740,19 +740,23 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','$ioni
             $scope.visible_art_title = $scope.artworkGet($scope.tourID)[index].title;
         };
         
-        $scope.menuToggle = function(){
-            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-        };
-        
         $scope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
         };
     }]);
 
-appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.artworkGet = tourInfo.getArtwork;
+
         $scope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+        };
+    }]);
+
+appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+        $rootScope.menuToggle = function(){
+            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
     }]);
