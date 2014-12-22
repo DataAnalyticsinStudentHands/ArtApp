@@ -724,8 +724,8 @@ appControllers.controller('searchCtrl', ['$scope','$rootScope',
         $scope.getPositionIntel();
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window', 'tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,tourInfo,$stateParams) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
