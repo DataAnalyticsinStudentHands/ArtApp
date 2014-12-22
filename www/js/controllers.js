@@ -741,7 +741,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         };
         
         $scope.loadAR = function() {
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet($scope.tourID));
         };
     }]);
 
