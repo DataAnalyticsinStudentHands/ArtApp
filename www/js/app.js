@@ -105,13 +105,13 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
             }
             
             /*Reads artwork.json and set data into localstorage only if there is new version*/
-            if (localStorage.getItem("tours_version")!="1.0") {
-                  $http.get('artwork.json').success(function(data) {
-                    localStorage.setItem("artwork_version","1.1");
-                    localStorage.setItem("artwork",JSON.stringify(data));
-                    console.log("...localstorage (artwork.json) success...");
-                });
-            }
+//            if (localStorage.getItem("tours_version")!="1.0") {
+//                  $http.get('artwork.json').success(function(data) {
+//                    localStorage.setItem("artwork_version","1.1");
+//                    localStorage.setItem("artwork",JSON.stringify(data));
+//                    console.log("...localstorage (artwork.json) success...");
+//                });
+//            }
             
             /*Resets favorites each time app is opened for testing purposes*/
             localStorage.removeItem("favorites");
