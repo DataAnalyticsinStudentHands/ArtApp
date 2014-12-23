@@ -1,3 +1,5 @@
+AR.context.scene.cullingDistance = 1;
+
 // implementation of AR-Experience (aka "World")
 var World = {
 	//  user's latest known location, accessible via userLocation.latitude, userLocation.longitude, userLocation.altitude
@@ -44,7 +46,6 @@ var World = {
 				"id": poiData[currentPlaceNr].id,
 				"latitude": parseFloat(poiData[currentPlaceNr].latitude),
 				"longitude": parseFloat(poiData[currentPlaceNr].longitude),
-				"altitude": parseFloat(poiData[currentPlaceNr].altitude),
 				"title": poiData[currentPlaceNr].name,
 				"description": poiData[currentPlaceNr].description
 			};
@@ -100,6 +101,15 @@ var World = {
             World.updateDistanceToUserValues();
 //            World.updateRangeValues();
         }
+        if(World.currentMarker && World.currentMarker.isSelected){
+            var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
+            $("#poi-detail-distance").html(distanceToUserValue);
+            if(World.currentMarker.distanceToUser < 10.0) {
+                alert("YOU HAVE REACHED THE SELECTED DESTINATION");
+                World.currentMarker.setDeselected(World.currentMarker);
+            }
+        }
+        console.log("UPDATING " + World.locationUpdateCounter);
 	},
 
 	// fired when user pressed maker in cam

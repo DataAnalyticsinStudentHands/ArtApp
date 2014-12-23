@@ -2,7 +2,7 @@
 
 .radarContainer_left {
 	position:absolute;
-	top:35px;
+	bottom:0px;
 	left:0px;
 	width:100px;
 	height:100px;
@@ -10,7 +10,7 @@
 
 .radarContainer_right {
 	position:absolute;
-	top:35px;
+	bottom:0px;
 	right:0px;
 	width:100px;
 	height:100px;
