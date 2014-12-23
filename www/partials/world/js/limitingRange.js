@@ -58,7 +58,7 @@ var World = {
 		World.updateStatusMessage(currentPlaceNr + ' places loaded');
 
 		// set distance slider to 100%
-		$("#panel-distance-range").val(100);
+		$("#panel-distance-range").val(25);
 		$("#panel-distance-range").slider("refresh");
 	},
 
@@ -97,6 +97,7 @@ var World = {
 		World.locationUpdateCounter = (++World.locationUpdateCounter % World.updatePlacemarkDistancesEveryXLocationUpdates);
         if(World.locationUpdateCounter == 0) {
             World.updateDistanceToUserValues();
+//            World.updateRangeValues();
         }
 	},
 
