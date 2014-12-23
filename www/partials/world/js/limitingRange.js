@@ -55,11 +55,12 @@ var World = {
 		// updates distance information of all placemarks
 		World.updateDistanceToUserValues();
 
-		World.updateStatusMessage(currentPlaceNr + ' places loaded');
-
-		// set distance slider to 100%
+        // set distance slider to 100%
 		$("#panel-distance-range").val(25);
 		$("#panel-distance-range").slider("refresh");
+        World.updateRangeValues();
+
+		World.updateStatusMessage(currentPlaceNr + ' places loaded');
 	},
 
 	// sets/updates distances of all makers so they are available way faster than calling (time-consuming) distanceToUser() method all the time
