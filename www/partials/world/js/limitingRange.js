@@ -1,13 +1,8 @@
-// information about server communication. This sample webservice is provided by Wikitude and returns random dummy places near given location
-var ServerInformation = {
-	POIDATA_SERVER: "http://example.wikitude.com/GetSamplePois/",
-	POIDATA_SERVER_ARG_LAT: "lat",
-	POIDATA_SERVER_ARG_LON: "lon",
-	POIDATA_SERVER_ARG_NR_POIS: "nrPois"
-};
-
 // implementation of AR-Experience (aka "World")
 var World = {
+	//  user's latest known location, accessible via userLocation.latitude, userLocation.longitude, userLocation.altitude
+	userLocation: null,
+
 	// you may request new data from server periodically, however: in this sample data is only requested once
 	isRequestingData: false,
 
@@ -30,7 +25,6 @@ var World = {
 
 	// called to inject new POI data
 	loadPoisFromJsonData: function loadPoisFromJsonDataFn(poiData) {
-
 		// show radar & set click-listener
 		PoiRadar.show();
 		$('#radarContainer').unbind('click');
@@ -62,6 +56,10 @@ var World = {
 		World.updateDistanceToUserValues();
 
 		World.updateStatusMessage(currentPlaceNr + ' places loaded');
+
+		// set distance slider to 100%
+		$("#panel-distance-range").val(100);
+		$("#panel-distance-range").slider("refresh");
 	},
 
 	// sets/updates distances of all makers so they are available way faster than calling (time-consuming) distanceToUser() method all the time
@@ -73,7 +71,6 @@ var World = {
 
 	// updates status message shon in small "i"-button aligned bottom center
 	updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-
 		var themeToUse = isWarning ? "e" : "c";
 		var iconToUse = isWarning ? "alert" : "info";
 
@@ -88,22 +85,26 @@ var World = {
 
 	// location updates, fired every time you call architectView.setLocation() in native environment
 	locationChanged: function locationChangedFn(lat, lon, alt, acc) {
-
-		// request data if not already present
-		if (!World.initiallyLoadedData) {
-			World.requestDataFromServer(lat, lon);
-			World.initiallyLoadedData = true;
-		} else if (World.locationUpdateCounter === 0) {
-			// update placemark distance information frequently, you max also update distances only every 10m with some more effort
-			World.updateDistanceToUserValues();
-		}
+		// store user's current location in World.userLocation, so you always know where user is
+		World.userLocation = {
+			'latitude': lat,
+			'longitude': lon,
+			'altitude': alt,
+			'accuracy': acc
+		};
 
 		// helper used to update placemark information every now and then (e.g. every 10 location upadtes fired)
 		World.locationUpdateCounter = (++World.locationUpdateCounter % World.updatePlacemarkDistancesEveryXLocationUpdates);
+        if(World.locationUpdateCounter == 0) {
+            World.updateDistanceToUserValues();
+        }
 	},
 
 	// fired when user pressed maker in cam
 	onMarkerSelected: function onMarkerSelectedFn(marker) {
+        if(World.currentMarker) {
+            World.currentMarker.setDeselected(World.currentMarker);
+        }
 		World.currentMarker = marker;
 
 		// update panel values
@@ -117,16 +118,103 @@ var World = {
 		// show panel
 		$("#panel-poidetail").panel("open", 123);
 		
-		$( ".ui-panel-dismiss" ).unbind("mousedown");
+		$(".ui-panel-dismiss" ).unbind("mousedown");
 
 		$("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
-			World.currentMarker.setDeselected(World.currentMarker);
+//			World.currentMarker.setDeselected(World.currentMarker);
 		});
 	},
 
 	// screen was clicked but no geo-object was hit
 	onScreenClick: function onScreenClickFn() {
 		// you may handle clicks on empty AR space too
+	},
+
+	// returns distance in meters of placemark with maxdistance * 1.1
+	getMaxDistance: function getMaxDistanceFn() {
+		// sort palces by distance so the first entry is the one with the maximum distance
+		World.markerList.sort(World.sortByDistanceSortingDescending);
+
+		// use distanceToUser to get max-distance
+		var maxDistanceMeters = World.markerList[0].distanceToUser;
+
+		// return maximum distance times some factor >1.0 so ther is some room left and small movements of user don't cause places far away to disappear
+		return maxDistanceMeters * 1.1;
+	},
+
+	// udpates values show in "range panel"
+	updateRangeValues: function updateRangeValuesFn() {
+		// get current slider value (0..100);
+		var slider_value = $("#panel-distance-range").val();
+
+		// max range relative to the maximum distance of all visible places
+		var maxRangeMeters = Math.round(World.getMaxDistance() * (slider_value / 100));
+
+		// range in meters including metric m/km
+		var maxRangeValue = (maxRangeMeters > 999) ? ((maxRangeMeters / 1000).toFixed(2) + " km") : (Math.round(maxRangeMeters) + " m");
+
+		// number of places within max-range
+		var placesInRange = World.getNumberOfVisiblePlacesInRange(maxRangeMeters);
+
+		// update UI labels accordingly
+		$("#panel-distance-value").html(maxRangeValue);
+		$("#panel-distance-places").html((placesInRange != 1) ? (placesInRange + " Places") : (placesInRange + " Place"));
+
+		// update culling distance, so only palces within given range are rendered
+		AR.context.scene.cullingDistance = Math.max(maxRangeMeters, 1);
+
+		// update radar's maxDistance so radius of radar is updated too
+		PoiRadar.setMaxDistance(Math.max(maxRangeMeters, 1));
+	},
+
+	// returns number of places with same or lower distance than given range
+	getNumberOfVisiblePlacesInRange: function getNumberOfVisiblePlacesInRangeFn(maxRangeMeters) {
+		// sort markers by distance
+		World.markerList.sort(World.sortByDistanceSorting);
+
+		// loop through list and stop once a placemark is out of range ( -> very basic implementation )
+		for (var i = 0; i < World.markerList.length; i++) {
+			if (World.markerList[i].distanceToUser > maxRangeMeters) {
+				return i;
+			}
+		};
+
+        // in case no placemark is out of range -> all are visible
+		return World.markerList.length;
+	},
+
+	handlePanelMovements: function handlePanelMovementsFn() {
+		$("#panel-distance").on("panelclose", function(event, ui) {
+			$("#radarContainer").addClass("radarContainer_left");
+			$("#radarContainer").removeClass("radarContainer_right");
+			PoiRadar.updatePosition();
+		});
+
+		$("#panel-distance").on("panelopen", function(event, ui) {
+			$("#radarContainer").removeClass("radarContainer_left");
+			$("#radarContainer").addClass("radarContainer_right");
+			PoiRadar.updatePosition();
+		});
+	},
+
+	// display range slider
+	showRange: function showRangeFn() {
+		if (World.markerList.length > 0) {
+			// update labels on every range movement
+			$('#panel-distance-range').change(function() {
+				World.updateRangeValues();
+			});
+
+			World.updateRangeValues();
+			World.handlePanelMovements();
+
+			// open panel
+			$("#panel-distance").trigger("updatelayout");
+			$("#panel-distance").panel("open", 1234);
+		} else {
+			// no places are visible, because the are not loaded yet
+			World.updateStatusMessage('No places available yet', true);
+		}
 	},
 
 	// helper to sort places by distance
@@ -138,9 +226,7 @@ var World = {
 	sortByDistanceSortingDescending: function(a, b) {
 		return b.distanceToUser - a.distanceToUser;
 	}
-
 };
-
 
 /* forward locationChanges to custom function */
 AR.context.onLocationChanged = World.locationChanged;

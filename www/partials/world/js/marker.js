@@ -61,6 +61,10 @@ function Marker(poiData) {
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
 
+    /*
+        The representation of an AR.GeoObject in the radar is defined in its drawables set (second argument of AR.GeoObject constructor). 
+        Once drawables.radar is set the object is also shown on the radar e.g. as an AR.Circle
+    */
     this.radarCircle = new AR.Circle(0.03, {
         horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
         opacity: 0.8,
@@ -69,6 +73,9 @@ function Marker(poiData) {
         }
     });
 
+    /*
+        Additionally create circles with a different color for the selected state.
+    */
     this.radarCircleSelected = new AR.Circle(0.05, {
         horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
         opacity: 0.8,
@@ -105,12 +112,9 @@ Marker.prototype.getOnClickTrigger = function(marker) {
     */
 
     return function() {
-
         if (!Marker.prototype.isAnyAnimationRunning(marker)) {
             if (marker.isSelected) {
-
                 Marker.prototype.setDeselected(marker);
-
             } else {
                 Marker.prototype.setSelected(marker);
                 try {
@@ -118,13 +122,10 @@ Marker.prototype.getOnClickTrigger = function(marker) {
                 } catch (err) {
                     alert(err);
                 }
-
             }
         } else {
             AR.logger.debug('a animation is already running');
         }
-
-
         return true;
     };
 };
@@ -132,18 +133,13 @@ Marker.prototype.getOnClickTrigger = function(marker) {
 /*
     Property Animations allow constant changes to a numeric value/property of an object, dependent on start-value, end-value and the duration of the animation. Animations can be seen as functions defining the progress of the change on the value. The Animation can be parametrized via easing curves.
 */
-
 Marker.prototype.setSelected = function(marker) {
-
     marker.isSelected = true;
-
     if (marker.animationGroup_selected === null) {
-
         // create AR.PropertyAnimation that animates the opacity to 0.0 in order to hide the idle-state-drawable
         var hideIdleDrawableAnimation = new AR.PropertyAnimation(marker.markerDrawable_idle, "opacity", null, 0.0, kMarker_AnimationDuration_ChangeDrawable);
         // create AR.PropertyAnimation that animates the opacity to 1.0 in order to show the selected-state-drawable
         var showSelectedDrawableAnimation = new AR.PropertyAnimation(marker.markerDrawable_selected, "opacity", null, 1.0, kMarker_AnimationDuration_ChangeDrawable);
-
         // create AR.PropertyAnimation that animates the scaling of the idle-state-drawable to 1.2
         var idleDrawableResizeAnimation = new AR.PropertyAnimation(marker.markerDrawable_idle, 'scaling', null, 1.2, kMarker_AnimationDuration_Resize, new AR.EasingCurve(AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC, {
             amplitude: 2.0
@@ -160,7 +156,6 @@ Marker.prototype.setSelected = function(marker) {
         var descriptionLabelResizeAnimation = new AR.PropertyAnimation(marker.descriptionLabel, 'scaling', null, 1.2, kMarker_AnimationDuration_Resize, new AR.EasingCurve(AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC, {
             amplitude: 2.0
         }));
-
         /*
             There are two types of AR.AnimationGroups. Parallel animations are running at the same time, sequentials are played one after another. This example uses a parallel AR.AnimationGroup.
         */
@@ -169,6 +164,7 @@ Marker.prototype.setSelected = function(marker) {
 
     // removes function that is set on the onClick trigger of the idle-state marker
     marker.markerDrawable_idle.onClick = null;
+
     // sets the click trigger function for the selected state marker
     marker.markerDrawable_selected.onClick = Marker.prototype.getOnClickTrigger(marker);
 
@@ -182,13 +178,11 @@ Marker.prototype.setSelected = function(marker) {
 };
 
 Marker.prototype.setDeselected = function(marker) {
-
     marker.isSelected = false;
 
     marker.markerObject.drawables.radar = marker.radardrawables;
 
     if (marker.animationGroup_idle === null) {
-
         // create AR.PropertyAnimation that animates the opacity to 1.0 in order to show the idle-state-drawable
         var showIdleDrawableAnimation = new AR.PropertyAnimation(marker.markerDrawable_idle, "opacity", null, 1.0, kMarker_AnimationDuration_ChangeDrawable);
         // create AR.PropertyAnimation that animates the opacity to 0.0 in order to hide the selected-state-drawable
@@ -228,7 +222,6 @@ Marker.prototype.setDeselected = function(marker) {
 };
 
 Marker.prototype.isAnyAnimationRunning = function(marker) {
-
     if (marker.animationGroup_idle === null || marker.animationGroup_selected === null) {
         return false;
     } else {

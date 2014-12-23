@@ -9,7 +9,7 @@ function onLocationUpdated(tourJSON) {
             "longitude": parseFloat(tourJSON[i].location_long),
             "latitude": parseFloat(tourJSON[i].location_lat),
             "description": tourJSON[i].description,
-            "altitude": "50.0",
+            "altitude": "7.0",
             "name": tourJSON[i].title
         });
     }

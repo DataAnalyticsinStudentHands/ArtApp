@@ -98,7 +98,7 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
         }
         else{
 
-            artworkProm = Restangular.all('artobjects').getList();
+            var artworkProm = Restangular.all('artobjects').getList();
             
             artworkProm.then(function(success){
 
