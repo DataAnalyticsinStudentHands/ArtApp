@@ -32,8 +32,8 @@ locationServices.factory('geolocationServe', ['$q', function($q) {
   }
 }]);
 
-utilServices.factory('tourInfo', ['$q','Restangular','$http',
-    function($q,Restangular,$http) {
+utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
+    function($q,Restangular,$http,$filter) {
 
     var tours = null;
     var artwork = null;
@@ -190,6 +190,11 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
   outOb.getArtwork = function(){
         
         return artwork;
+    }
+  
+  outOb.getArtworkByID = function(art_id){
+
+      return $filter('getById')(artwork, art_id);
     }
   
   outOb.getArtworkByTourID = function(id){
