@@ -38,35 +38,6 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
                 }
             }
         })
-//        .state('search',{
-//            abstract:true,
-//            url:"/search",
-//            templateUrl:"partials/search.html",
-//            controller:"searchCtrl"
-//        })
-//        .state('search.artwork',{
-//            url:"/search/art",
-//            views:{
-//                "content":{
-//                    templateUrl:"partials/search.artwork.html"
-//                }
-//            }
-//        })
-//        .state('search.artist',{
-//            url:"/search/artist",
-//            views:{
-//                "content":{
-//                    templateUrl:"partials/search.artist.html"
-//                }
-//            }
-//        });
-//        .state('tourExplore',{
-//            url:"/tour/explore",
-//            templateUrl:"partials/explore.html",
-//            controller:"exploreCtrl"
-//        });
-    
-    //$urlRouterProvider.otherwise('tour')
 }]);
 
 publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',

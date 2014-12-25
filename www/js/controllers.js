@@ -15,6 +15,13 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geoloc
         
         //Uses local storage instead of http requests
         $scope.toursGet = tourInfo.getTours;
+        
+        $scope.artworkGet = tourInfo.getArtwork;
+
+        $scope.loadAR = function() {
+            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+        };
+        
         //$scope.artwork = JSON.parse(localStorage.getItem("artwork"));
         
         $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
@@ -747,11 +754,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        $scope.artworkGet = tourInfo.getArtwork;
-
-        $scope.loadAR = function() {
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
-        };
+        
     }]);
 
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
