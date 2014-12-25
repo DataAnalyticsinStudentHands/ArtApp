@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','geolocationServe','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
-    function($rootScope, $scope, $http, geolocationServe, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
 //        ionic.Platform.ready(function() {
 //            navigator.splashscreen.hide();
 //        });
