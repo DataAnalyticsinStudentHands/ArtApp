@@ -114,27 +114,33 @@ var World = {
 
 	// fired when user pressed maker in cam
 	onMarkerSelected: function onMarkerSelectedFn(marker) {
-        if(World.currentMarker) {
-            World.currentMarker.setDeselected(World.currentMarker);
+        //deselect all markers before perfo
+        if(World.currentMarker){
+            for (var i = 0; i < World.markerList.length; i++) {
+                if(World.markerList[i].isSelected) {
+                    World.currentMarker.setDeselected(World.markerList[i]);
+                }
+            };
         }
-		World.currentMarker = marker;
+        
+        World.currentMarker = marker;
+        World.currentMarker.setSelected(World.currentMarker);
 
-		// update panel values
-		$("#poi-detail-title").html(marker.poiData.title);
-		$("#poi-detail-description").html(marker.poiData.description);
+        var distanceToUserValue = (marker.distanceToUser > 999) ? ((marker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(marker.distanceToUser) + " m");
 
-		var distanceToUserValue = (marker.distanceToUser > 999) ? ((marker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(marker.distanceToUser) + " m");
+        // update panel values
+        $("#poi-detail-title").html(marker.poiData.title);
+        $("#poi-detail-description").html(marker.poiData.description);
+        $("#poi-detail-distance").html(distanceToUserValue);
 
-		$("#poi-detail-distance").html(distanceToUserValue);
+        // show panel
+        $("#panel-poidetail").panel("open", 123);
 
-		// show panel
-		$("#panel-poidetail").panel("open", 123);
-		
-		$(".ui-panel-dismiss" ).unbind("mousedown");
+        $(".ui-panel-dismiss" ).unbind("mousedown");
 
-		$("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
+        $("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
 //			World.currentMarker.setDeselected(World.currentMarker);
-		});
+        });
 	},
 
 	// screen was clicked but no geo-object was hit

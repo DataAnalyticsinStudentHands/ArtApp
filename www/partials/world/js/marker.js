@@ -112,7 +112,7 @@ Marker.prototype.getOnClickTrigger = function(marker) {
     */
 
     return function() {
-        if (!Marker.prototype.isAnyAnimationRunning(marker)) {
+//        if (!Marker.prototype.isAnyAnimationRunning(marker)) {
             if (marker.isSelected) {
                 Marker.prototype.setDeselected(marker);
             } else {
@@ -123,9 +123,9 @@ Marker.prototype.getOnClickTrigger = function(marker) {
                     alert(err);
                 }
             }
-        } else {
-            AR.logger.debug('a animation is already running');
-        }
+//        } else {
+//            AR.logger.debug('a animation is already running');
+//        }
         return true;
     };
 };
