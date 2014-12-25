@@ -20,7 +20,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
             url:"/tour",
             views:{
                 "menu":{
-                    templateUrl:"partials/tours.html",
+                    templateUrl:"partials/menu.html",
                     controller:"tourListCtrl"
                 },
                 "content":{
@@ -33,8 +33,17 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
             url:"/imslide/:tourID",
             views:{
                 "content@":{
-                    templateUrl:"partials/imslide.html",
+                    templateUrl:"partials/imageSlider.html",
                     controller:"imslideCtrl"
+                }
+            }
+        })
+        .state('tour.artDetail',{
+            url:"/artDetail/:artID",
+            views:{
+                "content@":{
+                    templateUrl:"partials/artworkDetail.html",
+                    controller:"artDetailCtrl"
                 }
             }
         })

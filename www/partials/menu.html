@@ -32,7 +32,7 @@
             <i ng-show="artShow" class="icon ion-arrow-right-b"></i>
             Artwork
         </div>
-        <a ng-hide="artShow" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
+        <a ng-hide="artShow" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
             <h3>{{item.title}}</h3>
         </a>
     </div>
