@@ -8,7 +8,8 @@ var publicArtApp = angular.module('publicArtApp', [
     'ngSanitize',
     'restangular',
     'databaseServicesModule',
-    'utilModule'
+    'utilModule',
+    'adaptive.googlemaps'
 ]);
 
 
@@ -48,8 +49,8 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
         })
 }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate', '$timeout',
-    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate, $timeout){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate',
+    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate){
         //$ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -60,9 +61,6 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
           StatusBar.styleDefault();
         }*/
         // });
-        $timeout(function() {
-            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft(); 
-        }, 1000);
         
         Restangular.setBaseUrl("http://www.housuggest.org:8080/ArtApp/");
 

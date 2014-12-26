@@ -8,7 +8,6 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
 //        ionic.Platform.ready(function() {
 //            navigator.splashscreen.hide();
 //        });
-        
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -51,11 +50,27 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         $scope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet($scope.tourID));
         };
+        
+        $scope.map1 = {
+            sensor: false,
+            size: '500x500',
+            zoom: 15,
+            center: '29.722000, -95.34350',
+            markers: ['29.722000, -95.34350'],
+            mapevents: {redirect: false, loadmap: true}
+        };
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        
+        $scope.map1 = {
+            sensor: false,
+            size: '500x500',
+            zoom: 15,
+            center: '29.722000, -95.34350',
+            markers: ['29.722000, -95.34350'],
+            mapevents: {redirect: false, loadmap: true}
+        };
     }]);
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
@@ -64,9 +79,10 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
     }]);
 
-appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout) {
         $rootScope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
+        $timeout($rootScope.menuToggle, 1000);
     }]);
