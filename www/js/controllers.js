@@ -51,12 +51,20 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet($scope.tourID));
         };
         
+        var markersArr = [];
+        
+        $scope.artworkGet($scope.tourID).forEach(function(obj) {
+            console.log(obj);
+            markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
+        });
+        console.log(markersArr);
+        
         $scope.map1 = {
             sensor: true,
             size: '500x500',
             zoom: 15,
             center: '29.722000, -95.34350',
-            markers: ['29.722000, -95.34350'],
+            markers: markersArr,
             mapevents: {redirect: false, loadmap: false},
             listen: true
         };
@@ -64,16 +72,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
-        $scope.map1 = {
-            sensor: false,
-            size: '500x300',
-            zoom: 9,
-            center: 'San Francisco International Airport',
-            markers: ['San Francisco', 'San Jose'],
-            maptype: 'terrain',
-            mapevents: {redirect: false, loadmap: true},
-            listen: true
-        };
+
     }]);
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',

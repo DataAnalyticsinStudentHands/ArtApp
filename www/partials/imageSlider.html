@@ -6,12 +6,12 @@
         <h2 class="title">{{visible_art_title}}</h2>
     </div>
     <ion-content class="has-subheader">
-        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)" does-continue="true">
-            <ion-slide>
-                <googlemaps class="google-maps" options="map1"></googlemaps>
-            </ion-slide>
+        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)" does-continue="false">
             <ion-slide ng-repeat="artOb in artworkGet(tourID)">
                 <div class="box"><img ng-src="{{genImList(artOb)}}" ng-style="{'width' : '100%'}"></div>
+            </ion-slide>
+            <ion-slide>
+                <googlemaps class="google-maps" options="map1"></googlemaps>
             </ion-slide>
         </ion-slide-box>
     </ion-content>
