@@ -48,8 +48,8 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
         })
 }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
-    function($rootScope, $http, Restangular, Auth, tourInfo){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate', '$timeout',
+    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate, $timeout){
         //$ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -60,6 +60,10 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
           StatusBar.styleDefault();
         }*/
         // });
+        $timeout(function() {
+            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft(); 
+        }, 1000);
+        
         Restangular.setBaseUrl("http://www.housuggest.org:8080/ArtApp/");
 
         Auth.setCredentials("Admin", "a91646d0a63e7511327e40cd2e31b297e8094e4f22e9c0a866549e4621bff8c190c71c7e9e9a9f40700209583130828f638247d6c080a67b865869ce902bb285");
