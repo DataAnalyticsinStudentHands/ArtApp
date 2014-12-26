@@ -165,7 +165,7 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
   
   outOb.getArtworkByID = function(art_id){
 
-      return $filter('getById')(artwork, art_id);
+      return $filter('getByArtworkId')(artwork, art_id);
     }
   
   outOb.getArtworkByTourID = function(id){

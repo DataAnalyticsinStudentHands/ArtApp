@@ -5,9 +5,6 @@ var appControllers = angular.module('controllerModule', []);
 
 appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
     function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
-//        ionic.Platform.ready(function() {
-//            navigator.splashscreen.hide();
-//        });
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -37,14 +34,21 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         $scope.visible_art_title = $scope.artworkGet($scope.tourID)[0].title;
+        $scope.current_art_id = $scope.artworkGet($scope.tourID)[0].artwork_id;
         
         $scope.genImList = function(artOb){
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
             return outStr;
         }
         
-        $scope.slideHasChanged = function(index){
-            $scope.visible_art_title = $scope.artworkGet($scope.tourID)[index].title;
+        $scope.slideHasChanged = function(index) {
+            if(!index || index >= $scope.artworkGet($scope.tourID).length) {
+                $scope.visible_art_title = "Tour Map";
+                $scope.current_art_id = false;
+            } else {
+                $scope.visible_art_title = $scope.artworkGet($scope.tourID)[index].title;
+                $scope.current_art_id = $scope.artworkGet($scope.tourID)[index].artwork_id;
+            }
         };
         
         $scope.loadAR = function() {
@@ -52,18 +56,15 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         };
         
         var markersArr = [];
-        
         $scope.artworkGet($scope.tourID).forEach(function(obj) {
-            console.log(obj);
             markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
         });
-        console.log(markersArr);
         
-        $scope.map1 = {
+        $scope.map = {
             sensor: true,
             size: '500x500',
             zoom: 15,
-            center: '29.722000, -95.34350',
+            center: '29.722000, -95.34350', //CENTER OF UH
             markers: markersArr,
             mapevents: {redirect: false, loadmap: false},
             listen: true
@@ -79,6 +80,7 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
+        console.log($scope.detailArt);
     }]);
 
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout',
