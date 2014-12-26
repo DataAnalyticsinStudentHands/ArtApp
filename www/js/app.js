@@ -13,7 +13,7 @@ var publicArtApp = angular.module('publicArtApp', [
 ]);
 
 
-publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvider,$urlRouterProvider) {
+publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider', function($stateProvider,$urlRouterProvider,$compileProvider) {
     $urlRouterProvider.otherwise("/tour");
     $stateProvider
         .state('tour',{
@@ -47,6 +47,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', function($stateProvi
                 }
             }
         })
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
 }]);
 
 publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate',

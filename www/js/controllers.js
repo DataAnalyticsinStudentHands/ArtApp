@@ -52,12 +52,13 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         };
         
         $scope.map1 = {
-            sensor: false,
+            sensor: true,
             size: '500x500',
             zoom: 15,
             center: '29.722000, -95.34350',
             markers: ['29.722000, -95.34350'],
-            mapevents: {redirect: false, loadmap: true}
+            mapevents: {redirect: false, loadmap: false},
+            listen: true
         };
     }]);
 
@@ -65,11 +66,13 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.map1 = {
             sensor: false,
-            size: '500x500',
-            zoom: 15,
-            center: '29.722000, -95.34350',
-            markers: ['29.722000, -95.34350'],
-            mapevents: {redirect: false, loadmap: true}
+            size: '500x300',
+            zoom: 9,
+            center: 'San Francisco International Airport',
+            markers: ['San Francisco', 'San Jose'],
+            maptype: 'terrain',
+            mapevents: {redirect: false, loadmap: true},
+            listen: true
         };
     }]);
 
