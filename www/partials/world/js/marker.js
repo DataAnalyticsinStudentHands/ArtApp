@@ -28,16 +28,16 @@ function Marker(poiData) {
     });
 
     // create an AR.ImageDrawable for the marker in selected state
-    this.markerDrawable_selected = new AR.ImageDrawable(World.markerDrawable_selected, 1.25, {
+    this.markerDrawable_selected = new AR.ImageDrawable(World.markerDrawable_selected, 1.15, {
         zOrder: 0,
         opacity: 0.0,
         onClick: null
     });
 
     // create an AR.Label for the marker's title 
-    this.titleLabel = new AR.Label(poiData.title.trunc(10), 0.5, {
+    this.titleLabel = new AR.Label(poiData.title.trunc(15), 0.5, {
         zOrder: 1,
-        offsetY: 0.275,
+        offsetY: -0.65,
         style: {
             textColor: '#FFFFFF',
             fontStyle: AR.CONST.FONT_STYLE.BOLD
@@ -45,7 +45,7 @@ function Marker(poiData) {
     });
 
     // create an AR.Label for the marker's description
-    this.descriptionLabel = new AR.Label(poiData.description.trunc(15), 0.4, {
+    this.descriptionLabel = new AR.Label("", 0.4, {
         zOrder: 1,
         offsetY: -0.275,
         style: {
