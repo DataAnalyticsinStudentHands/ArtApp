@@ -42,21 +42,33 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
     // Groups artwork in columns of 3 for box slider purposes
     var genColArray = function(){
         
-        colArray = [];
+        var allToursArtwork = [];
+        colArray = {};
         
-        for(var i=0;i<Math.floor(artwork.length/3);i++){
+        for(var i=0;i<tours.length;i++){
             
-            colArray[i] = [];
+            allToursArtwork[i] = outOb.getArtworkByTourID(tours[i].tour_id);
+        }
+        
+        for(var k=0;k<allToursArtwork.length;k++){
+        
+            var tourArt = allToursArtwork[k];
+            colArray[tours[k].tour_id] = []
             
-            for(var j=0;j<3;j++){
-                
-                if(i*j<artwork.length){
-                    
-                    colArray[i][j] = artwork[i*j];
-                }
-                else{
-                    
-                    colArray[i][j] = null;
+            for(var i=0;i<Math.ceil(tourArt.length/3);i++){
+
+                colArray[tours[k].tour_id][i] = [];
+
+                for(var j=0;j<3;j++){
+
+                    if(i*3+j<tourArt.length){
+
+                        colArray[tours[k].tour_id][i][j] = tourArt[i*3+j];
+                    }
+                    else{
+
+                        break;
+                    }
                 }
             }
         }
@@ -73,6 +85,11 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
         if(tempTours){
 
             tours = tempTours;
+            
+            if(!colArray&&artwork&&tours){
+                
+                genColArray();
+            }
         }
         else{
 
@@ -85,6 +102,11 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
                 localStorage.setItem("tours_version","1.1");
                 localStorage.setItem("tours",JSON.stringify(data));
                 tours = tempTours;
+                
+                if(!colArray&&artwork&&tours){
+                
+                    genColArray();
+                }
             });
             
             // Set tour promise
@@ -94,11 +116,14 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
 
             artwork = tempArtwork;
             
-            
+            if(!colArray&&artwork&&tours){
+                
+                genColArray();
+            }
         }
         else{
 
-            artworkProm = Restangular.all('artobjects').getList();
+            var artworkProm = Restangular.all('artobjects').getList();
             
             artworkProm.then(function(success){
 
@@ -106,6 +131,10 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
                 localStorage.setItem("tours_version","1.1");
                 localStorage.setItem("artwork",JSON.stringify(artwork));
                 
+                if(!colArray&&artwork&&tours){
+                
+                    genColArray();
+                }
             },
             function(error){
 
@@ -212,6 +241,23 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
             return null;
         }
     }
+  
+  outOb.getArtworkCol = function(id){
+          
+        return genColArray(outOb.getArtworkByTourID(id));
+  }
+  
+  outOb.getArtworkColByTourID = function(id){
+      
+      if(colArray){
+          
+          return colArray[id];
+      }
+      else{
+          
+          return null;
+      }
+  }
   
   return outOb;
 }]);

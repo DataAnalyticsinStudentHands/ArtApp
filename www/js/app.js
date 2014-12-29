@@ -100,7 +100,7 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo',
                 $http.get('tours.json').success(function(data) {
                     localStorage.setItem("tours_version","1.1");
                     localStorage.setItem("tours",JSON.stringify(data));
-                    console.log("...localstorage (tour.json) success...");
+//                    console.log("...localstorage (tour.json) success...");
                 });
             }
             

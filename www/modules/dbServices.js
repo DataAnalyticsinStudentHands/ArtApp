@@ -3,7 +3,7 @@ var databaseServices = angular.module('databaseServicesModule', []);
 databaseServices.factory('Auth', ['Base64', '$http', function (Base64, $http) {
     // initialize to whatever is in the cookie, if anything
     $http.defaults.headers.common['Authorization'] = 'Basic ' + localStorage.getItem('authdata');
-    console.log($http.defaults.headers.common.Authorization);
+//    console.log($http.defaults.headers.common.Authorization);
     return {
         setCredentials: function (username, password) {
             var encoded = Base64.encode(username + ':' + password);
@@ -30,7 +30,7 @@ databaseServices.factory('Auth', ['Base64', '$http', function (Base64, $http) {
             return (ls && lsc && ls != "VmlzaXRvcjp0ZXN0");
         },
         confirmCredentials: function() {
-            console.log("confirming");
+//            console.log("confirming");
             localStorage.setItem("authdata-conf", true);
         }
     };
