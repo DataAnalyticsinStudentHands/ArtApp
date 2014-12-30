@@ -1,0 +1,41 @@
+<ion-view title="Menu">
+<ion-nav-buttons side='right'>
+    <button class="button button-icon button-clear" ng-click="loadAR()">Start Tour</button>
+</ion-nav-buttons>
+<ion-header-bar align-title="left" class="bar-dark bar-subheader">
+    <label class="item-input-wrapper">
+        <i class="icon ion-ios7-search placeholder-icon"></i>
+        <input ng-model="query" type="search" placeholder="   Search">
+    </label>
+</ion-header-bar>
+<ion-content>
+    <div class="list">
+        <a class="item" ui-sref="tour" menu-close nav-clear>
+            All Artwork
+        </a>
+        <a class="item item-icon-left" ng-click="favTourClick()" menu-close nav-clear>
+            <i class="icon ion-star"></i>
+            My Favorites
+        </a>
+        <div ng-click="menuShow=!menuShow" class="item item-icon-left item-divider" ng-init="menuShow=false">
+            <i ng-hide="menuShow" class="icon ion-arrow-down-b"></i>
+            <i ng-show="menuShow" class="icon ion-arrow-right-b"></i>
+            Public Art Tours
+        </div>
+        <a ng-hide="menuShow" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet() | filter: query" class="item" menu-close nav-clear>
+            <h3>{{tour.tour_title}}</h3>
+        </a>
+        <div ng-click="artShow=!artShow" class="item item-icon-left item-divider" ng-init="artShow=true">
+            <i ng-hide="artShow" class="icon ion-arrow-down-b"></i>
+            <i ng-show="artShow" class="icon ion-arrow-right-b"></i>
+            Artwork
+        </div>
+        <a ng-hide="artShow" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
+            <h3>{{item.title}}</h3>
+        </a>
+    </div>
+</ion-content>
+</ion-view>
+<ion-footer-bar align-title="left" class="bar-dark">
+    <img style="margin-left: calc(50% - 50px); width: 100px" src="img/HCLOGO2.png"/>
+</ion-footer-bar>

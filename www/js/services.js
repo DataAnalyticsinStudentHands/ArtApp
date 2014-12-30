@@ -1,39 +1,10 @@
 'use strict';
 
 /* Services */
-var locationServices = angular.module('locationServicesModule', []);
 var utilServices = angular.module('utilModule', []);
 
-locationServices.factory('accelerometerServe', ['$q', function($q) {
-
-  return {
-    getCurrentAcceleration: null,
-    watchAcceleration: null,
-    clearWatch: null
-  }
-}]);
-
-
-locationServices.factory('compassServe', ['$q', function($q) {
-
-  return {
-    getCurrentHeading: null,
-    watchHeading: null,
-    clearWatch: null
-  }
-}]);
-
-locationServices.factory('geolocationServe', ['$q', function($q) {
-
-  return {
-    getCurrentPosition: null,
-    watchPosition: null,
-    clearWatch: null
-  }
-}]);
-
-utilServices.factory('tourInfo', ['$q','Restangular','$http',
-    function($q,Restangular,$http) {
+utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
+    function($q,Restangular,$http,$filter) {
 
     var tours = null;
     var artwork = null;
@@ -219,6 +190,11 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http',
   outOb.getArtwork = function(){
         
         return artwork;
+    }
+  
+  outOb.getArtworkByID = function(art_id){
+
+      return $filter('getByArtworkId')(artwork, art_id);
     }
   
   outOb.getArtworkByTourID = function(id){
