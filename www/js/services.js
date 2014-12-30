@@ -3,12 +3,13 @@
 /* Services */
 var utilServices = angular.module('utilModule', []);
 
-utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
-    function($q,Restangular,$http,$filter) {
+utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicSlideBoxDelegate',
+    function($q,Restangular,$http,$filter,$ionicSlideBoxDelegate) {
 
     var tours = null;
     var artwork = null;
     var colArray = null;
+    var startupCol = null;
         
     // Groups artwork in columns of 3 for box slider purposes
     var genColArray = function(){
@@ -45,6 +46,30 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
         }
     }
     
+    var createCollage = function(art){
+        
+        var tempArr = [];
+        
+        for(var i=0;i<Math.ceil(art.length/3);i++){
+
+            tempArr[i] = [];
+
+            for(var j=0;j<3;j++){
+
+                if(i*3+j<art.length){
+
+                    tempArr[i][j] = art[i*3+j];
+                }
+                else{
+
+                    break;
+                }
+            }
+        }
+        
+        return tempArr;
+    }
+    
   var outOb = {
     loadData: function(){
 
@@ -60,6 +85,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
             if(!colArray&&artwork&&tours){
                 
                 genColArray();
+                startupCol = createCollage(artwork);
+                $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
             }
         }
         else{
@@ -77,6 +104,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
                 if(!colArray&&artwork&&tours){
                 
                     genColArray();
+                    startupCol = createCollage(artwork);
+                    $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
                 }
             });
             
@@ -90,6 +119,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
             if(!colArray&&artwork&&tours){
                 
                 genColArray();
+                startupCol = createCollage(artwork);
+                $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
             }
         }
         else{
@@ -105,6 +136,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
                 if(!colArray&&artwork&&tours){
                 
                     genColArray();
+                    startupCol = createCollage(artwork);
+                    $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
                 }
             },
             function(error){
@@ -114,32 +147,10 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
             });
         }
     },
-//    getTours: function(){
-//
-//        this;
-//        
-//        if(!tours){
-//            
-//            this.loadData();
-//        }
-//        
-//        return tours;
-//    },
     setTours: function(input){
 
         tours = input;
     },
-//    getArtwork: function(){
-//
-//        this;
-//        
-//        if(!artwork){
-//            
-//            this.loadData();
-//        }
-//        
-//        return artwork;
-//    },
     setArtwork: function(input){
 
         artwork = input;
@@ -160,26 +171,6 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
             return null;
         }
     }
-//    getArtworkByTourID: function(id){
-//
-//        var tour = this.getTourByID(id);
-//
-//        if(tour){
-//
-//            var tourArt = [];
-//
-//            for(var i=0;i<tour.artwork_included.length;i++){
-//
-//                tourArt.push(artwork[tour.artwork_included[i]]);
-//            }
-//
-//            return tourArt;
-//        }
-//        else{
-//
-//            return null;
-//        }
-//    }
   }
   
   outOb.getTours = function(){
@@ -233,6 +224,11 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter',
           
           return null;
       }
+  }
+  
+  outOb.getStartupCol = function(){
+      
+      return startupCol;
   }
   
   return outOb;

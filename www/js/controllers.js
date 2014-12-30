@@ -66,9 +66,20 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         }
     }]);
 
-appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
 
+        $scope.artworkGet = tourInfo.getStartupCol;
+        
+        $scope.loadAR = function() {
+            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+        };
+        
+        $scope.genImList = function(artOb){
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            return outStr;
+        };
+        
     }]);
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
