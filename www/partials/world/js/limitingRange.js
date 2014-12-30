@@ -1,4 +1,4 @@
-AR.context.scene.cullingDistance = 1;
+AR.context.scene.cullingDistance = 250;
 
 // implementation of AR-Experience (aka "World")
 var World = {
@@ -9,9 +9,9 @@ var World = {
 	initiallyLoadedData: false,
 
 	// different POI-Marker assets
-	markerDrawable_idle: null,
-	markerDrawable_selected: null,
-	markerDrawable_directionIndicator: null,
+	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
+	markerDrawable_selected: new AR.ImageResource("assets/yourMarker.png"),
+	markerDrawable_directionIndicator: new AR.ImageResource("assets/indi.png"),
 
 	// list of AR.GeoObjects that are currently shown in the scene / World
 	markerList: [],
@@ -32,11 +32,6 @@ var World = {
 		// empty list of visible markers
 		World.markerList = [];
 
-		// start loading marker assets
-		World.markerDrawable_idle = new AR.ImageResource("assets/mapmarker.png");
-		World.markerDrawable_selected = new AR.ImageResource("assets/yourMarker.png");
-		World.markerDrawable_directionIndicator = new AR.ImageResource("assets/indi.png");
-
 		// loop through POI-information and create an AR.GeoObject (=Marker) per POI
 		for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
 			var singlePoi = {
@@ -56,8 +51,19 @@ var World = {
         // set distance slider to 100%
 //		$("#panel-distance-range").val(25);
 //		$("#panel-distance-range").slider("refresh");
+        
+        var maxRangeMeters = 100;
+        
+        while(World.getNumberOfVisiblePlacesInRange(maxRangeMeters) < 5 && World.getNumberOfVisiblePlacesInRange(maxRangeMeters) != poiData.length) {
+              maxRangeMeters += 50;
+        }
+        
+        console.log(maxRangeMeters/World.getMaxDistance());
+        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
+        
+        $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
+        
         World.updateRangeValues();
-
 		World.updateStatusMessage(currentPlaceNr + ' places loaded');
 	},
 
@@ -163,16 +169,8 @@ var World = {
 		var slider_value = $("#panel-distance-range").val();
 
 		// max range relative to the maximum distance of all visible places
-//		var maxRangeMeters = Math.round(World.getMaxDistance() * (slider_value / 100));
+        var maxRangeMeters = Math.round(World.getMaxDistance() * (slider_value / 100));
         
-        var maxRangeMeters = 100;
-        
-        while(World.getNumberOfVisiblePlacesInRange(maxRangeMeters) < 5) {
-              maxRangeMeters += 50;
-        }
-        
-        $("#panel-distance-range").val(Math.round(World.getMaxDistance()/maxRangeMeters)*100);
-
 		// range in meters including metric m/km
 		var maxRangeValue = (maxRangeMeters > 999) ? ((maxRangeMeters / 1000).toFixed(2) + " km") : (Math.round(maxRangeMeters) + " m");
 
