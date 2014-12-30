@@ -41,7 +41,7 @@ var app = {
         app.wikitudePlugin = cordova.require("com.wikitude.phonegap.WikitudePlugin.WikitudePlugin");
         app.wikitudePlugin.isDeviceSupported(app.onDeviceSupportedCallback, app.onDeviceNotSupportedCallback);
     },
-    onURLInvoked: function(url) {
+    onURLInvoked: function (url) {
        if ( 'closeWikitudePlugin' == url.substring(22) ) {
            app.wikitudePlugin.close();
        } else {
@@ -86,14 +86,6 @@ var app = {
         } else {
             alert("Device is not supported");
         }
-    },
-    // called when the screen was captured successfully
-    onScreenCaptured: function (absoluteFilePath) {
-        alert("snapshot stored at:\n" + absoluteFilePath);
-    },
-    // called when a screen capture error occurs
-    onScreenCapturedError: function (errorMessage) {
-        alert(errorMessage);
-    },
+    }
 };
 app.initialize();

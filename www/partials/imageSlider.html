@@ -24,8 +24,8 @@
     <ion-nav-buttons side='right'>
         <button class="button button-icon button-clear" ng-click="loadAR()">Start Tour</button>
     </ion-nav-buttons>
-    <ion-content>
-        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)">
+    <ion-content delegate-handle="sliderScroll">
+        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)" show-pager="false" auto-play="true" does-continue="true" style="height: 100%">
             <ion-slide ng-repeat="artArr in artworkGetCol(tourID)">
                 <div class="row" ng-repeat="artOb in artArr">
                     <div class="col" style="text-align: center;">
@@ -37,9 +37,14 @@
                     </div>
                 </div>
             </ion-slide>
-            <ion-slide>
-                <googlemaps class="google-maps" options="map"></googlemaps>
-            </ion-slide>
         </ion-slide-box>
+        <div ng-click="toggleMap()" class="item item-icon-left item-divider">
+            <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
+            <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
+            Map
+        </div>
+        <div ng-show="mapShow">
+            <googlemaps class="google-maps" options="map"></googlemaps>
+        </div>
     </ion-content>
 </ion-view>

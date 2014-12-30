@@ -21,15 +21,10 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
         $scope.selectedMarker = null;
         
         $scope.tourArt = [];
-        
-        $scope.testFunc = function(){
-            console.log('HEYEYEYEYEYE');
-            $state.go('search.artwork');
-        }
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
+appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
@@ -45,11 +40,9 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         };
         
         var markersArr = [];
-//        $timeout(function() {            
-            $scope.artworkGet($scope.tourID).forEach(function(obj) {
-                markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
-            });
-//        }, 5000);
+        $scope.artworkGet($scope.tourID).forEach(function(obj) {
+            markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
+        });
         
         $scope.map = {
             sensor: true,
@@ -57,9 +50,20 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
             zoom: 15,
             center: '29.722000, -95.34350', //CENTER OF UH
             markers: markersArr,
-            mapevents: {redirect: false, loadmap: false},
+            mapevents: {redirect: false, loadmap: true},
             listen: true
         };
+        
+        $scope.mapShow = false;
+        $scope.toggleMap = function(){
+            $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
+            $scope.mapShow = !$scope.mapShow;
+            if($scope.mapShow) {
+                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
+            } else {
+                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+            }
+        }
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
@@ -82,13 +86,15 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
-        console.log($scope.detailArt);
     }]);
 
-appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout) {
+appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate) {
         $rootScope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         };
         $timeout($rootScope.menuToggle, 1000);
+        $scope.resizeScroll = function(){
+            $ionicScrollDelegate.$getByHandle('menuScroll').resize();
+        }
     }]);

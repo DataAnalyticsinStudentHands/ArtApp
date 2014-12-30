@@ -8,7 +8,7 @@
         <input ng-model="query" type="search" placeholder="   Search">
     </label>
 </ion-header-bar>
-<ion-content>
+<ion-content delegate-handle="menuScroll">
     <div class="list">
         <a class="item" ui-sref="tour" menu-close nav-clear>
             All Artwork
@@ -17,7 +17,7 @@
             <i class="icon ion-star"></i>
             My Favorites
         </a>
-        <div ng-click="menuShow=!menuShow" class="item item-icon-left item-divider" ng-init="menuShow=false">
+        <div ng-click="resizeScroll(); menuShow=!menuShow;" class="item item-icon-left item-divider" ng-init="menuShow=false">
             <i ng-hide="menuShow" class="icon ion-arrow-down-b"></i>
             <i ng-show="menuShow" class="icon ion-arrow-right-b"></i>
             Public Art Tours
@@ -25,7 +25,7 @@
         <a ng-hide="menuShow" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet() | filter: query" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
-        <div ng-click="artShow=!artShow" class="item item-icon-left item-divider" ng-init="artShow=true">
+        <div ng-click="resizeScroll(); artShow=!artShow;" class="item item-icon-left item-divider" ng-init="artShow=true">
             <i ng-hide="artShow" class="icon ion-arrow-down-b"></i>
             <i ng-show="artShow" class="icon ion-arrow-right-b"></i>
             Artwork
