@@ -5,9 +5,6 @@ var World = {
 	//  user's latest known location, accessible via userLocation.latitude, userLocation.longitude, userLocation.altitude
 	userLocation: null,
 
-	// you may request new data from server periodically, however: in this sample data is only requested once
-	isRequestingData: false,
-
 	// true once data was fetched
 	initiallyLoadedData: false,
 
@@ -57,8 +54,8 @@ var World = {
 		World.updateDistanceToUserValues();
 
         // set distance slider to 100%
-		$("#panel-distance-range").val(25);
-		$("#panel-distance-range").slider("refresh");
+//		$("#panel-distance-range").val(25);
+//		$("#panel-distance-range").slider("refresh");
         World.updateRangeValues();
 
 		World.updateStatusMessage(currentPlaceNr + ' places loaded');
@@ -166,7 +163,15 @@ var World = {
 		var slider_value = $("#panel-distance-range").val();
 
 		// max range relative to the maximum distance of all visible places
-		var maxRangeMeters = Math.round(World.getMaxDistance() * (slider_value / 100));
+//		var maxRangeMeters = Math.round(World.getMaxDistance() * (slider_value / 100));
+        
+        var maxRangeMeters = 100;
+        
+        while(World.getNumberOfVisiblePlacesInRange(maxRangeMeters) < 5) {
+              maxRangeMeters += 50;
+        }
+        
+        $("#panel-distance-range").val(Math.round(World.getMaxDistance()/maxRangeMeters)*100);
 
 		// range in meters including metric m/km
 		var maxRangeValue = (maxRangeMeters > 999) ? ((maxRangeMeters / 1000).toFixed(2) + " km") : (Math.round(maxRangeMeters) + " m");
