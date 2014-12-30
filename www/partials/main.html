@@ -1,5 +1,20 @@
-<ion-view title="Collage"> 
+<ion-view title="AR Tours">
+    <ion-nav-buttons side='right'>
+        <button class="button button-icon button-clear" ng-click="loadAR()">Start Tour</button>
+    </ion-nav-buttons>
     <ion-content>
-        We are planning on putting a collage here on first startup.
+        <ion-slide-box delegate-handle="start-slider" on-slide-changed="slideHasChanged($index)">
+            <ion-slide ng-repeat="artArr in artworkGet()">
+                <div class="row" ng-repeat="artOb in artArr">
+                    <div class="col" style="text-align: center;">
+                        <img ng-src="{{genImList(artOb)}}" style="width:100%; min-width: 250px;">
+                    </div>
+                    <div class="card col">
+                        <h2>{{artOb.title}}</h2>
+                        <p>{{artOb.description}}</p>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
     </ion-content>
 </ion-view>

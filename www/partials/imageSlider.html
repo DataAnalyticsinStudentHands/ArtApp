@@ -3,14 +3,14 @@
     <ion-nav-buttons side='right'>
         <button class="button button-icon button-clear" ng-click="loadAR()">Start Tour</button>
     </ion-nav-buttons>
-    <div class="bar bar-subheader" style="margin-bottom: -50px">
-        <h2 class="title">{{visible_art_title}}</h2>
-        <button ng-show="current_art_id" class="button button-clear button-dark" ui-sref="tour.artDetail({artID:current_art_id})">Details</button>
-    </div>
-    <ion-content class="has-subheader">
-        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)" does-continue="false">
-            <ion-slide ng-repeat="artOb in artworkGet(tourID)">
-                <div class="box"><img ng-src="{{genImList(artOb)}}" ng-style="{'width' : '100%'}"></div>
+    <ion-content>
+        <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)">
+            <ion-slide class="list" ng-repeat="artArr in artworkGetCol(tourID)">
+                <ion-item class="item item-thumbnail-left item-text-wrap" ng-repeat="artOb in artArr">
+                    <img ng-src="{{genImList(artOb)}}">
+                    <h2>{{artOb.title}}</h2>
+                    <p>{{artOb.description}}</p>
+                </ion-item>
             </ion-slide>
             <ion-slide>
                 <googlemaps class="google-maps" options="map"></googlemaps>
@@ -20,19 +20,22 @@
 </ion-view>
 -->
 
-
 <ion-view title="{{tourGet(tourID).tour_title}}">
     <ion-nav-buttons side='right'>
         <button class="button button-icon button-clear" ng-click="loadAR()">Start Tour</button>
     </ion-nav-buttons>
     <ion-content>
         <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)">
-            <ion-slide class="list" ng-repeat="artArr in artworkGetCol(tourID)">
-                <ion-item class="item item-thumbnail-left item-text-wrap" ng-repeat="artOb in artArr">
-                    <img ng-src="{{genImList(artOb)}}">
-                    <h2>{{artOb.title}}</h2>
-                    <p>{{artOb.description}}</p>
-                </ion-item>
+            <ion-slide ng-repeat="artArr in artworkGetCol(tourID)">
+                <div class="row" ng-repeat="artOb in artArr">
+                    <div class="col" style="text-align: center;">
+                        <img ng-src="{{genImList(artOb)}}" style="width:100%; min-width: 250px;">
+                    </div>
+                    <div class="card col">
+                        <h2>{{artOb.title}}</h2>
+                        <p>{{artOb.description}}</p>
+                    </div>
+                </div>
             </ion-slide>
             <ion-slide>
                 <googlemaps class="google-maps" options="map"></googlemaps>
