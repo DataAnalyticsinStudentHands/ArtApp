@@ -67,6 +67,12 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         var loginResultPromise = Restangular.all("users").getList();
         loginResultPromise.then(function(result) {
             Auth.confirmCredentials();
+            
+            // Load artwork and tours after credentials confirmed
+            tourInfo.loadData();
+        },function(error){
+            
+            // Load artwork and tours after credentials rejected or no internet
             tourInfo.loadData();
         });
 
