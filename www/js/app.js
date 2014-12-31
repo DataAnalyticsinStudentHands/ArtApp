@@ -5,7 +5,6 @@
 var publicArtApp = angular.module('publicArtApp', [
     'ionic',
     'controllerModule',
-    'ngSanitize',
     'restangular',
     'databaseServicesModule',
     'utilModule',

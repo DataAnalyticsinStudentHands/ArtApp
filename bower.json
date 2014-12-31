@@ -4,12 +4,10 @@
   "version": "1",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-beta.13",
-    "angular-sanitize": "latest",
     "crypto-js": "http://crypto-js.googlecode.com/files/CryptoJS%20v3.1.2.zip",
     "ng-notify": "~0.5.0",
     "lodash": "latest",
     "restangular": "latest",
-    "angular-adaptive-googlemaps": "latest"
   },
   "dependencies": {
     "lodash": "~2.4.1",
