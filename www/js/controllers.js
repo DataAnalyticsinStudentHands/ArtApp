@@ -82,8 +82,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$ionicNavBarDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$ionicNavBarDelegate) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -94,6 +94,11 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('detailScroll').resize();
+        }
+        
+        $scope.goBack = function(){
+            
+            $ionicNavBarDelegate.back();
         }
     }]);
 
