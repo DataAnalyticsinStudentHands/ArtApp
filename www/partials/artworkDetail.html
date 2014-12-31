@@ -18,6 +18,14 @@
 </ion-view>-->
 
 <ion-view title="{{detailArt.title}}"> 
+    <ion-nav-buttons side='right'>
+        <button class="button button-icon button-clear" ng-show="!isFavorite" ng-click="markFavorite()">
+            <i class="icon ion-asterisk"></i>
+        </button>
+        <button class="button button-icon button-clear" ng-show="isFavorite" ng-click="markNotFavorite()">
+            <i class="icon ion-android-star"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content delegate-handle="detailScroll">
         <div class="list card">
             <img class="item" ng-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
