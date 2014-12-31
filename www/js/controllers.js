@@ -98,6 +98,20 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
+        $scope.genImList = function(artOb){
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            return outStr;
+        };
+        
+        $scope.resizeScroll = function(){
+            $ionicScrollDelegate.$getByHandle('detailScroll').resize();
+        }
+        
+        $scope.goBack = function(){
+            
+            $ionicNavBarDelegate.back();
+        }
+        
         $scope.isFavorite = favoriteService.isFavorite($scope.art_id);
         
         $scope.markFavorite = function() {

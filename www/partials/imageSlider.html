@@ -5,7 +5,7 @@
     <ion-content delegate-handle="sliderScroll">
         <ion-slide-box delegate-handle="main-slider" on-slide-changed="slideHasChanged($index)" show-pager="false" auto-play="true" does-continue="true" style="height: 100%">
             <ion-slide ng-repeat="artArr in artworkGetCol(tourID)">
-                <div class="row" ng-repeat="artOb in artArr">
+                <div class="row" ng-repeat="artOb in artArr" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                     <div class="col" style="text-align: center;">
                         <img ng-src="{{genImList(artOb)}}" style="width:100%; min-width: 250px;">
                     </div>
