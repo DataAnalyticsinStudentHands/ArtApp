@@ -82,10 +82,19 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
+        
+        $scope.genImList = function(artOb){
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            return outStr;
+        };
+        
+        $scope.resizeScroll = function(){
+            $ionicScrollDelegate.$getByHandle('detailScroll').resize();
+        }
     }]);
 
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',

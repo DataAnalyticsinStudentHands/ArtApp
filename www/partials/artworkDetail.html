@@ -1,5 +1,64 @@
+<!--
 <ion-view title="{{detailArt.title}}"> 
     <ion-content>
-        Detail about artwork: {{detailArt.title}} will be shown here soon!
+        <div class="list card">
+            <img class="item" ng-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
+            <div class="item item-text-wrap">
+                <h1>{{detailArt.title}}</h1>
+                <h2>{{detailArt.artist_name}}</h2>
+                <br/>
+                <p ng-hide="!detailArt.description || detailArt.description==''">{{detailArt.description}}</p>
+                <br/>
+                <p ng-hide="!detailArt.location_name || detailArt.location_name==''">Location: {{detailArt.location_name}}</p>
+                <p ng-hide="!detailArt.medium || detailArt.medium==''">Medium: {{detailArt.medium}}</p>
+                <p ng-hide="!detailArt.dimensions || detailArt.dimensions==''">Dimensions: {{detailArt.dimensions}}</p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>-->
+
+<ion-view title="{{detailArt.title}}"> 
+    <ion-content delegate-handle="detailScroll">
+        <div class="list card">
+            <img class="item" ng-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
+            <div class="item item-text-wrap">
+                <h1>{{detailArt.title}}</h1>
+                <h2>{{detailArt.artist_name}}</h2>
+                <br/>
+                <p ng-hide="!detailArt.description || detailArt.description==''">{{detailArt.description}}</p>
+            </div>
+            <div ng-click="resizeScroll(); artistInfo=!artistInfo;" class="item item-icon-left item-divider" ng-init="artistInfo=false">
+                <i ng-show="artistInfo" class="icon ion-arrow-down-b"></i>
+                <i ng-hide="artistInfo" class="icon ion-arrow-right-b"></i>
+                Artist Info
+            </div>
+            <div class="item item-text-wrap" ng-show="artistInfo">
+                <p ng-hide="!detailArt.artist_name || detailArt.artist_name==''">Artist: {{detailArt.artist_name}}</p>
+                <p ng-hide="!detailArt.artist_dob || detailArt.artist_dob==''">Date of Birth: {{detailArt.artist_dob}}</p>
+                <p ng-hide="!detailArt.artist_pob || detailArt.artist_pob==''">Place of Birth: {{detailArt.artist_pob}}</p>
+                <p ng-hide="!detailArt.artist_website || detailArt.artist_website==''">Website: {{detailArt.artist_website}}</p>
+            </div>
+            <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=false">
+                <i ng-show="locationInfo" class="icon ion-arrow-down-b"></i>
+                <i ng-hide="locationInfo" class="icon ion-arrow-right-b"></i>
+                Location Info
+            </div>
+            <div class="item item-text-wrap" ng-show="locationInfo">
+                <p ng-hide="!detailArt.location_name || detailArt.location_name==''">Location: {{detailArt.location_name}}</p>
+                <p ng-hide="!detailArt.location_campus || detailArt.location_campus==''">Campus: {{detailArt.location_campus}}</p>
+                <p ng-hide="!detailArt.availability || detailArt.availability==''">Availability: {{detailArt.availability}}</p>
+            </div>
+            <div ng-click="resizeScroll(); charInfo=!charInfo;" class="item item-icon-left item-divider" ng-init="charInfo=false">
+                <i ng-show="charInfo" class="icon ion-arrow-down-b"></i>
+                <i ng-hide="charInfo" class="icon ion-arrow-right-b"></i>
+                Characteristics
+            </div>
+            <div class="item item-text-wrap" ng-show="charInfo">
+                <p ng-hide="!detailArt.date_made || detailArt.date_made==''">Date Made: {{detailArt.date_made}}</p>
+                <p ng-hide="!detailArt.medium || detailArt.medium==''">Medium: {{detailArt.medium}}</p>
+                <p ng-hide="!detailArt.dimensions || detailArt.dimensions==''">Dimensions: {{detailArt.dimensions}}</p>
+                <p ng-hide="!detailArt.mon_value || detailArt.mon_value==''">Value: ${{detailArt.mon_value}}</p>
+            </div>
+        </div>
     </ion-content>
 </ion-view>
