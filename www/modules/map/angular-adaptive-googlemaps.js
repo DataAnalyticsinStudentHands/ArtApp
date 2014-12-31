@@ -33,14 +33,17 @@
 
     $scope.markersArray = [];
     var addMarker = function(address) {
-      getLocation(address, function(location){
+      getLocation(address.latLong, function(location){
         var marker = new google.maps.Marker({
           position: location,
-          title: address,
+          title: address.latLong,
           map: $scope.map,
+          url: "/#/tour/artDetail/" + address.markerData.artwork_id,
           draggable: false
         });
-
+        google.maps.event.addListener(marker, 'click', function() {
+          window.location.href = marker.url;  
+        });
         $scope.markersArray.push(marker);
       });
     };
@@ -81,7 +84,7 @@
 
       var markerStrings;
       var markers = staticAttributes.markers;
-
+      console.log(staticAttributes.markers);
       if (markers) {
         if (!angular.isArray(markers)) {
           markers = [markers];
@@ -93,7 +96,7 @@
       var params = Object.keys(attrs).map(function (attr) {
         if (attr === 'markers' && markerStrings) {
           return Object.keys(markerStrings).map(function (key) {
-            return 'markers=' + encodeURIComponent(markerStrings[key]);
+            return 'markers=' + encodeURIComponent(markerStrings[key].latLong);
           }).join('&');
         }
 
@@ -168,6 +171,7 @@
         function(location){
           $scope.map.setCenter(location);
           for (var i = 0; dynamicAttributes.markers && i < dynamicAttributes.markers.length; i++) {
+            console.log(dynamicAttributes.markers[i]);
             addMarker(dynamicAttributes.markers[i]);
           }
         },
@@ -270,7 +274,6 @@
         listener();
       });
     };
-
   }]);
 
   adaptive.directive('googlemaps', [ function () {

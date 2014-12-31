@@ -41,7 +41,17 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         
         var markersArr = [];
         $scope.artworkGet($scope.tourID).forEach(function(obj) {
-            markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
+//            var tempMarker = new google.maps.Marker({
+//                position: ""+obj.location_lat+", "+obj.location_long + "",
+//                url: 'www.google.com',
+//                title: "TEST"
+//            });
+            
+            var tempMarker = [];
+            tempMarker.latLong = ""+obj.location_lat+", "+obj.location_long + "";
+            tempMarker.markerData = obj;
+            markersArr.push(tempMarker);
+//            markersArr.push(""+obj.location_lat+", "+obj.location_long + "");
         });
         
         $scope.map = {
@@ -55,7 +65,7 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         };
         
         $scope.mapShow = false;
-        $scope.toggleMap = function(){
+        $scope.toggleMap = function() {
             $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
             $scope.mapShow = !$scope.mapShow;
             if($scope.mapShow) {
@@ -63,6 +73,14 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
             } else {
                 $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
             }
+        }
+        
+        $timeout(function() {
+            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
+        },1500);
+        
+        $scope.slideHasChanged = function(index) {
+            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
         }
     }]);
 

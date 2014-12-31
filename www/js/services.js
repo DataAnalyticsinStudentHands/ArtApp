@@ -233,3 +233,44 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
   
   return outOb;
 }]);
+
+utilServices.factory('favorites', function() {
+    return {
+        setFavorite: function (id,toggle) {
+            var temp = [];
+            if (localStorage.getItem("favorites")!=null) {
+                temp = JSON.parse(localStorage.getItem("favorites"));
+            } 
+
+            if (toggle){
+                console.log("add favorite: "+id);
+                temp.push(id);
+            }else{
+                console.log("remove favorite: "+id);
+                var index = temp.indexOf(id);
+                if (index > -1) {
+                    temp.splice(index, 1);
+                }
+            }
+
+            console.log(temp);
+            localStorage.setItem("favorites",JSON.stringify(temp));
+        },
+        isFavorite: function (id) {
+            var temp = []
+            if (localStorage.getItem("favorites")!=null) {
+                temp = JSON.parse(localStorage.getItem("favorites"));
+            }
+
+            for(var q=0; q<temp.length;q++) {
+                if (temp[q]==id){
+                    return true; 
+                }
+            }
+            return false;
+        },
+        getFavorites: function() {
+            return localStorage.getItem("favorites");
+        }
+    }
+});
