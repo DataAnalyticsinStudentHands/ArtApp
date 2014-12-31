@@ -1,4 +1,12 @@
-<ion-view title="{{detailArt.title}}"> 
+<ion-view title="{{detailArt.title}}">
+    <ion-nav-buttons side='right'>
+        <button class="button button-icon button-clear" ng-show="!isFavorite" ng-click="markFavorite()">
+            <i class="icon ion-asterisk"></i>
+        </button>
+        <button class="button button-icon button-clear" ng-show="isFavorite" ng-click="markNotFavorite()">
+            <i class="icon ion-android-star"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content>
         Detail about artwork: {{detailArt.title}} will be shown here soon!
     </ion-content>

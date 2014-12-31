@@ -234,12 +234,13 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
   return outOb;
 }]);
 
-utilServices.factory('favorites', function() {
+utilServices.factory('favoriteService', function() {
     return {
         setFavorite: function (id,toggle) {
+            id = eval(id);
             var temp = [];
-            if (localStorage.getItem("favorites")!=null) {
-                temp = JSON.parse(localStorage.getItem("favorites"));
+            if (localStorage.getObject("favorites")!=null) {
+                temp = JSON.parse(localStorage.getObject("favorites"));
             } 
 
             if (toggle){
@@ -254,12 +255,12 @@ utilServices.factory('favorites', function() {
             }
 
             console.log(temp);
-            localStorage.setItem("favorites",JSON.stringify(temp));
+            localStorage.setObject("favorites",JSON.stringify(temp));
         },
         isFavorite: function (id) {
             var temp = []
-            if (localStorage.getItem("favorites")!=null) {
-                temp = JSON.parse(localStorage.getItem("favorites"));
+            if (localStorage.getObject("favorites")!=null) {
+                temp = JSON.parse(localStorage.getObject("favorites"));
             }
 
             for(var q=0; q<temp.length;q++) {
@@ -270,7 +271,7 @@ utilServices.factory('favorites', function() {
             return false;
         },
         getFavorites: function() {
-            return localStorage.getItem("favorites");
+            return eval(localStorage.getObject("favorites"));
         }
     }
 });

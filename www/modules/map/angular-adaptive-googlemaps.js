@@ -84,7 +84,6 @@
 
       var markerStrings;
       var markers = staticAttributes.markers;
-      console.log(staticAttributes.markers);
       if (markers) {
         if (!angular.isArray(markers)) {
           markers = [markers];
@@ -171,7 +170,6 @@
         function(location){
           $scope.map.setCenter(location);
           for (var i = 0; dynamicAttributes.markers && i < dynamicAttributes.markers.length; i++) {
-            console.log(dynamicAttributes.markers[i]);
             addMarker(dynamicAttributes.markers[i]);
           }
         },

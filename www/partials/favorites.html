@@ -1,0 +1,9 @@
+<ion-view title="My Favorites">
+    <ion-content>
+        <div class="list">
+            <div class="item" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in favoriteArt">
+                {{item.title}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
