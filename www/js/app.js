@@ -76,13 +76,4 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
             tourInfo.loadData();
         });
 
-        /*Reads tour.json and set data into localstorage only if there is new version*/
-        /* Do we even need this anymore? In any case it should be moved to a service*/
-//        if (localStorage.getItem("tours_version")!="1.0") {
-//            $http.get('tours.json').success(function(data) {
-//                localStorage.setItem("tours_version","1.1");
-//                localStorage.setItem("tours",JSON.stringify(data));
-//                console.log("...localstorage (tour.json) success...");
-//            });
-//        }
     }]);
