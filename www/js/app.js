@@ -48,6 +48,15 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
                     }
                 }
             })
+            .state('tour.favorites',{
+                url:"/favorites",
+                views:{
+                    "content@":{
+                        templateUrl:"partials/favorites.html",
+                        controller:"favoriteCtrl"
+                    }
+                }
+            })
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
     }]);
 
