@@ -20,20 +20,20 @@
             <i class="icon ion-star"></i>
             My Favorites
         </a>
-        <div ng-click="resizeScroll(); menuShow=!menuShow;" class="item item-icon-left item-divider" ng-init="menuShow=false">
-            <i ng-hide="menuShow" class="icon ion-arrow-down-b"></i>
-            <i ng-show="menuShow" class="icon ion-arrow-right-b"></i>
+        <div ng-click="resizeScroll(); setToursOpen(!toursOpen());" class="item item-icon-left item-divider">
+            <i ng-show="toursOpen()" class="icon ion-arrow-down-b"></i>
+            <i ng-hide="toursOpen()" class="icon ion-arrow-right-b"></i>
             Public Art Tours
         </div>
-        <a ng-hide="menuShow" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet() | filter: query" class="item" menu-close nav-clear>
+        <a ng-show="toursOpen()" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet() | filter: query" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
-        <div ng-click="resizeScroll(); artShow=!artShow;" class="item item-icon-left item-divider" ng-init="artShow=true">
-            <i ng-hide="artShow" class="icon ion-arrow-down-b"></i>
-            <i ng-show="artShow" class="icon ion-arrow-right-b"></i>
+        <div ng-click="resizeScroll(); setArtworkOpen(!artworkOpen());" class="item item-icon-left item-divider">
+            <i ng-show="artworkOpen()" class="icon ion-arrow-down-b"></i>
+            <i ng-hide="artworkOpen()" class="icon ion-arrow-right-b"></i>
             Artwork
         </div>
-        <a ng-hide="artShow" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
+        <a ng-show="artworkOpen()" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
             <h3>{{item.title}}</h3>
         </a>
     </div>

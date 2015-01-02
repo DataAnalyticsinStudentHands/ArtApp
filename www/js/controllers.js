@@ -3,14 +3,19 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state',
-    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
         $scope.toursGet = tourInfo.getTours;
         
         $scope.artworkGet = tourInfo.getArtwork;
+        
+        $scope.toursOpen = appStateStore.getToursOpen;
+        $scope.artworkOpen = appStateStore.getArtworkOpen;
+        $scope.setToursOpen = appStateStore.setToursOpen;
+        $scope.setArtworkOpen = appStateStore.setArtworkOpen;
         
         $scope.loadAR = function() {
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
@@ -83,7 +88,7 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         $scope.artworkGet = tourInfo.getStartupCol;
         
         $scope.loadAR = function() {
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+            app.loadARchitectWorld(getSamplePath(0, 0), tourInfo.getArtwork());
         };
         
         $scope.genImList = function(artOb){
@@ -136,13 +141,21 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
         });
     }]);
 
-appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate) {
+appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','appStateStore',
+    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate,appStateStore) {
         $rootScope.menuToggle = function(){
-            if(!$ionicSideMenuDelegate.isOpenLeft())
+            //if(!$ionicSideMenuDelegate.isOpenLeft())
                 $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+                appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
         };
-        $timeout($rootScope.menuToggle, 1000);
+        
+        if(appStateStore.getMenuOpen()){
+            $timeout(function(){
+                
+                $rootScope.menuToggle();
+                appStateStore.setMenuOpen(true);
+            }, 1000);
+        }
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('menuScroll').resize();
         }
