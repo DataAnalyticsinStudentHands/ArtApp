@@ -65,6 +65,7 @@ var World = {
         
         World.updateRangeValues();
 		World.updateStatusMessage(currentPlaceNr + ' art pieces loaded.');
+        $("#popupLoading").popup("close");
 	},
 
 	// sets/updates distances of all makers so they are available way faster than calling (time-consuming) distanceToUser() method all the time
