@@ -109,7 +109,7 @@ var World = {
         }
         if(World.currentMarker && World.currentMarker.isSelected){
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
-            $("#poi-detail-distance").html(distanceToUserValue);
+            $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
 
             if(World.currentMarker.distanceToUser < 10.0) {
                 $("#popupArrived").popup("open");
@@ -142,17 +142,23 @@ var World = {
         var distanceToUserValue = (marker.distanceToUser > 999) ? ((marker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(marker.distanceToUser) + " m");
 
         // update panel values
+        $("#art-title .ui-btn-text").text(marker.poiData.title);
+        $("#div-art-title").show("slow");
+        $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
+        $("#div-poi-detail-distance").show("slow");
+
         $("#poi-detail-title").html(marker.poiData.title);
         $("#poi-detail-description").html(marker.poiData.description);
-        $("#poi-detail-distance").html(distanceToUserValue);
         $("#poi-detail-image").attr("src","http://www.housuggest.org/images/ARtour/" + marker.poiData.artwork_id +"/"+ marker.poiData.image.split(",")[0]);
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
-
-//        $("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
-//			World.currentMarker.setDeselected(World.currentMarker);
-//        });
+        
 	},
+    
+    onMarkerDeselected: function markerDeselected() {
+        $("#div-art-title").hide();
+        $("#div-poi-detail-distance").hide();
+    },
     
     showInfo: function showInfoFn() {
         // show panel

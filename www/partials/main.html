@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <ion-content>
         <div class="box">
-            <div class="photo_container" ng-repeat="artOb in artworkGet(tourID)">
+            <div class="photo_container" ng-repeat="artOb in artworkGet(tourID)" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                 <img ng-src="{{genImList(artOb)}}" />
                 <div id="titleBox">{{artOb.title}}</div>
             </div>

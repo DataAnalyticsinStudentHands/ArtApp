@@ -53,30 +53,26 @@
     </script>
 </head>
     <body>
-     <div data-role="page" id="page1" style="background: none;" >
+        <div data-role="page" id="page1" style="background: none;" >
             <!-- MAIN PAGE CONTENT -->
 
             <!-- header of UI holding feature buttons -->
             <div id="header-status" data-role="header" data-position="fixed" data-theme="c">
                 <a href="javascript: World.showRange();" data-icon="gear" data-inline="true" data-mini="true">Range</a>
-                <!--<h1></h1>-->
                 <a href="javascript: closeWikitudePlugin();" data-inline="true" data-mini="true">Close</a>
             </div>
-
+            
+            <div style="float:none; text-align: center; display: none" id="div-art-title">
+                <a href="javascript: World.showInfo();" style="background:#FE7F78" id="art-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
+            </div>
 
             <!-- transparent footer-->
             <div data-role="footer" class="ui-bar" data-theme="f" data-position="fixed" style="text-align:center;">
                 <!-- the radar div - Wikitude SDK radar will be drawn into this div -->
                 <div class="radarContainer_left" id="radarContainer"></div>
-                
-                <!-- small status-button -->
-                <div style="margin-bottom: -45px"> <a style="text-align:right;" id="popupInfoButton" href="#popupInfo" data-rel="popup" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-icon="alert" data-theme="e" data-iconpos="notext">Log</a> </div>
-                <div style="float: right; margin-right: 27px;"> <a href="javascript: World.showInfo();" style="text-align:right;" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="c">More Info <div id="poi-detail-distance"></div></a> </div>
-
-                <!-- popup displayed when button clicked -->
-                <div data-role="popup" id="popupInfo" class="ui-content" data-theme="e" style="max-width:350px;">
-                    <p style="text-align:right;" id="status-message">Locating...</p>
-                </div>
+            </div>
+            <div style="position: absolute; left: 5px; bottom: 95px; display: none" id="div-poi-detail-distance">
+                <a href="javascript: World.showInfo();" id="poi-detail-distance" data-mini="true" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="c">DISTANCE</a>
             </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->
@@ -127,9 +123,8 @@
                  <div data-role="content">
                     <!-- title -->
                     <h3 id="poi-detail-title"></h3>
+                    <!-- image -->
                     <img id="poi-detail-image" style="width: 100%">
-                    <!-- distance -->
-<!--                    <h4>Distance: <a id="poi-detail-distance"></a></h4>-->
                     <!-- description -->
                     <h4 id="poi-detail-description"></h4>
                 </div>
