@@ -39,7 +39,9 @@ var World = {
 				"latitude": parseFloat(poiData[currentPlaceNr].latitude),
 				"longitude": parseFloat(poiData[currentPlaceNr].longitude),
 				"title": poiData[currentPlaceNr].name,
-				"description": poiData[currentPlaceNr].description
+				"description": poiData[currentPlaceNr].description,
+                "image": poiData[currentPlaceNr].image,
+                "artwork_id": poiData[currentPlaceNr].artwork_id
 			};
 
 			World.markerList.push(new Marker(singlePoi));
@@ -143,6 +145,7 @@ var World = {
         $("#poi-detail-title").html(marker.poiData.title);
         $("#poi-detail-description").html(marker.poiData.description);
         $("#poi-detail-distance").html(distanceToUserValue);
+        $("#poi-detail-image").attr("src","http://www.housuggest.org/images/ARtour/" + marker.poiData.artwork_id +"/"+ marker.poiData.image.split(",")[0]);
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
 

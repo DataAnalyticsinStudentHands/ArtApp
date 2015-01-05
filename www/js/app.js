@@ -60,8 +60,8 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
     }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate',
-    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore',
+    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore){
         Restangular.setBaseUrl("http://www.housuggest.org:8080/ArtApp/");
 
         Auth.setCredentials("Admin", "a91646d0a63e7511327e40cd2e31b297e8094e4f22e9c0a866549e4621bff8c190c71c7e9e9a9f40700209583130828f638247d6c080a67b865869ce902bb285");
@@ -74,5 +74,9 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
             tourInfo.loadData();
         },function(error){
             //Nothing needs to be done here.
+            tourInfo.loadData();
         });
+        
+        appStateStore.loadData();
+        
     }]);

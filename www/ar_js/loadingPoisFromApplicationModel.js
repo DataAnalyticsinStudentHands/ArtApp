@@ -9,7 +9,9 @@ function onLocationUpdated(tourJSON) {
             "longitude": parseFloat(tourJSON[i].location_long),
             "latitude": parseFloat(tourJSON[i].location_lat),
             "description": tourJSON[i].description,
-            "name": tourJSON[i].title
+            "name": tourJSON[i].title,
+            "image": tourJSON[i].image,
+            "artwork_id": tourJSON[i].artwork_id
         });
     }
     app.wikitudePlugin.callJavaScript("World.loadPoisFromJsonData(" + JSON.stringify(poiData) +");");

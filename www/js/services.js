@@ -275,3 +275,74 @@ utilServices.factory('favoriteService', function() {
         }
     }
 });
+
+utilServices.factory('appStateStore', function() {
+    
+    var toursOpen = null;
+    var artworkOpen = null;
+    var menuOpen = null;
+    
+    return {
+        
+        loadData: function(){
+            
+            toursOpen = JSON.parse(localStorage.getItem("toursOpen"));
+            artworkOpen = JSON.parse(localStorage.getItem("artworkOpen"));
+            menuOpen = JSON.parse(localStorage.getItem("menuOpen"));
+            
+            // If nothing in LS, set to default values
+            if(toursOpen===null){
+                
+                localStorage.setItem("toursOpen",true);
+                toursOpen = true;
+            }
+            if(artworkOpen===null){
+                
+                localStorage.setItem("artworkOpen",false);
+                artworkOpen = false;
+            }
+            if(menuOpen===null){
+                
+                localStorage.setItem("menuOpen",true);
+                menuOpen = true;
+            }
+            
+        },
+        getToursOpen: function(){
+            
+            return toursOpen;
+        },
+        setToursOpen: function(input){
+            
+            if(input != toursOpen){
+                
+                localStorage.setItem("toursOpen",input.toString());
+                toursOpen = input;
+            }
+        },
+        getArtworkOpen: function(){
+            
+            return artworkOpen;
+        },
+        setArtworkOpen: function(input){
+            
+            if(input != artworkOpen){
+                
+                localStorage.setItem("artworkOpen",input.toString());
+                artworkOpen = input;
+            }
+        },
+        getMenuOpen: function(){
+            
+            return menuOpen;
+        },
+        setMenuOpen: function(input){
+            
+            if(input != menuOpen){
+                
+                localStorage.setItem("menuOpen",input.toString());
+                menuOpen = input;
+            }
+        }
+    }
+});
