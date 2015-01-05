@@ -68,11 +68,14 @@
             <div data-role="footer" class="ui-bar" data-theme="f" data-position="fixed" style="text-align:center;">
                 <!-- the radar div - Wikitude SDK radar will be drawn into this div -->
                 <div class="radarContainer_left" id="radarContainer"></div>
+                
                 <!-- small status-button -->
-                <a style="text-align:right;" id="popupInfoButton" href="#popupInfo" data-rel="popup" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-icon="alert" data-theme="e" data-iconpos="notext">Log</a> </p>
+                <div style="margin-bottom: -45px"> <a style="text-align:right;" id="popupInfoButton" href="#popupInfo" data-rel="popup" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-icon="alert" data-theme="e" data-iconpos="notext">Log</a> </div>
+                <div style="float: right; margin-right: 27px;"> <a href="javascript: World.showInfo();" style="text-align:right;" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="c">More Info <div id="poi-detail-distance"></div></a> </div>
+
                 <!-- popup displayed when button clicked -->
                 <div data-role="popup" id="popupInfo" class="ui-content" data-theme="e" style="max-width:350px;">
-                  <p style="text-align:right;" id="status-message">Locating...</p>
+                    <p style="text-align:right;" id="status-message">Locating...</p>
                 </div>
             </div>
         
@@ -125,7 +128,7 @@
                     <!-- title -->
                     <h3 id="poi-detail-title"></h3>
                     <!-- distance -->
-                    <h4>Distance: <a id="poi-detail-distance"></a></h4>
+<!--                    <h4>Distance: <a id="poi-detail-distance"></a></h4>-->
                     <!-- description -->
                     <h4 id="poi-detail-description"></h4>
                 </div>

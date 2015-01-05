@@ -138,15 +138,18 @@ var World = {
         $("#poi-detail-description").html(marker.poiData.description);
         $("#poi-detail-distance").html(distanceToUserValue);
 
-        // show panel
-        $("#panel-poidetail").panel("open", 123);
-
         $(".ui-panel-dismiss" ).unbind("mousedown");
 
-        $("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
+//        $("#panel-poidetail").on("panelbeforeclose", function(event, ui) {
 //			World.currentMarker.setDeselected(World.currentMarker);
-        });
+//        });
 	},
+    
+    showInfo: function showInfoFn() {
+        // show panel
+        if(World.currentMarker)
+            $("#panel-poidetail").panel("open", 123);
+    },
 
 	// screen was clicked but no geo-object was hit
 	onScreenClick: function onScreenClickFn() {
