@@ -137,6 +137,7 @@ var World = {
         $("#poi-detail-title").html(marker.poiData.title);
         $("#poi-detail-description").html(marker.poiData.description);
         $("#poi-detail-distance").html(distanceToUserValue);
+        $("#poi-detail-image").attr("src","http://www.housuggest.org/images/ARtour/" + marker.poiData.artwork_id +"/"+ marker.poiData.image.split(",")[0]);
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
 
