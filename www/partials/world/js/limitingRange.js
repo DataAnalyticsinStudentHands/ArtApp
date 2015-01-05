@@ -64,7 +64,7 @@ var World = {
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
         
         World.updateRangeValues();
-		World.updateStatusMessage(currentPlaceNr + ' places loaded');
+		World.updateStatusMessage(currentPlaceNr + ' art pieces loaded.');
 	},
 
 	// sets/updates distances of all makers so they are available way faster than calling (time-consuming) distanceToUser() method all the time
@@ -108,7 +108,8 @@ var World = {
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
             $("#poi-detail-distance").html(distanceToUserValue);
             if(World.currentMarker.distanceToUser < 10.0) {
-                alert("YOU HAVE REACHED THE SELECTED DESTINATION");
+                $("#popupArrived").popup("open");
+                
                 World.currentMarker.setDeselected(World.currentMarker);
             }
         }
