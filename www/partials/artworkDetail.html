@@ -67,6 +67,14 @@
                 <p ng-hide="!detailArt.dimensions || detailArt.dimensions==''">Dimensions: {{detailArt.dimensions}}</p>
                 <p ng-hide="!detailArt.mon_value || detailArt.mon_value==''">Value: ${{detailArt.mon_value}}</p>
             </div>
+            <div ng-click="toggleMap()" class="item item-icon-left item-divider">
+                <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
+                <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
+                Map
+            </div>
+            <div ng-show="mapShow">
+                <googlemaps class="google-maps" options="map"></googlemaps>
+            </div>
         </div>
     </ion-content>
 </ion-view>

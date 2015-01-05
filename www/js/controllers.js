@@ -127,6 +127,31 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
             favoriteService.setFavorite($scope.art_id, false);
             $scope.isFavorite = !$scope.isFavorite;
         }
+        
+        var markersArr = [];
+        var tempMarker = [];
+        tempMarker.latLong = $scope.detailArt.location_lat+", "+$scope.detailArt.location_long;
+        tempMarker.markerData = $scope.detailArt;
+        markersArr.push(tempMarker);
+        
+        $scope.map = {
+            sensor: true,
+            size: '500x500',
+            zoom: 15,
+            center: '29.722000, -95.34350', //CENTER OF UH
+            markers: markersArr,
+            mapevents: {redirect: false, loadmap: true},
+            listen: true
+        };
+        
+        $scope.mapShow = false;
+        $scope.toggleMap = function() {
+            $ionicScrollDelegate.$getByHandle('detailScroll').resize();
+            $scope.mapShow = !$scope.mapShow;
+            if($scope.mapShow) {
+                $ionicScrollDelegate.$getByHandle('detailScroll').scrollBottom(true);
+            }
+        }
     }]);
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
