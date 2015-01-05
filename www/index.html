@@ -38,14 +38,14 @@
     <script type="text/javascript" src="ar_js/loadingPoisFromApplicationModel.js"></script>
     <script type="text/javascript" src="ar_js/index.js"></script>
     
+    <ion-nav-bar class="bar-dark">
+        <button class="button button-icon button-clear ion-navicon" ng-click="menuToggle()"></button>
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-arrow-return-left"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
     <ion-side-menus delegate-handle="main-menu">
         <ion-side-menu-content drag-content="true">
-            <ion-nav-bar class="bar-dark">
-                <button class="button button-icon button-clear ion-navicon" ng-click="menuToggle()"></button>
-                <ion-nav-back-button class="button-clear">
-                    <i class="ion-arrow-return-left"></i> Back
-                </ion-nav-back-button>
-            </ion-nav-bar>
             <ion-nav-view name="content"></ion-nav-view>
         </ion-side-menu-content>
         <ion-side-menu side="left" width="200">
