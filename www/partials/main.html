@@ -3,18 +3,11 @@
         <button class="button button-icon button-clear" ng-click="loadAR()">Start ARTour</button>
     </ion-nav-buttons>
     <ion-content>
-        <ion-slide-box delegate-handle="start-slider" on-slide-changed="slideHasChanged($index)">
-            <ion-slide ng-repeat="artArr in artworkGet()">
-                <div class="row" ng-repeat="artOb in artArr" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
-                    <div class="col" style="text-align: center;">
-                        <img ng-src="{{genImList(artOb)}}" style="width:100%; min-width: 250px;">
-                    </div>
-                    <div class="card col">
-                        <h2>{{artOb.title}}</h2>
-                        <p>{{artOb.description}}</p>
-                    </div>
-                </div>
-            </ion-slide>
-        </ion-slide-box>
+        <div class="box">
+            <div class="photo_container" ng-repeat="artOb in artworkGet(tourID)">
+                <img ng-src="{{genImList(artOb)}}" />
+                <div id="titleBox">{{artOb.title}}</div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

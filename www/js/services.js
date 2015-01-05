@@ -76,8 +76,6 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
         var tempTours = JSON.parse(localStorage.getItem("tours"));
         var tempArtwork = JSON.parse(localStorage.getItem("artwork"));
         
-        console.log(tempTours, tempArtwork);
-        
         // CHECK LOCAL STORAGE FOR TOURS AND ARTWORK
         // IF PRESENT
         if(tempTours){

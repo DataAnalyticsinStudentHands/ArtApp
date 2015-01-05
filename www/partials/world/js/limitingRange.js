@@ -108,10 +108,16 @@ var World = {
         if(World.currentMarker && World.currentMarker.isSelected){
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
             $("#poi-detail-distance").html(distanceToUserValue);
+
             if(World.currentMarker.distanceToUser < 10.0) {
                 $("#popupArrived").popup("open");
-                
-                World.currentMarker.setDeselected(World.currentMarker);
+                if(World.currentMarker){
+                    for (var i = 0; i < World.markerList.length; i++) {
+                        if(World.markerList[i].isSelected) {
+                            World.currentMarker.setDeselected(World.markerList[i]);
+                        }
+                    };
+                }                
             }
         }
         console.log("UPDATING " + World.locationUpdateCounter);

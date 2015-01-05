@@ -28,7 +28,6 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
-        $scope.artworkGetCol = tourInfo.getArtworkColByTourID;
         
         $scope.genImList = function(artOb){
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
@@ -80,10 +79,10 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
 
-        $scope.artworkGet = tourInfo.getStartupCol;
+        $scope.artworkGet = tourInfo.getArtwork;
         
         $scope.loadAR = function() {
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
+            app.loadARchitectWorld(getSamplePath(0, 0), tourInfo.getArtwork());
         };
         
         $scope.genImList = function(artOb){
