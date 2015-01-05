@@ -32,7 +32,9 @@
     <script type="text/javascript" src="js/radar.js"></script>
     <script>
         $(document).ready(function() {
-            if(false) {
+                
+            // If closeForever LS entry has not been created
+            if(!localStorage.getObject("closeForever")){
                 $("#popupDialog").popup("open");
             } else {
                 $("#popupLoading").popup("open");
@@ -46,6 +48,8 @@
         }
         function closePopupIntroForever() {
             $("#popupDialog").popup("close");
+            // Creates LS entry when closed forever
+            localStorage.setObject("closeForever","exists");
         }
         function closePopupArrived() {
             $("#popupArrived").popup("close");

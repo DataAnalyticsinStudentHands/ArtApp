@@ -36,6 +36,10 @@
         <a ng-show="artworkOpen()" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
             <h3>{{item.title}}</h3>
         </a>
+        <div class="item card item-text-wrap">
+            <h2>Tour App</h2>
+            <p>The tour app is intended to enhance the experience of students, alumni, and those interested in the University of Houston's public art collection by supplying relevent information on the artwork, as well as pathfinding tools to help in locating each piece.</p>
+        </div>
     </div>
 </ion-content>
 </ion-view>
