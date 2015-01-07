@@ -97,8 +97,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicScrollDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -115,6 +115,17 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
             
             $ionicNavBarDelegate.back();
         }
+    }]);
+
+appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService) {
+        $scope.favorites = favoriteService.getFavorites();
+        $scope.getArtByArtID = tourInfo.getArtworkByID;
+        
+        $scope.favoriteArt = [];
+        angular.forEach($scope.favorites, function(val) {
+            $scope.favoriteArt.push($scope.getArtByArtID(val));
+        });
         
         $scope.isFavorite = favoriteService.isFavorite($scope.art_id);
         
@@ -127,17 +138,11 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
             favoriteService.setFavorite($scope.art_id, false);
             $scope.isFavorite = !$scope.isFavorite;
         }
-    }]);
-
-appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService) {
-        $scope.favorites = favoriteService.getFavorites();
-        $scope.getArtByArtID = tourInfo.getArtworkByID;
         
-        $scope.favoriteArt = [];
-        angular.forEach($scope.favorites, function(val) {
-            $scope.favoriteArt.push($scope.getArtByArtID(val));
-        });
+        $scope.toggleFavorite = function() {
+            favoriteService.setFavorite($scope.art_id, !favoriteService.isFavorite($scope.art_id));
+            $scope.isFavorite = !$scope.isFavorite;
+        }
     }]);
 
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','appStateStore',

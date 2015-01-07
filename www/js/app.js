@@ -34,7 +34,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
                 url:"/imslide/:tourID",
                 views:{
                     "content@": {
-                        templateUrl:"partials/imageSlider.html",
+                        templateUrl:"partials/collageView.html",
                         controller:"imslideCtrl"
                     }
             }
