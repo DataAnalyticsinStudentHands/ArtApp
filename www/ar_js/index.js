@@ -44,9 +44,21 @@ var app = {
     onURLInvoked: function (url) {
        if ( 'closeWikitudePlugin' == url.substring(22) ) {
            app.wikitudePlugin.close();
+       } else if (url.indexOf('captureScreen') > -1) {
+           app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
        } else {
            alert('ARchitect => PhoneGap ' + url);
        }
+    },
+    
+    // called when the screen was captured successfully
+    onScreenCaptured: function (absoluteFilePath) {
+        alert("snapshot stored at:\n" + absoluteFilePath);
+    },
+    
+    // called when the screen was captured successfully
+    onScreenCapturedError: function (absoluteFilePath) {
+        alert("Error with snapshot capture");
     },
     // This function extracts an url parameter
     getUrlParameterForKey: function(url, requestedParam) {
