@@ -8,69 +8,8 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
 
     var tours = null;
     var artwork = null;
-    var colArray = null;
-    var startupCol = null;
-        
-    // Groups artwork in columns of 3 for box slider purposes
-    var genColArray = function(){
-        
-        var allToursArtwork = [];
-        colArray = {};
-        
-        for(var i=0;i<tours.length;i++){
-            
-            allToursArtwork[i] = outOb.getArtworkByTourID(tours[i].tour_id);
-        }
-        
-        for(var k=0;k<allToursArtwork.length;k++){
-        
-            var tourArt = allToursArtwork[k];
-            colArray[tours[k].tour_id] = []
-            
-            for(var i=0;i<Math.ceil(tourArt.length/3);i++){
-
-                colArray[tours[k].tour_id][i] = [];
-
-                for(var j=0;j<3;j++){
-
-                    if(i*3+j<tourArt.length){
-
-                        colArray[tours[k].tour_id][i][j] = tourArt[i*3+j];
-                    }
-                    else{
-
-                        break;
-                    }
-                }
-            }
-        }
-    }
     
-    var createCollage = function(art){
-        
-        var tempArr = [];
-        
-        for(var i=0;i<Math.ceil(art.length/3);i++){
-
-            tempArr[i] = [];
-
-            for(var j=0;j<3;j++){
-
-                if(i*3+j<art.length){
-
-                    tempArr[i][j] = art[i*3+j];
-                }
-                else{
-
-                    break;
-                }
-            }
-        }
-        
-        return tempArr;
-    }
-    
-  var outOb = {
+var outOb = {
     loadData: function(){
 
         var tempTours = JSON.parse(localStorage.getItem("tours"));
@@ -82,12 +21,15 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
 
             tours = tempTours;
             
-            if(!colArray&&artwork&&tours){
+            // Changes artwork_included CSV to array
+            tours.forEach(function(curVal, ind, arr){
                 
-                genColArray();
-                startupCol = createCollage(artwork);
-                $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
-            }
+                if(curVal.artwork_included){
+                    
+                    curVal.artwork_included = curVal.artwork_included.split(",");
+                }
+            });
+            
         }
         else{
 
@@ -100,6 +42,15 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
                 localStorage.setItem("tours_version","1.1");
                 localStorage.setItem("tours",JSON.stringify(data));
                 tours = data;
+                
+                // Changes artwork_included CSV to array
+                tours.forEach(function(curVal, ind, arr){
+                
+                if(curVal.artwork_included){
+                    
+                    curVal.artwork_included = curVal.artwork_included.split(",");
+                }
+            });
                 
                 if(!colArray&&artwork&&tours){
                 
@@ -115,13 +66,6 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
         if(tempArtwork){
 
             artwork = tempArtwork;
-            
-            if(!colArray&&artwork&&tours){
-                
-                genColArray();
-                startupCol = createCollage(artwork);
-                $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
-            }
         }
         else{
 
@@ -132,13 +76,6 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
                 artwork = Restangular.stripRestangular(success);
                 localStorage.setItem("tours_version","1.1");
                 localStorage.setItem("artwork",JSON.stringify(artwork));
-                
-                if(!colArray&&artwork&&tours){
-                
-                    genColArray();
-                    startupCol = createCollage(artwork);
-                    $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
-                }
             },
             function(error){
 
@@ -208,28 +145,6 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
             return null;
         }
     }
-  
-  outOb.getArtworkCol = function(id){
-          
-        return genColArray(outOb.getArtworkByTourID(id));
-  }
-  
-  outOb.getArtworkColByTourID = function(id){
-      
-      if(colArray){
-          
-          return colArray[id];
-      }
-      else{
-          
-          return null;
-      }
-  }
-  
-  outOb.getStartupCol = function(){
-      
-      return startupCol;
-  }
   
   return outOb;
 }]);
