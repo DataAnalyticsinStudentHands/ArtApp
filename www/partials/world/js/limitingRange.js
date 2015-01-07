@@ -60,8 +60,8 @@ var World = {
               maxRangeMeters += 50;
         }
         
-        console.log(maxRangeMeters/World.getMaxDistance());
-        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
+//        console.log(maxRangeMeters/World.getMaxDistance());
+//        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
         
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
         
@@ -122,7 +122,7 @@ var World = {
                 }                
             }
         }
-        console.log("UPDATING " + World.locationUpdateCounter);
+//        console.log("UPDATING " + World.locationUpdateCounter);
 	},
 
 	// fired when user pressed maker in cam
