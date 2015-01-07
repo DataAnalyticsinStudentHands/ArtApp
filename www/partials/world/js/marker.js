@@ -61,10 +61,10 @@ function Marker(poiData) {
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
     
-    this.indicatorLabel = new AR.Label("TEST", 0.04, {
+    this.indicatorLabel = new AR.Label("Locating...", 0.04, {
         enabled: false,
         zOrder: 1,
-        offsetY: -0.125,
+        offsetY: -0.120,
         style: {
             textColor: '#FFFFFF',
             backgroundColor: '#000000'
