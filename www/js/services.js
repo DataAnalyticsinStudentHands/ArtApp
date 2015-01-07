@@ -244,17 +244,13 @@ utilServices.factory('favoriteService', function() {
             } 
 
             if (toggle){
-                console.log("add favorite: "+id);
                 temp.push(id);
             }else{
-                console.log("remove favorite: "+id);
                 var index = temp.indexOf(id);
                 if (index > -1) {
                     temp.splice(index, 1);
                 }
             }
-
-            console.log(temp);
             localStorage.setObject("favorites",JSON.stringify(temp));
         },
         isFavorite: function (id) {

@@ -60,7 +60,16 @@ function Marker(poiData) {
         enabled: false,
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
-
+    
+    this.indicatorLabel = new AR.Label("Locating...", 0.04, {
+        enabled: false,
+        zOrder: 1,
+        offsetY: -0.120,
+        style: {
+            textColor: '#FFFFFF',
+            backgroundColor: '#000000'
+        }
+    });
     /*
         The representation of an AR.GeoObject in the radar is defined in its drawables set (second argument of AR.GeoObject constructor). 
         Once drawables.radar is set the object is also shown on the radar e.g. as an AR.Circle
@@ -96,7 +105,7 @@ function Marker(poiData) {
     this.markerObject = new AR.GeoObject(markerLocation, {
         drawables: {
             cam: [this.markerDrawable_idle, this.markerDrawable_selected, this.titleLabel, this.descriptionLabel],
-            indicator: this.directionIndicatorDrawable,
+            indicator: [this.directionIndicatorDrawable, this.indicatorLabel],
             radar: this.radardrawables
         }
     });
@@ -171,6 +180,7 @@ Marker.prototype.setSelected = function(marker) {
 
     // enables the direction indicator drawable for the current marker
     marker.directionIndicatorDrawable.enabled = true;
+    marker.indicatorLabel.enabled = true;
 
     marker.markerObject.drawables.radar = marker.radardrawablesSelected;
 
@@ -218,6 +228,7 @@ Marker.prototype.setDeselected = function(marker) {
 
     // disables the direction indicator drawable for the current marker
     marker.directionIndicatorDrawable.enabled = false;
+    marker.indicatorLabel.enabled = false;
     // starts the idle-state animation
     marker.animationGroup_idle.start();
 };
@@ -233,6 +244,14 @@ Marker.prototype.isAnyAnimationRunning = function(marker) {
         }
     }
 };
+
+//Probably wrong syntax, but allows label to be updated.
+Marker.prototype.updateDistanceLabel = function(marker, distance) {
+    if(distance)
+        this.indicatorLabel.text = distance;
+    else 
+        this.indicatorLabel.text = "Locating...";
+}
 
 // will truncate all strings longer than given max-length "n". e.g. "foobar".trunc(3) -> "foo..."
 String.prototype.trunc = function(n) {

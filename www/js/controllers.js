@@ -97,8 +97,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicScrollDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -109,23 +109,6 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('detailScroll').resize();
-        }
-        
-        $scope.goBack = function(){
-            
-            $ionicNavBarDelegate.back();
-        }
-        
-        $scope.isFavorite = favoriteService.isFavorite($scope.art_id);
-        
-        $scope.markFavorite = function() {
-            favoriteService.setFavorite($scope.art_id, true);
-            $scope.isFavorite = !$scope.isFavorite;
-        }
-        
-        $scope.markNotFavorite = function() {
-            favoriteService.setFavorite($scope.art_id, false);
-            $scope.isFavorite = !$scope.isFavorite;
         }
         
         var markersArr = [];
@@ -151,7 +134,12 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
             if($scope.mapShow) {
                 $ionicScrollDelegate.$getByHandle('detailScroll').scrollBottom(true);
             }
-        }
+        };
+        
+        $scope.goBack = function(){
+            
+            $ionicNavBarDelegate.back();
+        };
     }]);
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
@@ -163,12 +151,28 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
         angular.forEach($scope.favorites, function(val) {
             $scope.favoriteArt.push($scope.getArtByArtID(val));
         });
+        
+        $scope.isFavorite = favoriteService.isFavorite($scope.art_id);
+        
+        $scope.markFavorite = function() {
+            favoriteService.setFavorite($scope.art_id, true);
+            $scope.isFavorite = !$scope.isFavorite;
+        }
+        
+        $scope.markNotFavorite = function() {
+            favoriteService.setFavorite($scope.art_id, false);
+            $scope.isFavorite = !$scope.isFavorite;
+        }
+        
+        $scope.toggleFavorite = function() {
+            favoriteService.setFavorite($scope.art_id, !favoriteService.isFavorite($scope.art_id));
+            $scope.isFavorite = !$scope.isFavorite;
+        }
     }]);
 
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','appStateStore',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate,appStateStore) {
         $rootScope.menuToggle = function(){
-            //if(!$ionicSideMenuDelegate.isOpenLeft())
                 $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
                 appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
         };

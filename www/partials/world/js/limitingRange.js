@@ -60,8 +60,8 @@ var World = {
               maxRangeMeters += 50;
         }
         
-        console.log(maxRangeMeters/World.getMaxDistance());
-        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
+//        console.log(maxRangeMeters/World.getMaxDistance());
+//        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
         
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
         
@@ -109,8 +109,8 @@ var World = {
         }
         if(World.currentMarker && World.currentMarker.isSelected){
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
-            $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
-
+            $("#poi-detail-distance").text(distanceToUserValue);
+            World.currentMarker.updateDistanceLabel(World.currentMarker, distanceToUserValue);
             if(World.currentMarker.distanceToUser < 10.0) {
                 $("#popupArrived").popup("open");
                 if(World.currentMarker){
@@ -122,7 +122,6 @@ var World = {
                 }                
             }
         }
-        console.log("UPDATING " + World.locationUpdateCounter);
 	},
 
 	// fired when user pressed maker in cam
@@ -144,7 +143,7 @@ var World = {
         // update panel values
         $("#art-title .ui-btn-text").text(marker.poiData.title);
         $("#div-art-title").show("slow");
-        $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
+        $("#poi-detail-distance").text(distanceToUserValue);
         $("#div-poi-detail-distance").show("slow");
 
         $("#poi-detail-title").html(marker.poiData.title);
@@ -153,6 +152,7 @@ var World = {
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
         
+        World.currentMarker.updateDistanceLabel(World.currentMarker, distanceToUserValue);
 	},
     
     onMarkerDeselected: function markerDeselected() {
