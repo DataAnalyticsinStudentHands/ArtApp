@@ -71,14 +71,6 @@ appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourI
                 $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
             }
         }
-        
-        $timeout(function() {
-            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
-        },1500);
-        
-        $scope.slideHasChanged = function(index) {
-            $ionicSlideBoxDelegate.$getByHandle("main-slider").update();
-        }
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
