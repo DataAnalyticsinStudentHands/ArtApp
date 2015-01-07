@@ -109,8 +109,8 @@ var World = {
         }
         if(World.currentMarker && World.currentMarker.isSelected){
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
-            $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
-
+            $("#poi-detail-distance").text(distanceToUserValue);
+            World.currentMarker.updateDistanceLabel(World.currentMarker, distanceToUserValue);
             if(World.currentMarker.distanceToUser < 10.0) {
                 $("#popupArrived").popup("open");
                 if(World.currentMarker){
@@ -122,7 +122,6 @@ var World = {
                 }                
             }
         }
-//        console.log("UPDATING " + World.locationUpdateCounter);
 	},
 
 	// fired when user pressed maker in cam
@@ -153,6 +152,7 @@ var World = {
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
         
+        World.currentMarker.updateDistanceLabel(World.currentMarker, distanceToUserValue);
 	},
     
     onMarkerDeselected: function markerDeselected() {

@@ -148,7 +148,6 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
 appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','appStateStore',
     function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate,appStateStore) {
         $rootScope.menuToggle = function(){
-            //if(!$ionicSideMenuDelegate.isOpenLeft())
                 $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
                 appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
         };
