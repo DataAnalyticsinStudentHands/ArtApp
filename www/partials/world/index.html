@@ -32,7 +32,6 @@
     <script type="text/javascript" src="js/radar.js"></script>
     <script>
         $(document).ready(function() {
-                
             // If closeForever LS entry has not been created
             if(!localStorage.getItem("closeForever")){
                 $("#popupDialog").popup("open");
@@ -55,6 +54,57 @@
             $("#popupArrived").popup("close");
         }
     </script>
+    <style>
+        #poi-detail-distance {
+            color: black;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            background-color: transpaarent;
+        }
+        #div-poi-detail-distance {
+            background-color: red;
+            display: none;
+        }
+        #div-art-title {
+            float:none;
+            text-align: center;
+            display: none;
+        }
+/*
+        #art-title {
+            background:#C8102E;
+            border: none;
+            padding: 5px;
+        }
+*/
+        #art-title {
+          background: #C8102E;
+          background-image: -webkit-linear-gradient(top, #C8102E, #960C22);
+          background-image: -moz-linear-gradient(top, #C8102E, #960C22);
+          background-image: -ms-linear-gradient(top, #C8102E, #960C22);
+          background-image: -o-linear-gradient(top, #C8102E, #960C22);
+          background-image: linear-gradient(to bottom, #C8102E, #960C22);
+          -webkit-border-radius: 15;
+          -moz-border-radius: 15;
+          border-radius: 15px;
+          font-family: Arial;
+          color: #ffffff;
+          font-size: 20px;
+/*          padding: 10px 20px 10px 20px;*/
+          text-decoration: none;
+        }
+
+        #art-title:hover {
+          background: #960C22;
+          background-image: -webkit-linear-gradient(top, #960C22, #C8102E);
+          background-image: -moz-linear-gradient(top, #960C22, #C8102E);
+          background-image: -ms-linear-gradient(top, #960C22, #C8102E);
+          background-image: -o-linear-gradient(top, #960C22, #C8102E);
+          background-image: linear-gradient(to bottom, #960C22, #C8102E);
+          text-decoration: none;
+        }
+    </style>
 </head>
     <body>
         <div data-role="page" id="page1" style="background: none;" >
@@ -66,8 +116,8 @@
                 <a href="javascript: closeWikitudePlugin();" data-inline="true" data-mini="true">Close</a>
             </div>
             
-            <div style="float:none; text-align: center; display: none" id="div-art-title">
-                <a href="javascript: World.showInfo();" style="background:#FE7F78" id="art-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
+            <div id="div-art-title">
+                <a href="javascript: World.showInfo();" id="art-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
             </div>
 
             <!-- transparent footer-->
@@ -75,8 +125,8 @@
                 <!-- the radar div - Wikitude SDK radar will be drawn into this div -->
                 <div class="radarContainer_left" id="radarContainer"></div>
             </div>
-            <div style="position: absolute; left: 5px; bottom: 95px; display: none" id="div-poi-detail-distance">
-                <a href="javascript: World.showInfo();" id="poi-detail-distance" data-mini="true" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="c">DISTANCE</a>
+            <div style="position: absolute; left: 5px; bottom: 95px; background: none; display: visible" id="div-poi-detail-distance">
+                <a style="padding: 10px; background:#444444; color:#FFFFFF" id="poi-detail-distance" data-inline="true" data-transition="pop">DISTANCE</a>
             </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->

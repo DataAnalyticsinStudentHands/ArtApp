@@ -144,7 +144,7 @@ var World = {
         // update panel values
         $("#art-title .ui-btn-text").text(marker.poiData.title);
         $("#div-art-title").show("slow");
-        $("#poi-detail-distance .ui-btn-text").text(distanceToUserValue);
+        $("#poi-detail-distance").text(distanceToUserValue);
         $("#div-poi-detail-distance").show("slow");
 
         $("#poi-detail-title").html(marker.poiData.title);
