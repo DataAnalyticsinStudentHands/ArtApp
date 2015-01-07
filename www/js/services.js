@@ -36,14 +36,14 @@ var outOb = {
             /*********************************
             *** MUST CHANGE TO GET REQUEST ***
             *********************************/
-
-            /*Reads tour.json and set data into localstorage only if there is new version*/
-            $http.get('tours.json').success(function(data) {
-                localStorage.setItem("tours_version","1.1");
-                localStorage.setItem("tours",JSON.stringify(data));
-                tours = data;
+            
+            var tourProm = Restangular.all('tours').getList();
+            
+            tourProm.then(function(success){
                 
-                // Changes artwork_included CSV to array
+                tours = Restangular.stripRestangular(success);
+                localStorage.setItem("tours",JSON.stringify(tours));
+                
                 tours.forEach(function(curVal, ind, arr){
                 
                     if(curVal.artwork_included){
@@ -51,9 +51,11 @@ var outOb = {
                         curVal.artwork_included = curVal.artwork_included.split(",");
                     }
                 });
+            },
+            function(error){
+                
+                console.log("Tour GET Request Failed");
             });
-            
-            // Set tour promise
         }
 
         if(tempArtwork){
@@ -67,7 +69,6 @@ var outOb = {
             artworkProm.then(function(success){
 
                 artwork = Restangular.stripRestangular(success);
-                localStorage.setItem("tours_version","1.1");
                 localStorage.setItem("artwork",JSON.stringify(artwork));
             },
             function(error){
