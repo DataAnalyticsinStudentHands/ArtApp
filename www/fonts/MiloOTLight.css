@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'MiloOTLight';
+    src: url('MiloOTLight/MiloOTLight.eot');
+    src: url('MiloOTLight/MiloOTLight.eot') format('embedded-opentype'),
+         url('MiloOTLight/MiloOTLight.woff2') format('woff2'),
+         url('MiloOTLight/MiloOTLight.woff') format('woff'),
+         url('MiloOTLight/MiloOTLight.ttf') format('truetype'),
+         url('MiloOTLight/MiloOTLight.svg#MiloOTLight') format('svg');
+}
