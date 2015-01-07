@@ -46,18 +46,11 @@ var outOb = {
                 // Changes artwork_included CSV to array
                 tours.forEach(function(curVal, ind, arr){
                 
-                if(curVal.artwork_included){
+                    if(curVal.artwork_included){
                     
-                    curVal.artwork_included = curVal.artwork_included.split(",");
-                }
-            });
-                
-                if(!colArray&&artwork&&tours){
-                
-                    genColArray();
-                    startupCol = createCollage(artwork);
-                    $ionicSlideBoxDelegate.$getByHandle('start-slider').update();
-                }
+                        curVal.artwork_included = curVal.artwork_included.split(",");
+                    }
+                });
             });
             
             // Set tour promise
