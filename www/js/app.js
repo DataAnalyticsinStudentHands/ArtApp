@@ -31,12 +31,12 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
                     }
                 }
             })
-            .state('tour.imslide', {
-                url:"/imslide/:tourID",
+            .state('tour.collage', {
+                url:"/collage/:tourID",
                 views:{
                     "content@": {
                         templateUrl:"partials/collageView.html",
-                        controller:"imslideCtrl"
+                        controller:"collageCtrl"
                     }
             }
             })

@@ -21,14 +21,12 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
         };
         
-        $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
-        
         $scope.selectedMarker = null;
         
         $scope.tourArt = [];
     }]);
 
-appControllers.controller('imslideCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
+appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
@@ -136,29 +134,32 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService) {
-        $scope.favorites = favoriteService.getFavorites();
         $scope.getArtByArtID = tourInfo.getArtworkByID;
         
-        $scope.favoriteArt = [];
-        angular.forEach($scope.favorites, function(val) {
-            $scope.favoriteArt.push($scope.getArtByArtID(val));
-        });
+        $scope.genImList = function(artOb){
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            return outStr;
+        }
+        
+        $scope.updateFavorites = function() {
+            $scope.favorites = favoriteService.getFavorites();
+            $scope.favoriteArt = [];
+            angular.forEach($scope.favorites, function(val) {
+                $scope.favoriteArt.push($scope.getArtByArtID(val));
+            });
+        }
+        $scope.updateFavorites();
         
         $scope.isFavorite = favoriteService.isFavorite($scope.art_id);
-        
-        $scope.markFavorite = function() {
-            favoriteService.setFavorite($scope.art_id, true);
-            $scope.isFavorite = !$scope.isFavorite;
-        }
-        
-        $scope.markNotFavorite = function() {
-            favoriteService.setFavorite($scope.art_id, false);
-            $scope.isFavorite = !$scope.isFavorite;
-        }
         
         $scope.toggleFavorite = function() {
             favoriteService.setFavorite($scope.art_id, !favoriteService.isFavorite($scope.art_id));
             $scope.isFavorite = !$scope.isFavorite;
+        }
+
+        $scope.deleteFavorite = function(art_id) {
+            favoriteService.setFavorite(art_id, false);
+            $scope.updateFavorites();
         }
     }]);
 

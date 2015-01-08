@@ -4,8 +4,13 @@
             <div class="item" ng-show="favoriteArt.length==0">
                 No favorites selected
             </div>
-            <div class="item" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in favoriteArt">
-                {{item.title}}
+            <div class="item item-thumbnail-left item-button-right" ng-repeat="item in favoriteArt">
+                <img ng-src="{{genImList(item)}}" />
+                <h2 ui-sref="tour.artDetail({artID:{{item.artwork_id}}})">{{item.title}}</h2>
+                <p>{{item.artist_name}}</p>
+                <button class="button button-clear button-dark" ng-click="deleteFavorite(item.artwork_id)">
+                    <i class="icon ion-ios-trash"></i>
+                </button>
             </div>
         </div>
     </ion-content>

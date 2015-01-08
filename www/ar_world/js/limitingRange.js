@@ -7,6 +7,8 @@ var World = {
 
 	// true once data was fetched
 	initiallyLoadedData: false,
+    
+    firstLoad: true,
 
 	// different POI-Marker assets
 	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
@@ -20,15 +22,27 @@ var World = {
 	currentMarker: null,
 
 	locationUpdateCounter: 0,
-	updatePlacemarkDistancesEveryXLocationUpdates: 10,
+	updatePlacemarkDistancesEveryXLocationUpdates: 1,
 
 	// called to inject new POI data
 	loadPoisFromJsonData: function loadPoisFromJsonDataFn(poiData) {
-		// show radar & set click-listener
-		PoiRadar.show();
-		$('#radarContainer').unbind('click');
-		$("#radarContainer").click(PoiRadar.clickedRadar);
+        
+        // show radar & set click-listener
+        AR.context.destroyAll();
+        AR.context.scene.cullingDistance = 250;
 
+        World.markerDrawable_idle = new AR.ImageResource("assets/mapmarker.png");
+        World.markerDrawable_selected = new AR.ImageResource("assets/yourMarker.png");
+        World.markerDrawable_directionIndicator = new AR.ImageResource("assets/indi.png");
+
+        PoiRadar.show();
+        $('#radarContainer').unbind('click');
+        $("#radarContainer").click(PoiRadar.clickedRadar);
+        
+        $("#popupLoading").popup("open");
+        World.currentMarker = null;
+        World.onMarkerDeselected();
+        
 		// empty list of visible markers
 		World.markerList = [];
 
@@ -43,7 +57,6 @@ var World = {
                 "image": poiData[currentPlaceNr].image,
                 "artwork_id": poiData[currentPlaceNr].artwork_id
 			};
-
 			World.markerList.push(new Marker(singlePoi));
 		}
 
@@ -51,23 +64,18 @@ var World = {
 		World.updateDistanceToUserValues();
 
         // set distance slider to 100%
-//		$("#panel-distance-range").val(25);
-//		$("#panel-distance-range").slider("refresh");
-        
         var maxRangeMeters = 100;
-        
+
         while(World.getNumberOfVisiblePlacesInRange(maxRangeMeters) < 5 && World.getNumberOfVisiblePlacesInRange(maxRangeMeters) != poiData.length) {
               maxRangeMeters += 50;
         }
-        
-//        console.log(maxRangeMeters/World.getMaxDistance());
-//        console.log(Math.round(maxRangeMeters/World.getMaxDistance()));
-        
+
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
-        
+
         World.updateRangeValues();
-		World.updateStatusMessage(currentPlaceNr + ' art pieces loaded.');
+        World.updateStatusMessage(currentPlaceNr + ' art pieces loaded.');
         $("#popupLoading").popup("close");
+        World.firstLoad = false;
 	},
 
 	// sets/updates distances of all makers so they are available way faster than calling (time-consuming) distanceToUser() method all the time

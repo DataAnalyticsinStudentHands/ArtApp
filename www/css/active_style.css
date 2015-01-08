@@ -53,15 +53,10 @@ html, body{
     left: 0;
     right: 0;
     bottom: 0;
-    background: #000;
     height: 70px;
     margin-bottom: 2px;
     background: #6798AC;
     color: #FFF;
     padding: 0px;
     text-align: center;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
 }

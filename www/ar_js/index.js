@@ -19,6 +19,8 @@
 var app = {
 
     isDeviceSupported: false,
+    
+    isLoaded: false,
 
     // Application Constructor
     initialize: function() {
@@ -43,11 +45,14 @@ var app = {
     },
     onURLInvoked: function (url) {
        if ( 'closeWikitudePlugin' == url.substring(22) ) {
-           app.wikitudePlugin.close();
+            app.wikitudePlugin.hide();
        } else if (url.indexOf('captureScreen') > -1) {
-           app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
+            app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
+       } else if (url.indexOf('artInfo') > -1) {
+            app.wikitudePlugin.hide();
+            document.location = "#/tour/artDetail/5";
        } else {
-           alert('ARchitect => PhoneGap ' + url);
+            alert('ARchitect => PhoneGap ' + url);
        }
     },
     
@@ -78,6 +83,7 @@ var app = {
     // A callback which gets called if the device is able to launch ARchitect Worlds
     onDeviceSupportedCallback: function() {
         app.isDeviceSupported = true;
+        
         app.wikitudePlugin.setOnUrlInvokeCallback(app.onURLInvoked);
     },
 
@@ -87,10 +93,21 @@ var app = {
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
     loadARchitectWorld: function(samplePath, tourJSON) {
-        //app.wikitudePlugin.setOnUrlInvokeCallback(app.onUrlInvoke);
+        document.addEventListener("backbutton", onBackKeyDown, false);
+        function onBackKeyDown() {
+            app.wikitudePlugin.close();
+            app.isLoaded = false;
+            return false;
+        }
         if (app.isDeviceSupported) {
-            app.wikitudePlugin.loadARchitectWorld(samplePath);
-            onLocationUpdated(tourJSON);
+            if(!app.isLoaded) {
+                app.wikitudePlugin.loadARchitectWorld(samplePath);
+                app.isLoaded = true;
+                onLocationUpdated(tourJSON);
+            } else {
+                app.wikitudePlugin.show();
+                onLocationUpdated(tourJSON);
+            }
             // inject poi data using phonegap's GeoLocation API and inject data using World.loadPoisFromJsonData
             //if ( "www/world/4_ObtainPoiData_1_FromApplicationModel/index.html" === samplePath ) {
             //    navigator.geolocation.getCurrentPosition(onLocationUpdated, onLocationError);

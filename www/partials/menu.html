@@ -13,7 +13,7 @@
             <i ng-hide="toursOpen()" class="icon ion-arrow-right-b"></i>
             Tours
         </div>
-        <a ng-show="toursOpen()" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
+        <a ng-show="toursOpen()" ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
         <div ng-click="resizeScroll(); setArtworkOpen(!artworkOpen());" class="item item-icon-left item-divider">
