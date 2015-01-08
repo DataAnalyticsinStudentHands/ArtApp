@@ -47,7 +47,7 @@ var app = {
        if ( 'closeWikitudePlugin' == url.substring(22) ) {
             app.wikitudePlugin.hide();
        } else if (url.indexOf('captureScreen') > -1) {
-            app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
+//            app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
        } else if (url.indexOf('artInfo') > -1) {
             app.wikitudePlugin.hide();
             var id = url.substring(26);
@@ -57,7 +57,7 @@ var app = {
             var id = url.substring(27);
             document.location = "#/tour/collage/" + id;
        } else {
-            alert('ARchitect => PhoneGap ' + url);
+            alert('Error');
        }
     },
     
@@ -70,25 +70,10 @@ var app = {
     onScreenCapturedError: function (absoluteFilePath) {
         alert("Error with snapshot capture");
     },
-    // This function extracts an url parameter
-    getUrlParameterForKey: function(url, requestedParam) {
-        requestedParam = requestedParam.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-        var regexS = "[\\?&]" + requestedParam + "=([^&#]*)";
-        var regex = new RegExp(regexS);
-        var results = regex.exec(url);
-
-        if (results == null)
-            return "";
-        else {
-            var result = decodeURIComponent(results[1]);
-            return result;
-        }
-    },
     // --- Wikitude Plugin ---
     // A callback which gets called if the device is able to launch ARchitect Worlds
     onDeviceSupportedCallback: function() {
         app.isDeviceSupported = true;
-        
         app.wikitudePlugin.setOnUrlInvokeCallback(app.onURLInvoked);
     },
 

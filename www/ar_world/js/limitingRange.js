@@ -170,7 +170,6 @@ var World = {
     showInfo: function showInfoFn() {
         // show panel
         if(World.currentMarker) {
-//            $("#panel-poidetail").panel("open", 123);
             document.location = 'architectsdk://artInfo?id=' + World.currentMarker.poiData.artwork_id;
         }
     },
