@@ -1,8 +1,11 @@
-<ion-view title="{{detailArt.title}}"> 
+<ion-view title=""> 
     <ion-nav-buttons side='right' ng-controller="favoriteCtrl">
         <button class="button button-icon button-clear" ng-click="toggleFavorite()">
             <img src="img/fav_no.svg" height="30px" ng-show="!isFavorite"/>
             <img src="img/fav_yes.svg" height="30px" ng-show="isFavorite"/>
+        </button>
+        <button class="button button-icon button-clear" ng-show="ARModeActive" ng-click="returnToAR()">
+            <img src="img/map.svg" height="30px"/>
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="detailScroll">

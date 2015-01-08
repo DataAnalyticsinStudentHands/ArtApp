@@ -89,6 +89,7 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
+        $scope.ARModeActive = $stateParams.AR;
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -127,9 +128,12 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         };
         
         $scope.goBack = function(){
-            
             $ionicNavBarDelegate.back();
         };
+        
+        $scope.returnToAR = function() {
+            app.loadARchitectWorld(null, null);
+        }
     }]);
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',

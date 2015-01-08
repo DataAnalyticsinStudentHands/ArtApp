@@ -41,7 +41,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
             }
             })
             .state('tour.artDetail',{
-                url:"/artDetail/:artID",
+                url:"/artDetail/:artID/AR/:AR",
                 views:{
                     "content@": {
                         templateUrl:"partials/artworkDetail.html",

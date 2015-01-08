@@ -50,7 +50,12 @@ var app = {
             app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
        } else if (url.indexOf('artInfo') > -1) {
             app.wikitudePlugin.hide();
-            document.location = "#/tour/artDetail/5";
+            var id = url.substring(26);
+            document.location = "#/tour/artDetail/" + id + "/AR/true";
+       } else if (url.indexOf('tourInfo') > -1) {
+            app.wikitudePlugin.hide();
+            var id = url.substring(27);
+            document.location = "#/tour/collage/" + id;
        } else {
             alert('ARchitect => PhoneGap ' + url);
        }
@@ -95,8 +100,10 @@ var app = {
     loadARchitectWorld: function(samplePath, tourJSON) {
         document.addEventListener("backbutton", onBackKeyDown, false);
         function onBackKeyDown() {
-            app.wikitudePlugin.close();
-            app.isLoaded = false;
+            app.wikitudePlugin.hide();
+//            app.wikitudePlugin.close();
+//            app.isLoaded = false;
+            app.isLoaded = true;
             return false;
         }
         if (app.isDeviceSupported) {
@@ -105,8 +112,11 @@ var app = {
                 app.isLoaded = true;
                 onLocationUpdated(tourJSON);
             } else {
+                if(tourJSON){
+                    app.wikitudePlugin.callJavaScript("World.showLoadingPopup();");
+                    onLocationUpdated(tourJSON);
+                }
                 app.wikitudePlugin.show();
-                onLocationUpdated(tourJSON);
             }
             // inject poi data using phonegap's GeoLocation API and inject data using World.loadPoisFromJsonData
             //if ( "www/world/4_ObtainPoiData_1_FromApplicationModel/index.html" === samplePath ) {

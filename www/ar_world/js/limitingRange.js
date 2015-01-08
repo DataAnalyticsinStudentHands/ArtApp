@@ -38,8 +38,7 @@ var World = {
         PoiRadar.show();
         $('#radarContainer').unbind('click');
         $("#radarContainer").click(PoiRadar.clickedRadar);
-        
-        $("#popupLoading").popup("open");
+
         World.currentMarker = null;
         World.onMarkerDeselected();
         
@@ -170,8 +169,10 @@ var World = {
     
     showInfo: function showInfoFn() {
         // show panel
-        if(World.currentMarker)
-            $("#panel-poidetail").panel("open", 123);
+        if(World.currentMarker) {
+//            $("#panel-poidetail").panel("open", 123);
+            document.location = 'architectsdk://artInfo?id=' + World.currentMarker.poiData.artwork_id;
+        }
     },
 
 	// screen was clicked but no geo-object was hit
@@ -274,7 +275,11 @@ var World = {
 	// helper to sort places by distance, descending
 	sortByDistanceSortingDescending: function(a, b) {
 		return b.distanceToUser - a.distanceToUser;
-	}
+	},
+    
+    showLoadingPopup: function() {
+        $("#popupLoading").popup("open");
+    }
 };
 
 /* forward locationChanges to custom function */

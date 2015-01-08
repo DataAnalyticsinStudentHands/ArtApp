@@ -39,6 +39,11 @@
                 $("#popupLoading").popup("open");
             }
         });
+        document.addEventListener("backbutton", onBackKeyDown, false);
+        function onBackKeyDown() {
+            document.location = 'architectsdk://action=closeWikitudePlugin';
+            return false;
+        }
         function closeWikitudePlugin() {
             document.location = 'architectsdk://action=closeWikitudePlugin';
         }
@@ -126,6 +131,10 @@
                 <img height="40px" src="assets/camera.svg"/>
             </a>
 -->
+
+            <a href="architectsdk://button?action=captureScreen" style="position: absolute; right: 5px; bottom: 5px; background: none; display: visible">
+                <img height="40px" src="assets/camera.svg"/>
+            </a>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->
 
