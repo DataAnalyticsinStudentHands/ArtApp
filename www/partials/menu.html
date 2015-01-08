@@ -1,10 +1,4 @@
 <ion-view>
-<ion-header-bar align-title="left" class="bar-dark bar-subheader">
-    <label class="item-input-wrapper">
-        <i class="icon ion-ios7-search placeholder-icon"></i>
-        <input ng-model="query" type="search" placeholder="   Search">
-    </label>
-</ion-header-bar>
 <ion-content delegate-handle="menuScroll">
     <div class="list">
         <a class="item" ui-sref="tour" menu-close nav-clear>
@@ -19,7 +13,7 @@
             <i ng-hide="toursOpen()" class="icon ion-arrow-right-b"></i>
             Tours
         </div>
-        <a ng-show="toursOpen()" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet() | filter: query" class="item" menu-close nav-clear>
+        <a ng-show="toursOpen()" ui-sref="tour.imslide({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
         <div ng-click="resizeScroll(); setArtworkOpen(!artworkOpen());" class="item item-icon-left item-divider">
@@ -27,7 +21,7 @@
             <i ng-hide="artworkOpen()" class="icon ion-arrow-right-b"></i>
             Artwork
         </div>
-        <a ng-show="artworkOpen()" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet() | filter: query" class="item" menu-close nav-clear>
+        <a ng-show="artworkOpen()" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet()" class="item" menu-close nav-clear>
             <h3>{{item.title}}</h3>
         </a>
         <div class="item card item-text-wrap">

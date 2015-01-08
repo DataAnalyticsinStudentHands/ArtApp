@@ -28,9 +28,10 @@ html, body{
     -webkit-columns: 4 150px;
     -moz-columns: 4 150px;
     columns: 4 150px;
-    -webkit-column-gap:   0px;
-    -moz-column-gap:      0px;
-    column-gap:           0px;
+    -webkit-column-gap:   2px;
+    -moz-column-gap:      2px;
+    column-gap:           2px;
+    padding: 2px;
 }
 .box * {
     display: inline-block;
@@ -44,9 +45,8 @@ html, body{
 }
 .photo_container {
     position: relative;
-    left: 2px;
-    right: 2px;
-    top: 2px;
+    right: 0px;
+    bottom: 0px;
 }
 .photo_container #titleBox {
     position: absolute;

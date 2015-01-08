@@ -6,6 +6,9 @@
   <author email="hi@ionicframework" href="http://ionicframework.com/">
       Ionic Framework Team
   </author>
+  
+  <icon src="icon.png"/>
+  <preference name="SplashScreen"         value="splash" />
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
