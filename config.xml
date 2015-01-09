@@ -1,21 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version='1.0' encoding='utf-8'?>
 <widget id="dash.summerofapps.artapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ARTour</name>
-  <description>
-  </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
+    <name>ARTour</name>
+    <description>
+    </description>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">
       Ionic Framework Team
   </author>
-  
-  <icon src="icon.png"/>
-  <preference name="SplashScreen"         value="splash" />
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
-  </feature>
+    <icon src="icon.png" />
+    <preference name="SplashScreen" value="splash" />
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackupWebStorage" value="none" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <feature name="Augmented Reality - Wikitude SDK Plugin">
+        <param name="id" value="com.wikitude.phonegap.WikitudePlugin" />
+        <param name="url" value="https://github.com/Wikitude/wikitude-phonegap.git#:." />
+    </feature>
+    <feature name="Device">
+        <param name="id" value="org.apache.cordova.device" />
+    </feature>
+    <feature name="File">
+        <param name="id" value="org.apache.cordova.file" />
+    </feature>
+    <feature name="File Transfer">
+        <param name="id" value="org.apache.cordova.file-transfer" />
+    </feature>
 </widget>
