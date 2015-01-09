@@ -10,12 +10,13 @@ var publicArtApp = angular.module('publicArtApp', [
     'databaseServicesModule',
     'utilModule',
     'adaptive.googlemaps',
-    'ngNotify'
+    'ngNotify',
+    'ImgCache'
 ]);
 
 
-publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
-    function($stateProvider,$urlRouterProvider,$compileProvider) {
+publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','ImgCacheProvider',
+    function($stateProvider,$urlRouterProvider,$compileProvider,ImgCacheProvider) {
         $urlRouterProvider.otherwise("/tour");
         $stateProvider
             .state('tour',{
@@ -58,11 +59,29 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider',
                     }
                 }
             })
+            .state('tour.about',{
+                url:"/about",
+                views:{
+                    "content@":{
+                        templateUrl:"partials/about.html"
+                    }
+                }
+            })
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
+        // or more options at once
+        ImgCacheProvider.setOptions({
+            debug: true,
+            usePersistentCache: true
+        });
+
+        // ImgCache library is initialized automatically,
+        // but set this option if you are using platform like Ionic -
+        // in this case we need init imgcache.js manually after device is ready
+        ImgCacheProvider.manualInit = true;        
     }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore','ngNotify',
-    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore,ngNotify){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore','ngNotify','$ionicPlatform','ImgCache',
+    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore,ngNotify,$ionicPlatform,ImgCache){
         Restangular.setBaseUrl("http://www.housuggest.org:8080/ArtApp/");
 
         Auth.setCredentials("Admin", "a91646d0a63e7511327e40cd2e31b297e8094e4f22e9c0a866549e4621bff8c190c71c7e9e9a9f40700209583130828f638247d6c080a67b865869ce902bb285");
@@ -82,4 +101,23 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         
         appStateStore.loadData();
         
+        $ionicPlatform.ready(function() {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if(window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if(window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleDefault();
+            }
+            
+            ImgCache.$init();
+        });
+        
+        function onDeviceReady() {
+            ImgCache.$init();
+        }
+
+        document.addEventListener("deviceready", onDeviceReady, false);
     }]);

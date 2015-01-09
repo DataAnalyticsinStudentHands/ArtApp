@@ -1,18 +1,20 @@
 <ion-view title=""> 
-    <ion-nav-buttons side='right' ng-controller="favoriteCtrl">
-        <button class="button button-icon button-clear" ng-click="toggleFavorite()">
-            <img src="img/fav_no.svg" height="30px" ng-show="!isFavorite"/>
-            <img src="img/fav_yes.svg" height="30px" ng-show="isFavorite"/>
-        </button>
+    <ion-nav-buttons side='right'>
         <button class="button button-icon button-clear" ng-show="ARModeActive" ng-click="returnToAR()">
             <img src="img/map.svg" height="30px"/>
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="detailScroll">
         <div class="list card">
-            <img class="item" ng-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
+            <img class="item" ic-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
             <div class="item item-text-wrap">
-                <h1>{{detailArt.title}}</h1>
+                <h1 ng-controller="favoriteCtrl">
+                    {{detailArt.title}}
+                    <button class="button button-icon button-clear" ng-click="toggleFavorite()" style="float: right;">
+                        <img src="img/fav_no.svg" height="40px" ng-show="!isFavorite"/>
+                        <img src="img/fav_yes.svg" height="40px" ng-show="isFavorite"/>
+                    </button>
+                </h1>
                 <h2>{{detailArt.artist_name}}</h2>
                 <br/>
                 <p ng-hide="!detailArt.description || detailArt.description==''">{{detailArt.description}}</p>

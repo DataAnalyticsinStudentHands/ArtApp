@@ -24,14 +24,14 @@ html, body{
 }
 */
 .box {
-   /* Prevent vertical gaps */
+    /* Prevent vertical gaps */
     -webkit-columns: 4 150px;
     -moz-columns: 4 150px;
     columns: 4 150px;
     -webkit-column-gap:   2px;
     -moz-column-gap:      2px;
     column-gap:           2px;
-    padding: 2px;
+    padding: 0px;
 }
 .box * {
     display: inline-block;

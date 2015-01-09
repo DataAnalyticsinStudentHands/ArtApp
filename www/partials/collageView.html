@@ -8,7 +8,7 @@
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1)">
         <div class="box">
             <div class="photo_container" ng-repeat="artOb in artworkGet(tourID)" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
-                <img ng-src="{{genImList(artOb)}}" />
+                <img img-cache ic-src="{{genImList(artOb)}}" />
                 <div id="titleBox">{{artOb.title}}</div>
             </div>
         </div>
