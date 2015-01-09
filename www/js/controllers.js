@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore',
-    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore) {
+appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -18,6 +18,9 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
         $scope.setArtworkOpen = appStateStore.setArtworkOpen;
         
         $scope.loadAR = function() {
+            if($ionicSideMenuDelegate.isOpenLeft()) {
+                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+            }
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
         };
         
@@ -26,8 +29,8 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
         $scope.tourArt = [];
     }]);
 
-appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate) {
+appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','$ionicSideMenuDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate,$ionicSideMenuDelegate) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
@@ -38,6 +41,9 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }
         
         $scope.loadAR = function() {
+            if($ionicSideMenuDelegate.isOpenLeft()) {
+                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+            }
             app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet($scope.tourID));
         };
         
@@ -71,12 +77,15 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }
     }]);
 
-appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$ionicSideMenuDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicSideMenuDelegate) {
 
         $scope.artworkGet = tourInfo.getArtwork;
         
         $scope.loadAR = function() {
+            if($ionicSideMenuDelegate.isOpenLeft()) {
+                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+            }
             app.loadARchitectWorld(getSamplePath(0, 0), tourInfo.getArtwork());
         };
         
@@ -87,8 +96,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$ionicSideMenuDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$ionicSideMenuDelegate) {
         $scope.ARModeActive = $stateParams.AR;
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
@@ -132,6 +141,9 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         };
         
         $scope.returnToAR = function() {
+            if($ionicSideMenuDelegate.isOpenLeft()) {
+                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+            }            
             app.loadARchitectWorld(null, null);
         }
     }]);
@@ -176,7 +188,6 @@ appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSi
         
         if(appStateStore.getMenuOpen()){
             $timeout(function(){
-                
                 $rootScope.menuToggle();
                 appStateStore.setMenuOpen(true);
             }, 1000);

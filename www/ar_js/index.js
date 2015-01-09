@@ -90,6 +90,7 @@ var app = {
 //            app.isLoaded = false;
             app.isLoaded = true;
             return false;
+            document.removeEventListener("backbutton", onBackKey, false);
         }
         if (app.isDeviceSupported) {
             if(!app.isLoaded) {

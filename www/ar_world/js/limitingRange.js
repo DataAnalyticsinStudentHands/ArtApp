@@ -149,9 +149,9 @@ var World = {
 
         // update panel values
         $("#art-title .ui-btn-text").text(marker.poiData.title);
-        $("#div-art-title").show("slow");
+        $("#div-art-title").show("fast");
         $("#poi-detail-distance").text(distanceToUserValue);
-        $("#div-poi-detail-distance").show("slow");
+        $("#div-poi-detail-distance").show("fast");
 
         $("#poi-detail-title").html(marker.poiData.title);
         $("#poi-detail-description").html(marker.poiData.description);
