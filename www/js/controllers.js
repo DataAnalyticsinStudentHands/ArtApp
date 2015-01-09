@@ -99,6 +99,14 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$ionicSideMenuDelegate',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$ionicSideMenuDelegate) {
         $scope.ARModeActive = $stateParams.AR;
+        if($scope.ARModeActive) {
+            var onBackKeyDown = function() {
+                $scope.returnToAR();
+                document.removeEventListener("backbutton", onBackKeyDown, false);
+            }
+            document.addEventListener("backbutton", onBackKeyDown, false);
+        }
+        
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         

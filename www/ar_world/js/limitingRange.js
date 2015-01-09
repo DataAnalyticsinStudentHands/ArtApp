@@ -1,5 +1,3 @@
-AR.context.scene.cullingDistance = 250;
-
 // implementation of AR-Experience (aka "World")
 var World = {
 	//  user's latest known location, accessible via userLocation.latitude, userLocation.longitude, userLocation.altitude
@@ -47,16 +45,7 @@ var World = {
 
 		// loop through POI-information and create an AR.GeoObject (=Marker) per POI
 		for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
-			var singlePoi = {
-				"id": poiData[currentPlaceNr].id,
-				"latitude": parseFloat(poiData[currentPlaceNr].latitude),
-				"longitude": parseFloat(poiData[currentPlaceNr].longitude),
-				"title": poiData[currentPlaceNr].name,
-				"description": poiData[currentPlaceNr].description,
-                "image": poiData[currentPlaceNr].image,
-                "artwork_id": poiData[currentPlaceNr].artwork_id
-			};
-			World.markerList.push(new Marker(singlePoi));
+			World.markerList.push(new Marker(poiData[currentPlaceNr]));
 		}
 
 		// updates distance information of all placemarks
@@ -66,13 +55,12 @@ var World = {
         var maxRangeMeters = 100;
 
         while(World.getNumberOfVisiblePlacesInRange(maxRangeMeters) < 5 && World.getNumberOfVisiblePlacesInRange(maxRangeMeters) != poiData.length) {
-              maxRangeMeters += 50;
+              maxRangeMeters += 100;
         }
 
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
 
         World.updateRangeValues();
-        World.updateStatusMessage(currentPlaceNr + ' art pieces loaded.');
         $("#popupLoading").popup("close");
         World.firstLoad = false;
 	},
@@ -82,20 +70,6 @@ var World = {
 		for (var i = 0; i < World.markerList.length; i++) {
 			World.markerList[i].distanceToUser = World.markerList[i].markerObject.locations[0].distanceToUser();
 		}
-	},
-
-	// updates status message shon in small "i"-button aligned bottom center
-	updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-		var themeToUse = isWarning ? "e" : "c";
-		var iconToUse = isWarning ? "alert" : "info";
-
-		$("#status-message").html(message);
-		$("#popupInfoButton").buttonMarkup({
-			theme: themeToUse
-		});
-		$("#popupInfoButton").buttonMarkup({
-			icon: iconToUse
-		});
 	},
 
 	// location updates, fired every time you call architectView.setLocation() in native environment
@@ -112,7 +86,6 @@ var World = {
 		World.locationUpdateCounter = (++World.locationUpdateCounter % World.updatePlacemarkDistancesEveryXLocationUpdates);
         if(World.locationUpdateCounter == 0) {
             World.updateDistanceToUserValues();
-//            World.updateRangeValues();
         }
         if(World.currentMarker && World.currentMarker.isSelected){
             var distanceToUserValue = (World.currentMarker.distanceToUser > 999) ? ((World.currentMarker.distanceToUser / 1000).toFixed(2) + " km") : (Math.round(World.currentMarker.distanceToUser) + " m");
@@ -133,7 +106,7 @@ var World = {
 
 	// fired when user pressed maker in cam
 	onMarkerSelected: function onMarkerSelectedFn(marker) {
-        //deselect all markers before perfo
+        //deselect all markers before performing a click
         if(World.currentMarker){
             for (var i = 0; i < World.markerList.length; i++) {
                 if(World.markerList[i].isSelected) {
@@ -173,11 +146,6 @@ var World = {
             document.location = 'architectsdk://artInfo?id=' + World.currentMarker.poiData.artwork_id;
         }
     },
-
-	// screen was clicked but no geo-object was hit
-	onScreenClick: function onScreenClickFn() {
-		// you may handle clicks on empty AR space too
-	},
 
 	// returns distance in meters of placemark with maxdistance * 1.1
 	getMaxDistance: function getMaxDistanceFn() {
@@ -232,7 +200,15 @@ var World = {
 		return World.markerList.length;
 	},
 
-	handlePanelMovements: function handlePanelMovementsFn() {
+    // display range slider
+	showRange: function showRangeFn() {
+        // update labels on every range movement
+        $('#panel-distance-range').change(function() {
+            World.updateRangeValues();
+        });
+
+        World.updateRangeValues();
+        
 		$("#panel-distance").on("panelclose", function(event, ui) {
 			$("#radarContainer").addClass("radarContainer_left");
 			$("#radarContainer").removeClass("radarContainer_right");
@@ -244,26 +220,10 @@ var World = {
 			$("#radarContainer").addClass("radarContainer_right");
 			PoiRadar.updatePosition();
 		});
-	},
 
-	// display range slider
-	showRange: function showRangeFn() {
-		if (World.markerList.length > 0) {
-			// update labels on every range movement
-			$('#panel-distance-range').change(function() {
-				World.updateRangeValues();
-			});
-
-			World.updateRangeValues();
-			World.handlePanelMovements();
-
-			// open panel
-			$("#panel-distance").trigger("updatelayout");
-			$("#panel-distance").panel("open", 1234);
-		} else {
-			// no places are visible, because the are not loaded yet
-			World.updateStatusMessage('No places available yet', true);
-		}
+        // open panel
+        $("#panel-distance").trigger("updatelayout");
+        $("#panel-distance").panel("open", 1234);
 	},
 
 	// helper to sort places by distance
@@ -283,6 +243,3 @@ var World = {
 
 /* forward locationChanges to custom function */
 AR.context.onLocationChanged = World.locationChanged;
-
-/* forward clicks in empty area to World */
-AR.context.onScreenClick = World.onScreenClick;
