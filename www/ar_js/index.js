@@ -83,8 +83,16 @@ var app = {
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
     loadARchitectWorld: function(samplePath, tourJSON) {
+        function onBackKeyDown() {
+            app.wikitudePlugin.hide();
+            app.isLoaded = true;
+            keepscreenon.disable();
+            return false;
+        }
+        document.addEventListener("backbutton", onBackKeyDown, false);
         if (app.isDeviceSupported) {
             if(!app.isLoaded) {
+                keepscreenon.enable();
                 app.wikitudePlugin.loadARchitectWorld(samplePath);
                 function onBackKeyDown() {
                     app.wikitudePlugin.hide();
