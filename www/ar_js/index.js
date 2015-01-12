@@ -83,18 +83,13 @@ var app = {
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
     loadARchitectWorld: function(samplePath, tourJSON) {
-        document.addEventListener("backbutton", onBackKeyDown, false);
-        function onBackKeyDown() {
-            app.wikitudePlugin.hide();
-//            app.wikitudePlugin.close();
-//            app.isLoaded = false;
-            app.isLoaded = true;
-            return false;
-            document.removeEventListener("backbutton", onBackKey, false);
-        }
         if (app.isDeviceSupported) {
             if(!app.isLoaded) {
                 app.wikitudePlugin.loadARchitectWorld(samplePath);
+                function onBackKeyDown() {
+                    app.wikitudePlugin.hide();
+                }
+                document.addEventListener("backbutton", onBackKeyDown, false);
                 app.isLoaded = true;
                 onLocationUpdated(tourJSON);
             } else {
@@ -104,13 +99,10 @@ var app = {
                 }
                 app.wikitudePlugin.show();
             }
-            // inject poi data using phonegap's GeoLocation API and inject data using World.loadPoisFromJsonData
-            //if ( "www/world/4_ObtainPoiData_1_FromApplicationModel/index.html" === samplePath ) {
-            //    navigator.geolocation.getCurrentPosition(onLocationUpdated, onLocationError);
-            //}
         } else {
             alert("Device is not supported");
         }
     }
 };
+
 app.initialize();

@@ -82,8 +82,29 @@
             font-size: 20px;
             text-decoration: none;
         }
-
         #art-title:hover {
+            background: #960C22;
+            text-decoration: none;
+        }
+        #div-tour-title {
+            display: none;
+            position: absolute;
+            text-align: center;
+            display: visible;
+            bottom: 0;
+            right: 0;
+        }
+        #tour-title {
+            background: #C8102E;
+            -webkit-border-radius: 15;
+            -moz-border-radius: 15;
+            border-radius: 15px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        #tour-title:hover {
             background: #960C22;
             text-decoration: none;
         }
@@ -118,11 +139,9 @@
             </a>
 -->
 
-<!--
-            <a href="architectsdk://button?action=captureScreen" style="position: absolute; right: 5px; bottom: 5px; background: none; display: visible">
-                <img height="40px" src="assets/camera.svg"/>
-            </a>
--->
+            <div id="div-tour-title">
+                <a href="javascript: World.showInfo();" id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
+            </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->
 

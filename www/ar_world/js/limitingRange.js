@@ -225,6 +225,11 @@ var World = {
         $("#panel-distance").trigger("updatelayout");
         $("#panel-distance").panel("open", 1234);
 	},
+    
+    showTour: function showTourFn(tourName) {
+        $("#tour-title .ui-btn-text").text(tourName);
+        $("#div-tour-title").show("fast");
+    },
 
 	// helper to sort places by distance
 	sortByDistanceSorting: function(a, b) {
