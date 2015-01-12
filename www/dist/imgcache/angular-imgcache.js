@@ -3,7 +3,6 @@ angular.module('ImgCache', [])
 .provider('ImgCache', function() {
 
     ImgCache.$init = function() {
-
         ImgCache.init(function() {
             ImgCache.$deferred.resolve();
         }, function() {
@@ -22,7 +21,6 @@ angular.module('ImgCache', [])
     }
 
     this.$get = ['$q', function ($q) {
-
         ImgCache.$deferred = $q.defer();
         ImgCache.$promise = ImgCache.$deferred.promise;
 
@@ -44,11 +42,8 @@ angular.module('ImgCache', [])
             icSrc: '@'
         },
         link: function(scope, el, attrs) {
-
             var setImg = function(type, el, src) {
-
                 ImgCache.getCachedFileURL(src, function(src, dest) {
-
                     if(type === 'bg') {
                         el.css({'background-image': 'url(' + dest + ')' });
                     } else {
@@ -58,11 +53,8 @@ angular.module('ImgCache', [])
             }
 
             var loadImg = function(type, el, src) {
-
                 ImgCache.$promise.then(function() {
-
                     ImgCache.isCached(src, function(path, success) {
-
                         if (success) {
                             setImg(type, el, src);
                         } else {
@@ -72,19 +64,18 @@ angular.module('ImgCache', [])
                         }
 
                     });
+                }, function() {
+                    el.attr('src', src);
                 });
             }
 
             attrs.$observe('icSrc', function(src) {
-
                 loadImg('src', el, src);
 
             });
 
             attrs.$observe('icBg', function(src) {
-
                 loadImg('bg', el, src);
-
             });
 
         }
