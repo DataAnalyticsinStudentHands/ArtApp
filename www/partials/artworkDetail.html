@@ -1,10 +1,14 @@
 <ion-view title=""> 
-    <ion-nav-buttons side='right'>
+    <ion-nav-buttons side='right' ng-controller="arCtrl">
         <button class="button button-icon button-clear" ng-click="toggleMap()">
             <img src="img/map.png" height="30px"/>
         </button>
-        <button class="button button-icon button-clear ion-camera" ng-hide="ARModeActive" ng-click="loadAR()"></button>
-        <button class="button button-icon button-clear ion-camera" ng-show="ARModeActive" ng-click="returnToAR()"></button>
+        <button class="button button-icon button-clear" ng-hide="ARModeActive" ng-click="loadAR()" style="padding-top: 5px">
+            <img src="img/aricon.png" height="20px"/>
+        </button>
+        <button class="button button-icon button-clear ion-camera" ng-show="ARModeActive" ng-click="returnToAR()">
+            <img src="img/aricon.png" height="20px"/>
+        </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="detailScroll">
         <div class="list card">
@@ -51,7 +55,6 @@
                 <p ng-hide="!detailArt.date_made || detailArt.date_made==''">Date Made: {{detailArt.date_made}}</p>
                 <p ng-hide="!detailArt.medium || detailArt.medium==''">Medium: {{detailArt.medium}}</p>
                 <p ng-hide="!detailArt.dimensions || detailArt.dimensions==''">Dimensions: {{detailArt.dimensions}}</p>
-                <p ng-hide="!detailArt.mon_value || detailArt.mon_value==''">Value: ${{detailArt.mon_value}}</p>
             </div>
             <div ng-click="toggleMap()" class="item item-icon-left item-divider">
                 <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>

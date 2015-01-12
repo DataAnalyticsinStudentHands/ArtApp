@@ -51,13 +51,18 @@ var app = {
        } else if (url.indexOf('artInfo') > -1) {
             app.wikitudePlugin.hide();
             var id = url.substring(26);
-            document.location = "#/tour/artDetail/" + id + "/AR/true";
+            document.location = "#/tour/artDetail/" + id;
        } else if (url.indexOf('tourInfo') > -1) {
             app.wikitudePlugin.hide();
             var id = url.substring(27);
-            document.location = "#/tour/collage/" + id;
+            if(id > 0)
+                document.location = "#/tour/collage/" + id;
+            else if (id == 0)
+                document.location = "#/tour/";
+            else if (id == -1)
+                document.location = "#/tour/favorites";
        } else {
-            alert('Error');
+            alert('Unknown Command');
        }
     },
     
@@ -82,31 +87,29 @@ var app = {
         alert('Unable to launch ARchitect Worlds on this device');
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
-    loadARchitectWorld: function(samplePath, tourJSON) {
-        function onBackKeyDown() {
-            app.wikitudePlugin.hide();
-            app.isLoaded = true;
-            keepscreenon.disable();
-            return false;
-        }
-        document.addEventListener("backbutton", onBackKeyDown, false);
+    loadARchitectWorld: function(samplePath, tourJSON, tourName, tourID) {
         if (app.isDeviceSupported) {
             if(!app.isLoaded) {
                 keepscreenon.enable();
                 app.wikitudePlugin.loadARchitectWorld(samplePath);
-                function onBackKeyDown() {
-                    app.wikitudePlugin.hide();
-                }
-                document.addEventListener("backbutton", onBackKeyDown, false);
                 app.isLoaded = true;
                 onLocationUpdated(tourJSON);
             } else {
-                if(tourJSON){
-                    app.wikitudePlugin.callJavaScript("World.showLoadingPopup();");
-                    onLocationUpdated(tourJSON);
-                }
                 app.wikitudePlugin.show();
             }
+            if(tourJSON){
+                app.wikitudePlugin.callJavaScript("World.showLoadingPopup();");
+                onLocationUpdated(tourJSON);
+            }
+            if(tourName == "") {
+                app.wikitudePlugin.callJavaScript("World.hideTour();");
+            } else if(tourName) {
+                app.wikitudePlugin.callJavaScript("World.showTour('" + tourName + "'," + tourID + ");");
+            }
+            function onBackKeyDown() {
+                app.wikitudePlugin.hide();
+            }
+            document.addEventListener("backbutton", onBackKeyDown, false);
         } else {
             alert("Device is not supported");
         }

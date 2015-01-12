@@ -3,8 +3,8 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
-appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate',
-    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate) {
+appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -17,20 +17,29 @@ appControllers.controller('tourListCtrl', ['$rootScope','$scope','$http','tourIn
         $scope.setToursOpen = appStateStore.setToursOpen;
         $scope.setArtworkOpen = appStateStore.setArtworkOpen;
         
-        $scope.loadAR = function() {
-            if($ionicSideMenuDelegate.isOpenLeft()) {
-                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-            }
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet());
-        };
-        
         $scope.selectedMarker = null;
         
         $scope.tourArt = [];
+        
+        
+        $rootScope.menuToggle = function(){
+            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+            appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
+        };
+        
+        if(appStateStore.getMenuOpen()){
+            $timeout(function(){
+                $rootScope.menuToggle();
+                appStateStore.setMenuOpen(true);
+            }, 1000);
+        }
+        $scope.resizeScroll = function(){
+            $ionicScrollDelegate.$getByHandle('menuScroll').resize();
+        }
     }]);
 
-appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate,$ionicSideMenuDelegate) {
+appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
@@ -39,13 +48,6 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
             return outStr;
         }
-        
-        $scope.loadAR = function() {
-            if($ionicSideMenuDelegate.isOpenLeft()) {
-                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-            }
-            app.loadARchitectWorld(getSamplePath(0, 0), $scope.artworkGet($scope.tourID));
-        };
         
         var markersArr = [];
         $scope.artworkGet($scope.tourID).forEach(function(obj) {
@@ -77,36 +79,18 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }
     }]);
 
-appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicSideMenuDelegate) {
-
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
         $scope.artworkGet = tourInfo.getArtwork;
-        
-        $scope.loadAR = function() {
-            if($ionicSideMenuDelegate.isOpenLeft()) {
-                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-            }
-            app.loadARchitectWorld(getSamplePath(0, 0), tourInfo.getArtwork());
-        };
         
         $scope.genImList = function(artOb){
             var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
             return outStr;
         };
-        
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$ionicSideMenuDelegate) {
-        $scope.ARModeActive = $stateParams.AR;
-        if($scope.ARModeActive) {
-            var onBackKeyDown = function() {
-                $scope.returnToAR();
-                document.removeEventListener("backbutton", onBackKeyDown, false);
-            }
-            document.addEventListener("backbutton", onBackKeyDown, false);
-        }
-        
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -147,13 +131,6 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         $scope.goBack = function(){
             $ionicNavBarDelegate.back();
         };
-        
-        $scope.returnToAR = function() {
-            if($ionicSideMenuDelegate.isOpenLeft()) {
-                $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-            }            
-            app.loadARchitectWorld(null, null);
-        }
     }]);
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
@@ -187,20 +164,32 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
         }
     }]);
 
-appControllers.controller('menuCtrl', ['$scope','$rootScope','$window','$ionicSideMenuDelegate','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate','appStateStore',
-    function($scope,$rootScope,$window,$ionicSideMenuDelegate,tourInfo,$ionicSlideBoxDelegate,$stateParams, $timeout, $ionicScrollDelegate,appStateStore) {
-        $rootScope.menuToggle = function(){
+appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicSideMenuDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicSideMenuDelegate) {
+        $scope.loadAR = function(JSON, TourName, TourID) {
+            $stateParams.AR = false;
+            if($scope.ARModeActive){
+                app.loadARchitectWorld(null, JSON, TourName, TourID);
+            } else {
+                app.loadARchitectWorld(getSamplePath(0, 0), JSON, TourName, TourID);
+            }
+            if($ionicSideMenuDelegate.isOpenLeft()) {
                 $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
-                appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
+            }
         };
+
+        $scope.ARModeActive = app.isLoaded;
         
-        if(appStateStore.getMenuOpen()){
-            $timeout(function(){
-                $rootScope.menuToggle();
-                appStateStore.setMenuOpen(true);
-            }, 1000);
+        $scope.returnToAR = function() {
+            app.loadARchitectWorld();
         }
-        $scope.resizeScroll = function(){
-            $ionicScrollDelegate.$getByHandle('menuScroll').resize();
+
+        var onBackKeyDown = function() {
+            $scope.returnToAR();
+            document.removeEventListener("backbutton", onBackKeyDown, false);
+        }
+        
+        if($scope.ARModeActive) {
+            document.addEventListener("backbutton", onBackKeyDown, false);
         }
     }]);

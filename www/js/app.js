@@ -1,7 +1,6 @@
 'use strict';
 
 /* App Module */
-
 var publicArtApp = angular.module('publicArtApp', [
     'ionic',
     'controllerModule',
@@ -14,7 +13,6 @@ var publicArtApp = angular.module('publicArtApp', [
     'ImgCache'
 ]);
 
-
 publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','ImgCacheProvider',
     function($stateProvider,$urlRouterProvider,$compileProvider,ImgCacheProvider) {
         $urlRouterProvider.otherwise("/tour");
@@ -24,7 +22,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                 views: {
                     "menu": {
                         templateUrl:"partials/menu.html",
-                        controller:"tourListCtrl"
+                        controller:"menuCtrl"
                     },
                     "content": {
                         templateUrl:"partials/main.html",
@@ -39,10 +37,10 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                         templateUrl:"partials/collageView.html",
                         controller:"collageCtrl"
                     }
-            }
+                }
             })
             .state('tour.artDetail',{
-                url:"/artDetail/:artID/AR/:AR",
+                url:"/artDetail/:artID",
                 views:{
                     "content@": {
                         templateUrl:"partials/artworkDetail.html",
@@ -66,7 +64,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                         templateUrl:"partials/about.html"
                     }
                 }
-            })
+            });
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
         // or more options at once
         ImgCacheProvider.setOptions({

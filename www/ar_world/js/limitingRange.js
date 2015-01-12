@@ -15,6 +15,7 @@ var World = {
 
 	// list of AR.GeoObjects that are currently shown in the scene / World
 	markerList: [],
+    tourID: null,
 
 	// The last selected marker
 	currentMarker: null,
@@ -226,9 +227,18 @@ var World = {
         $("#panel-distance").panel("open", 1234);
 	},
     
-    showTour: function showTourFn(tourName) {
+    showTour: function showTourFn(tourName, tourID) {
         $("#tour-title .ui-btn-text").text(tourName);
         $("#div-tour-title").show("fast");
+        World.tourID = tourID;
+    },
+    
+    hideTour: function removeTourFn() {
+        $("#div-tour-title").hide();
+    },
+    
+    showTourInfo: function showTourFn() {
+        document.location = 'architectsdk://tourInfo?id=' + World.tourID;
     },
 
 	// helper to sort places by distance
