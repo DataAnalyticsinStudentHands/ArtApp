@@ -1,10 +1,10 @@
 <ion-view title="{{tourGet(tourID).tour_title}}">
     <ion-nav-buttons side='right' ng-controller="arCtrl">
         <button class="button button-icon button-clear" ng-click="toggleMap()">
-            <img src="img/map.png" height="30px"/>
+            <img src="img/map.svg" height="35px"/>
         </button>
-        <button class="button button-icon button-clear" style="padding-top: 5px" ng-click="loadAR(artworkGet(tourID), tourGet(tourID).tour_title, tourID)">
-            <img src="img/aricon.png" height="20px"/>
+        <button class="button button-icon button-clear" ng-click="loadAR(artworkGet(tourID), tourGet(tourID).tour_title, tourID)">
+            <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1)">
