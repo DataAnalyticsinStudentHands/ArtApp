@@ -3,8 +3,8 @@
 /* Services */
 var utilServices = angular.module('utilModule', []);
 
-utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicSlideBoxDelegate',
-    function($q,Restangular,$http,$filter,$ionicSlideBoxDelegate) {
+utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicSlideBoxDelegate','$ionicLoading',
+    function($q,Restangular,$http,$filter,$ionicSlideBoxDelegate,$ionicLoading) {
 
     var tours = null;
     var artwork = null;
@@ -37,6 +37,7 @@ var outOb = {
             *** MUST CHANGE TO GET REQUEST ***
             *********************************/
             
+            $ionicLoading.show();
             var tourProm = Restangular.all('tours').getList();
             
             tourProm.then(function(success){
@@ -51,10 +52,12 @@ var outOb = {
                         curVal.artwork_included = curVal.artwork_included.split(",");
                     }
                 });
+                $ionicLoading.hide();
             },
             function(error){
                 
                 console.log("Tour GET Request Failed");
+                $ionicLoading.hide();
             });
         }
 
@@ -63,18 +66,20 @@ var outOb = {
             artwork = tempArtwork;
         }
         else{
-
+            $ionicLoading.show();
             var artworkProm = Restangular.all('artobjects').getList();
             
             artworkProm.then(function(success){
 
                 artwork = Restangular.stripRestangular(success);
                 localStorage.setItem("artwork",JSON.stringify(artwork));
+                $ionicLoading.hide();
             },
             function(error){
 
                 // Change to ngNotify
                 console.log("Artwork GET request failed");
+                $ionicLoading.hide();
             });
         }
     },

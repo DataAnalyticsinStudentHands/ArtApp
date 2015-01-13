@@ -64,7 +64,7 @@ function Marker(poiData) {
     this.indicatorLabel = new AR.Label("Locating...", 0.04, {
         enabled: false,
         zOrder: 1,
-        offsetY: -0.125,
+        offsetY: -0.085,
         style: {
             textColor: '#FFFFFF',
             backgroundColor: '#000000'

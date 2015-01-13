@@ -42,6 +42,7 @@ angular.module('ImgCache', [])
             icSrc: '@'
         },
         link: function(scope, el, attrs) {
+            el.attr('src', "img/loading.gif");
             var setImg = function(type, el, src) {
                 ImgCache.getCachedFileURL(src, function(src, dest) {
                     if(type === 'bg') {
@@ -62,7 +63,6 @@ angular.module('ImgCache', [])
                                 setImg(type, el, src);
                             });
                         }
-
                     });
                 }, function() {
                     el.attr('src', src);

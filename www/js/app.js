@@ -119,3 +119,11 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
 
         document.addEventListener("deviceready", onDeviceReady, false);
     }]);
+
+publicArtApp.constant('$ionicLoadingConfig', {
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+});
