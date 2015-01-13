@@ -159,7 +159,7 @@ var ImgCache = {
         if (Helpers.isCordova()) {
         //On iOS only the fullPath works because toURL returns path with localhost
         if (device.platform.toLowerCase() == "ios") {
-                return entry.fullPath
+                return entry.toURL();
             }
             // From Cordova 3.3 onward toURL() seems to be required instead of fullPath (#38)
             return (typeof entry.toURL === 'function' ? Helpers.EntryToURL(entry) : entry.fullPath);
