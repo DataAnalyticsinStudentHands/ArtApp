@@ -6,4 +6,5 @@ www/lib
 node_modules/
 platforms/
 plugins/
+resources/
 .brackets.json
