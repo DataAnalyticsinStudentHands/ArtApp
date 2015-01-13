@@ -66,8 +66,6 @@ var World = {
         // If closeForever LS entry has not been created
         if(!localStorage.getItem("closeForever")){
             $("#popupDialog").popup("open");
-        } else {
-            $("#popupLoading").popup("open");
         }
 
         World.firstLoad = false;
