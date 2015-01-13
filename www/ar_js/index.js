@@ -93,7 +93,6 @@ var app = {
                 keepscreenon.enable();
                 app.wikitudePlugin.loadARchitectWorld(samplePath);
                 app.isLoaded = true;
-                onLocationUpdated(tourJSON);
             } else {
                 app.wikitudePlugin.show();
             }
