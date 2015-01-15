@@ -61,7 +61,8 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                 url:"/about",
                 views:{
                     "content@":{
-                        templateUrl:"partials/about.html"
+                        templateUrl:"partials/about.html",
+                        controller:"aboutCtrl"
                     }
                 }
             });

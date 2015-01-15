@@ -193,3 +193,11 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
             document.addEventListener("backbutton", onBackKeyDown, false);
         }
     }]);
+
+appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate',
+    function($scope,$rootScope,$ionicSideMenuDelegate){
+        
+        if($ionicSideMenuDelegate.$getByHandle('main-menu').isOpenLeft()) {
+            $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
+        }
+}]);
