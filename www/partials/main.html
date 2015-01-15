@@ -2,7 +2,8 @@
     <ion-nav-buttons side='right' ng-controller="arCtrl">
         <label class="item-input-wrapper" style="height: 35px">
             <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input ng-model="query" type="search" placeholder="   Search" style="height: 23px">
+<!--            $parent.query puts query in the $rootScope-->
+            <input ng-model="$parent.query" type="search" placeholder="   Search" style="height: 23px">
         </label>
         <button class="button button-icon button-clear" ng-click="loadAR(artworkGet(tourID), 'All Artwork', 0)">
             <img src="img/aricon.png" height="32px"/>
