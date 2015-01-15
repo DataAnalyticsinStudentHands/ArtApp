@@ -12,11 +12,6 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         
         $scope.artworkGet = tourInfo.getArtwork;
         
-        $scope.toursOpen = appStateStore.getToursOpen;
-        $scope.artworkOpen = appStateStore.getArtworkOpen;
-        $scope.setToursOpen = appStateStore.setToursOpen;
-        $scope.setArtworkOpen = appStateStore.setArtworkOpen;
-        
         $scope.selectedMarker = null;
         
         $scope.tourArt = [];
