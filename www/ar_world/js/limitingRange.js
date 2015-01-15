@@ -87,6 +87,8 @@ var World = {
 			'altitude': alt,
 			'accuracy': acc
 		};
+        
+        console.log(World.userLocation);
 
 		// helper used to update placemark information every now and then (e.g. every 10 location upadtes fired)
 		World.locationUpdateCounter = (++World.locationUpdateCounter % World.updatePlacemarkDistancesEveryXLocationUpdates);
