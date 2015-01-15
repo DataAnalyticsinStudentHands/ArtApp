@@ -105,10 +105,6 @@ var app = {
             } else if(tourName) {
                 app.wikitudePlugin.callJavaScript("World.showTour('" + tourName + "'," + tourID + ");");
             }
-            function onBackKeyDown() {
-                app.wikitudePlugin.hide();
-            }
-            document.addEventListener("backbutton", onBackKeyDown, false);
         } else {
             alert("Device is not supported");
         }

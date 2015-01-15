@@ -31,18 +31,10 @@
     <!-- radar component -->
     <script type="text/javascript" src="js/radar.js"></script>
     <script>
-//        $(document).ready(function() {
-//            // If closeForever LS entry has not been created
-//            if(!localStorage.getItem("closeForever")){
-//                $("#popupDialog").popup("open");
-//            } else {
-//                $("#popupLoading").popup("open");
-//            }
-//        });
-
         function closeWikitudePlugin() {
             document.location = 'architectsdk://action=closeWikitudePlugin';
         }
+        document.addEventListener("backbutton", closeWikitudePlugin, false);
         function closePopupIntro() {
             $("#popupDialog").popup("close");
         }
@@ -117,7 +109,7 @@
             <!-- header of UI holding feature buttons -->
             <div id="header-status" data-role="header" data-position="fixed" data-theme="c">
                 <a href="javascript: World.showRange();" data-icon="gear" data-inline="true" data-mini="true">Range</a>
-                <a href="javascript: closeWikitudePlugin();" data-inline="true" data-mini="true">Close</a>
+                <a href="javascript: closeWikitudePlugin();" data-inline="true" data-mini="true">Back</a>
             </div>
             
             <div id="div-art-title">
