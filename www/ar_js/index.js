@@ -44,7 +44,7 @@ var app = {
         app.wikitudePlugin.isDeviceSupported(app.onDeviceSupportedCallback, app.onDeviceNotSupportedCallback);
     },
     onURLInvoked: function (url) {
-       if ( 'closeWikitudePlugin' == url.substring(22) ) {
+       if (url.indexOf('closeWikitudePlugin') > -1) {
             app.wikitudePlugin.hide();
        } else if (url.indexOf('captureScreen') > -1) {
 //            app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
@@ -105,10 +105,6 @@ var app = {
             } else if(tourName) {
                 app.wikitudePlugin.callJavaScript("World.showTour('" + tourName + "'," + tourID + ");");
             }
-            function onBackKeyDown() {
-                app.wikitudePlugin.hide();
-            }
-            document.addEventListener("backbutton", onBackKeyDown, false);
         } else {
             alert("Device is not supported");
         }
