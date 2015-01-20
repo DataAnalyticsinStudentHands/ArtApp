@@ -19,15 +19,55 @@ var outOb = {
         // IF PRESENT
         if(tempTours){
 
-            tours = tempTours;
+            $ionicLoading.show();
             
-            // Changes artwork_included CSV to array
-            tours.forEach(function(curVal, ind, arr){
+            var tempDate = localStorage.getItem("toursUpdated");
+            
+            var tourProm = Restangular.all('tours').getList({updated:tempDate});
+            
+            tourProm.then(function(success){
+
                 
-                if(curVal.artwork_included){
+                // 304 Not Modified
+                if(success.status == 304){
                     
-                    curVal.artwork_included = curVal.artwork_included.split(",");
+                    tours = tempTours;
+                    
+                    tours.forEach(function(curVal, ind, arr){
+                
+                        if(curVal.artwork_included){
+
+                            curVal.artwork_included = curVal.artwork_included.split(",");
+                        }
+                    });
+                    
+                    $ionicLoading.hide();
                 }
+                else{
+                    
+                    tours = Restangular.stripRestangular(success.data);
+                    localStorage.setItem("tours",JSON.stringify(tours));
+                    
+                    // Changes artwork_included CSV to array
+                    tours.forEach(function(curVal, ind, arr){
+
+                        if(curVal.artwork_included){
+
+                            curVal.artwork_included = curVal.artwork_included.split(",");
+                        }
+                    });
+
+                    var dateStr = new Date().toISOString();
+                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                    localStorage.setItem("toursUpdated",dateStr);
+                }
+                
+                $ionicLoading.hide();
+            },
+            function(error){
+                
+                console.log("Tour GET Request Failed");
+                $ionicLoading.hide();
             });
             
         }
@@ -48,7 +88,8 @@ var outOb = {
                 
                 var dateStr = new Date().toISOString();
                 dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
-                localStorage.setItem("toursUpdated",dateStr);
+                //localStorage.setItem("toursUpdated",dateStr);
+                localStorage.setItem("toursUpdated",'2012-01-20T19:58:50.786');
                 
                 tours.forEach(function(curVal, ind, arr){
                 
@@ -57,6 +98,7 @@ var outOb = {
                         curVal.artwork_included = curVal.artwork_included.split(",");
                     }
                 });
+                
                 $ionicLoading.hide();
             },
             function(error){
@@ -92,14 +134,16 @@ var outOb = {
 
                     var dateStr = new Date().toISOString();
                     dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
-                    localStorage.setItem("artworkUpdated",dateStr);
+                    //localStorage.setItem("toursUpdated",dateStr);
+                    localStorage.setItem("toursUpdated",'2012-01-20T19:58:50.786');
                 }
                 
                 $ionicLoading.hide();
             },
             function(error){
 
-                
+                console.log("Artwork GET Request Failed");
+                $ionicLoading.hide();
             });
         }
         else{
