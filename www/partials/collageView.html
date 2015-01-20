@@ -1,5 +1,10 @@
 <ion-view title="{{tourGet(tourID).tour_title}}">
     <ion-nav-buttons side='right' ng-controller="arCtrl">
+        <label class="item-input-wrapper" style="height: 35px">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+<!--            $parent.query puts query in the $rootScope-->
+            <input ng-model="$parent.query" type="search" placeholder="   Search" style="height: 23px">
+        </label>
         <button class="button button-icon button-clear" ng-click="toggleMap()">
             <img src="img/map.svg" height="35px"/>
         </button>
@@ -9,7 +14,7 @@
     </ion-nav-buttons>
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1)">
         <div class="box">
-            <div class="photo_container" ng-repeat="artOb in artworkGet(tourID)" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
+            <div class="photo_container" ng-repeat="artOb in artworkGet(tourID) | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                 <img img-cache ic-src="{{genImList(artOb)}}" />
                 <div id="titleBox">{{artOb.title}}</div>
             </div>
