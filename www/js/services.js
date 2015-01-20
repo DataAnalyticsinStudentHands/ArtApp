@@ -42,8 +42,13 @@ var outOb = {
             
             tourProm.then(function(success){
                 
-                tours = Restangular.stripRestangular(success);
+                tours = Restangular.stripRestangular(success.data);
                 localStorage.setItem("tours",JSON.stringify(tours));
+                //localStorage.setItem("toursUpdated",);
+                
+                var dateStr = new Date().toISOString();
+                dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                localStorage.setItem("toursUpdated",dateStr);
                 
                 tours.forEach(function(curVal, ind, arr){
                 
@@ -63,16 +68,53 @@ var outOb = {
 
         if(tempArtwork){
 
-            artwork = tempArtwork;
+            //artwork = tempArtwork;
+            
+            $ionicLoading.show();
+            
+            var tempDate = localStorage.getItem("artworkUpdated");
+            
+            var artworkProm = Restangular.all('artobjects').getList({updated:tempDate});
+            
+            artworkProm.then(function(success){
+
+                
+                // 304 Not Modified
+                if(success.status == 304){
+                    
+                    artwork = tempArtwork;
+                    $ionicLoading.hide();
+                }
+                else{
+                    
+                    artwork = Restangular.stripRestangular(success.data);
+                    localStorage.setItem("artwork",JSON.stringify(artwork));
+
+                    var dateStr = new Date().toISOString();
+                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                    localStorage.setItem("artworkUpdated",dateStr);
+                }
+                
+                $ionicLoading.hide();
+            },
+            function(error){
+
+                
+            });
         }
         else{
             $ionicLoading.show();
             var artworkProm = Restangular.all('artobjects').getList();
             
             artworkProm.then(function(success){
+                
+                    artwork = Restangular.stripRestangular(success.data);
+                    localStorage.setItem("artwork",JSON.stringify(artwork));
 
-                artwork = Restangular.stripRestangular(success);
-                localStorage.setItem("artwork",JSON.stringify(artwork));
+                    var dateStr = new Date().toISOString();
+                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                    localStorage.setItem("artworkUpdated",dateStr);
+                
                 $ionicLoading.hide();
             },
             function(error){
