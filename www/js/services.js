@@ -89,7 +89,7 @@ var outOb = {
                 var dateStr = new Date().toISOString();
                 dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
                 //localStorage.setItem("toursUpdated",dateStr);
-                localStorage.setItem("toursUpdated",'2012-01-20T19:58:50.786');
+                localStorage.setItem("toursUpdated",dateStr);
                 
                 tours.forEach(function(curVal, ind, arr){
                 
