@@ -33,8 +33,8 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         }
     }]);
 
-appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout', '$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$ionicScrollDelegate) {
+appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate) {
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
@@ -78,33 +78,35 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$state) {
         
-        var toursLoaded = false;
-        var artworkLoaded = false;
+//        var toursLoaded = false;
+//        var artworkLoaded = false;
+//        
+//        if(tourInfo.toursLoaded() && tourInfo.artworkLoaded()){
+//            
+//            $state.go('tour.collage',{tourID:1});
+//        }
+//        
+//        $scope.$on('tours:loaded', function(event,data) {
+//            // you could inspect the data to see if what you care about changed, or just update your own scope
+//            toursLoaded = true;
+//            
+//            if(artworkLoaded){
+//                
+//                $state.go('tour.collage',{tourID:1});
+//            }
+//        });
+//        
+//        $scope.$on('artwork:loaded', function(event,data) {
+//            // you could inspect the data to see if what you care about changed, or just update your own scope
+//            artworkLoaded = true;
+//            
+//            if(toursLoaded){
+//                
+//                $state.go('tour.collage',{tourID:1});
+//            }
+//        });
         
-        if(tourInfo.toursLoaded() && tourInfo.artworkLoaded()){
-            
-            $state.go('tour.collage',{tourID:1});
-        }
-        
-        $scope.$on('tours:loaded', function(event,data) {
-            // you could inspect the data to see if what you care about changed, or just update your own scope
-            toursLoaded = true;
-            
-            if(artworkLoaded){
-                
-                $state.go('tour.collage',{tourID:1});
-            }
-        });
-        
-        $scope.$on('artwork:loaded', function(event,data) {
-            // you could inspect the data to see if what you care about changed, or just update your own scope
-            artworkLoaded = true;
-            
-            if(toursLoaded){
-                
-                $state.go('tour.collage',{tourID:1});
-            }
-        });
+        $state.go('tour.collage',{tourID:1});
     }]);
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',

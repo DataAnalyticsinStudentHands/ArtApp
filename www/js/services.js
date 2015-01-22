@@ -12,44 +12,119 @@ utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicS
     var artworkLoaded = false;
     
 var outOb = {
-    loadData: function(){
-
-        var tempTours = JSON.parse(localStorage.getItem("tours"));
-        var tempArtwork = JSON.parse(localStorage.getItem("artwork"));
+    loadArtwork: function(){
         
+        var deferred = $q.defer();
+        
+        var tempArtwork = JSON.parse(localStorage.getItem("artwork"));
+
+        if(tempArtwork){
+
+            //artwork = tempArtwork;
+
+            var tempDate = localStorage.getItem("artworkUpdated");
+
+            var artworkProm = Restangular.all('artobjects').getList({updated:tempDate});
+
+            artworkProm.then(function(success){
+
+
+                // 304 Not Modified
+                if(success.status == 304){
+
+                    artwork = tempArtwork;
+                    $ionicLoading.hide();
+                    deferred.resolve(true);
+                }
+                else{
+
+                    artwork = Restangular.stripRestangular(success.data);
+                    localStorage.setItem("artwork",JSON.stringify(artwork));
+
+                    var dateStr = new Date().toISOString();
+                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                    //localStorage.setItem("toursUpdated",dateStr);
+                    localStorage.setItem("artworkUpdated",dateStr);
+                    deferred.resolve(true);
+                }
+
+                $ionicLoading.hide();
+                artworkLoaded = true;
+                $rootScope.$broadcast('artwork:loaded',true);
+            },
+            function(error){
+
+                console.log("Artwork GET Request Failed");
+                $ionicLoading.hide();
+                deferred.reject(true);
+            });
+        }
+        else{
+            var artworkProm = Restangular.all('artobjects').getList();
+
+            artworkProm.then(function(success){
+
+                    artwork = Restangular.stripRestangular(success.data);
+                    localStorage.setItem("artwork",JSON.stringify(artwork));
+
+                    var dateStr = new Date().toISOString();
+                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
+                    localStorage.setItem("artworkUpdated",dateStr);
+
+                $ionicLoading.hide();
+                artworkLoaded = true;
+                $rootScope.$broadcast('artwork:loaded',true);
+                deferred.resolve(true);
+            },
+            function(error){
+
+                // Change to ngNotify
+                console.log("Artwork GET request failed");
+                $ionicLoading.hide();
+                deferred.reject(true);
+            });
+        }
+        
+        return deferred.promise;
+    },
+    loadTours: function(){
+        
+        var deferred = $q.defer();
+            
+        var tempTours = JSON.parse(localStorage.getItem("tours"));
+
         // CHECK LOCAL STORAGE FOR TOURS AND ARTWORK
         // IF PRESENT
         if(tempTours){
 
-            $ionicLoading.show();
-            
             var tempDate = localStorage.getItem("toursUpdated");
-            
+
             var tourProm = Restangular.all('tours').getList({updated:tempDate});
-            
+
             tourProm.then(function(success){
 
-                
+
                 // 304 Not Modified
                 if(success.status == 304){
-                    
+
                     tours = tempTours;
-                    
+
                     tours.forEach(function(curVal, ind, arr){
-                
+
                         if(curVal.artwork_included){
 
                             curVal.artwork_included = curVal.artwork_included.split(",");
                         }
                     });
-                    
+
                     $ionicLoading.hide();
+                    deferred.resolve(true);
                 }
                 else{
-                    
+
                     tours = Restangular.stripRestangular(success.data);
                     localStorage.setItem("tours",JSON.stringify(tours));
-                    
+
                     // Changes artwork_included CSV to array
                     tours.forEach(function(curVal, ind, arr){
 
@@ -63,121 +138,68 @@ var outOb = {
                     dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
                     localStorage.setItem("toursUpdated",dateStr);
                 }
-                
+
                 $ionicLoading.hide();
                 toursLoaded = true;
                 $rootScope.$broadcast('tours:loaded',true);
+                deferred.resolve(true);
             },
             function(error){
-                
+
                 console.log("Tour GET Request Failed");
                 $ionicLoading.hide();
+                deferred.reject(true);
             });
-            
+
         }
         else{
 
             /*********************************
             *** MUST CHANGE TO GET REQUEST ***
             *********************************/
-            
-            $ionicLoading.show();
+
             var tourProm = Restangular.all('tours').getList();
-            
+
             tourProm.then(function(success){
-                
+
                 tours = Restangular.stripRestangular(success.data);
                 localStorage.setItem("tours",JSON.stringify(tours));
                 //localStorage.setItem("toursUpdated",);
-                
+
                 var dateStr = new Date().toISOString();
                 dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
                 //localStorage.setItem("toursUpdated",dateStr);
                 localStorage.setItem("toursUpdated",dateStr);
-                
+
                 tours.forEach(function(curVal, ind, arr){
-                
+
                     if(curVal.artwork_included){
-                    
+
                         curVal.artwork_included = curVal.artwork_included.split(",");
                     }
                 });
-                
+
                 $ionicLoading.hide();
                 toursLoaded = true;
                 $rootScope.$broadcast('tours:loaded',true);
+                deferred.resolve(true);
             },
             function(error){
-                
+
                 console.log("Tour GET Request Failed");
                 $ionicLoading.hide();
+                deferred.reject(true);
             });
         }
+        
+        return deferred.promise;
+    },
+    loadData: function(){
 
-        if(tempArtwork){
-
-            //artwork = tempArtwork;
-            
-            $ionicLoading.show();
-            
-            var tempDate = localStorage.getItem("artworkUpdated");
-            
-            var artworkProm = Restangular.all('artobjects').getList({updated:tempDate});
-            
-            artworkProm.then(function(success){
-
-                
-                // 304 Not Modified
-                if(success.status == 304){
-                    
-                    artwork = tempArtwork;
-                    $ionicLoading.hide();
-                }
-                else{
-                    
-                    artwork = Restangular.stripRestangular(success.data);
-                    localStorage.setItem("artwork",JSON.stringify(artwork));
-
-                    var dateStr = new Date().toISOString();
-                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
-                    //localStorage.setItem("toursUpdated",dateStr);
-                    localStorage.setItem("artworkUpdated",dateStr);
-                }
-                
-                $ionicLoading.hide();
-                artworkLoaded = true;
-                $rootScope.$broadcast('artwork:loaded',true);
-            },
-            function(error){
-
-                console.log("Artwork GET Request Failed");
-                $ionicLoading.hide();
-            });
-        }
-        else{
-            $ionicLoading.show();
-            var artworkProm = Restangular.all('artobjects').getList();
-            
-            artworkProm.then(function(success){
-                
-                    artwork = Restangular.stripRestangular(success.data);
-                    localStorage.setItem("artwork",JSON.stringify(artwork));
-
-                    var dateStr = new Date().toISOString();
-                    dateStr = dateStr.replace(new RegExp('Z', 'g'), '');
-                    localStorage.setItem("artworkUpdated",dateStr);
-                
-                $ionicLoading.hide();
-                artworkLoaded = true;
-                $rootScope.$broadcast('artwork:loaded',true);
-            },
-            function(error){
-
-                // Change to ngNotify
-                console.log("Artwork GET request failed");
-                $ionicLoading.hide();
-            });
-        }
+        $ionicLoading.show();
+        
+        this.loadArtwork();
+        this.loadTours();
     },
     setTours: function(input){
 

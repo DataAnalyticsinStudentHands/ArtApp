@@ -15,7 +15,7 @@ var publicArtApp = angular.module('publicArtApp', [
 
 publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','ImgCacheProvider',
     function($stateProvider,$urlRouterProvider,$compileProvider,ImgCacheProvider) {
-        $urlRouterProvider.otherwise("/tour");
+        $urlRouterProvider.otherwise("/tour/collage/1");
         $stateProvider
             .state('tour',{
                 url:"/tour",
@@ -36,6 +36,14 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                     "content@": {
                         templateUrl:"partials/collageView.html",
                         controller:"collageCtrl"
+                    },
+                },
+                resolve: {
+                    artworkIn: function(tourInfo) {
+                        return tourInfo.loadArtwork();
+                    },
+                    toursIn: function(tourInfo) {
+                        return tourInfo.loadTours();
                     }
                 }
             })
@@ -100,7 +108,7 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
             ngNotify.set("Internet or Server Unavailable; Limited Functionality", {type: "error", sticky: true});
         });
         
-        appStateStore.loadData();
+        //appStateStore.loadData();
         
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
