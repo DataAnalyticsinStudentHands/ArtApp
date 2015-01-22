@@ -3,11 +3,13 @@
 /* Services */
 var utilServices = angular.module('utilModule', []);
 
-utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicSlideBoxDelegate','$ionicLoading',
-    function($q,Restangular,$http,$filter,$ionicSlideBoxDelegate,$ionicLoading) {
+utilServices.factory('tourInfo', ['$q','Restangular','$http', '$filter','$ionicSlideBoxDelegate','$ionicLoading', '$rootScope',
+    function($q,Restangular,$http,$filter,$ionicSlideBoxDelegate,$ionicLoading,$rootScope) {
 
     var tours = null;
     var artwork = null;
+    var toursLoaded = false;
+    var artworkLoaded = false;
     
 var outOb = {
     loadData: function(){
@@ -63,6 +65,8 @@ var outOb = {
                 }
                 
                 $ionicLoading.hide();
+                toursLoaded = true;
+                $rootScope.$broadcast('tours:loaded',true);
             },
             function(error){
                 
@@ -100,6 +104,8 @@ var outOb = {
                 });
                 
                 $ionicLoading.hide();
+                toursLoaded = true;
+                $rootScope.$broadcast('tours:loaded',true);
             },
             function(error){
                 
@@ -139,6 +145,8 @@ var outOb = {
                 }
                 
                 $ionicLoading.hide();
+                artworkLoaded = true;
+                $rootScope.$broadcast('artwork:loaded',true);
             },
             function(error){
 
@@ -160,6 +168,8 @@ var outOb = {
                     localStorage.setItem("artworkUpdated",dateStr);
                 
                 $ionicLoading.hide();
+                artworkLoaded = true;
+                $rootScope.$broadcast('artwork:loaded',true);
             },
             function(error){
 
@@ -192,6 +202,14 @@ var outOb = {
 
             return null;
         }
+    },
+    artworkLoaded: function(){
+            
+        return artworkLoaded;
+    },
+    toursLoaded: function(){
+
+        return toursLoaded;
     }
   }
   

@@ -17,9 +17,11 @@
 -->
             Tours
         </div>
+<!--
         <a class="item" ui-sref="tour" menu-close nav-clear>
             All Artwork
         </a>
+-->
         <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>

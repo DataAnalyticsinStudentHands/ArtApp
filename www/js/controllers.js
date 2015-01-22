@@ -45,6 +45,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }
         
         var markersArr = [];
+        
         $scope.artworkGet($scope.tourID).forEach(function(obj) {
             var tempMarker = [];
             tempMarker.latLong = ""+obj.location_lat+", "+obj.location_long + "";
@@ -74,14 +75,36 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }
     }]);
 
-appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout) {
-        $scope.artworkGet = tourInfo.getArtwork;
+appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$state) {
         
-        $scope.genImList = function(artOb){
-            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
-            return outStr;
-        };
+        var toursLoaded = false;
+        var artworkLoaded = false;
+        
+        if(tourInfo.toursLoaded() && tourInfo.artworkLoaded()){
+            
+            $state.go('tour.collage',{tourID:1});
+        }
+        
+        $scope.$on('tours:loaded', function(event,data) {
+            // you could inspect the data to see if what you care about changed, or just update your own scope
+            toursLoaded = true;
+            
+            if(artworkLoaded){
+                
+                $state.go('tour.collage',{tourID:1});
+            }
+        });
+        
+        $scope.$on('artwork:loaded', function(event,data) {
+            // you could inspect the data to see if what you care about changed, or just update your own scope
+            artworkLoaded = true;
+            
+            if(toursLoaded){
+                
+                $state.go('tour.collage',{tourID:1});
+            }
+        });
     }]);
 
 appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
