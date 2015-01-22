@@ -220,7 +220,8 @@ var outOb = {
 
             for(var i=0;i<tour.artwork_included.length;i++){
 
-                tourArt.push(artwork[tour.artwork_included[i]]);
+                //tourArt.push(artwork[tour.artwork_included[i]]);
+                tourArt.push(outOb.getArtworkByID(tour.artwork_included[i]));
             }
 
             return tourArt;
