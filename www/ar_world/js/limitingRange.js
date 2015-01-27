@@ -9,9 +9,9 @@ var World = {
     firstLoad: true,
 
 	// different POI-Marker assets
-	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
-	markerDrawable_selected: new AR.ImageResource("assets/yourMarker.png"),
-	markerDrawable_directionIndicator: new AR.ImageResource("assets/indi.png"),
+//	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
+//	markerDrawable_selected: new AR.ImageResource("assets/yourMarker.png"),
+//	markerDrawable_directionIndicator: new AR.ImageResource("assets/indi.png"),
 
 	// list of AR.GeoObjects that are currently shown in the scene / World
 	markerList: [],
@@ -81,12 +81,44 @@ var World = {
 	// location updates, fired every time you call architectView.setLocation() in native environment
 	locationChanged: function locationChangedFn(lat, lon, alt, acc) {
 		// store user's current location in World.userLocation, so you always know where user is
+        
 		World.userLocation = {
 			'latitude': lat,
 			'longitude': lon,
 			'altitude': alt,
 			'accuracy': acc
 		};
+        
+        switch(acc){
+                
+            case 1:
+                $("#popupInfo #status-message").text("GPS Signal: Weak");
+                var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
+                icon.removeClass();
+                icon.addClass("ui-icon ui-icon-signal-bars-1 ui-icon-shadow");
+                
+                //$("#popupInfo .ui-btn-inner .ui-icon").text("GPS Signal: Weak");
+                break;
+                
+            case 2:
+                $("#popupInfo #status-message").text("GPS Signal: Moderate");
+                var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
+                icon.removeClass();
+                icon.addClass("ui-icon ui-icon-signal-bars-2 ui-icon-shadow");
+                
+                //$("#popupInfo #status-message").text("GPS Signal: Weak");
+                break;
+                
+            case 3:
+                $("#popupInfo #status-message").text("GPS Signal: Strong");
+                var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
+                icon.removeClass();
+                icon.addClass("ui-icon ui-icon-signal-bars-4 ui-icon-shadow");
+                
+                //$("#popupInfo #status-message").text("GPS Signal: Weak");
+                break;
+                
+        }
         
         console.log(World.userLocation);
 
@@ -264,4 +296,4 @@ var World = {
 };
 
 /* forward locationChanges to custom function */
-AR.context.onLocationChanged = World.locationChanged;
+//AR.context.onLocationChanged = World.locationChanged;

@@ -100,6 +100,27 @@
             background: #960C22;
             text-decoration: none;
         }
+        .ui-icon-signal-bars-1 {
+            background: url("jquery/images/signal-bars-1.png") no-repeat !important;
+            background-size: 18px 18px;
+            moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+        }
+        .ui-icon-signal-bars-2 {
+            background: url("jquery/images/signal-bars-2.png") no-repeat !important;
+            background-size: 18px 18px;
+            moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+        }
+        .ui-icon-signal-bars-4 {
+            background: url("jquery/images/signal-bars-4.png") no-repeat !important;
+            background-size: 18px 18px;
+            moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+        }
     </style>
 </head>
     <body>
@@ -118,6 +139,12 @@
 
             <!-- transparent footer-->
             <div data-role="footer" class="ui-bar" data-theme="f" data-position="fixed" style="text-align:center;">
+                <!-- small status-button -->
+                <a style="text-align:right;" id="popupInfoButton" href="#popupInfo" data-rel="popup" data-role="button" class="ui-icon-nodisc" data-inline="true" data-transition="pop" data-icon="signal-bars-4" data-theme="e" data-iconpos="notext">Log</a>
+                <!-- popup displayed when button clicked -->
+                <div data-role="popup" id="popupInfo" class="ui-content" data-theme="e" style="max-width:350px;">
+                  <p style="text-align:right;" id="status-message">GPS Signal: Strong</p>
+                </div>
                 <!-- the radar div - Wikitude SDK radar will be drawn into this div -->
                 <div class="radarContainer_left" id="radarContainer"></div>
             </div>
