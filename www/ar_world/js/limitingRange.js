@@ -9,9 +9,9 @@ var World = {
     firstLoad: true,
 
 	// different POI-Marker assets
-//	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
-//	markerDrawable_selected: new AR.ImageResource("assets/yourMarker.png"),
-//	markerDrawable_directionIndicator: new AR.ImageResource("assets/indi.png"),
+	markerDrawable_idle: new AR.ImageResource("assets/mapmarker.png"),
+	markerDrawable_selected: new AR.ImageResource("assets/yourMarker.png"),
+	markerDrawable_directionIndicator: new AR.ImageResource("assets/indi.png"),
 
 	// list of AR.GeoObjects that are currently shown in the scene / World
 	markerList: [],
@@ -296,4 +296,4 @@ var World = {
 };
 
 /* forward locationChanges to custom function */
-//AR.context.onLocationChanged = World.locationChanged;
+AR.context.onLocationChanged = World.locationChanged;
