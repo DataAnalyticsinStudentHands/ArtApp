@@ -26,9 +26,7 @@ $bar-dark-border:                 $dark;
 	display: -webkit-inline-flex;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
-	overflow: hidden;
-	padding-right: 0;
-	margin-right: 0;
+	margin-right: -48px;
 }
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
