@@ -40,7 +40,10 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
-            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            
+            var primeImage = artOb.image.split(",")[0].replace(/.png/g, '_thumb.png');
+            
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ primeImage;
             return outStr;
         }
         
@@ -158,7 +161,9 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
         $scope.getArtByArtID = tourInfo.getArtworkByID;
         
         $scope.genImList = function(artOb){
-            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            var primeImage = artOb.image.split(",")[0].replace(/.png/g, '_thumb.png');
+            
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ primeImage;
             return outStr;
         }
         
