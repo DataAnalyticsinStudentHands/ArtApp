@@ -27,13 +27,21 @@ npm packages `npm install`
 
 4. Run `cordova restore plugins ios --experimental`
 
-5. Run `cordova plugin add <PACKAGE_NAME>` for the following plugins
+5. Run `cordova plugin add <PACKAGE_NAME>` for the following plugins:
+
+```
 com.mediamatrixdoo.keepscreenon
+
 org.apache.cordova.device
+
 org.apache.cordova.file
+
 org.apache.cordova.file-transfer
+
 org.apache.cordova.geolocation
+
 https://github.com/Wikitude/wikitude-phonegap.git
+```
 
 6. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
 
