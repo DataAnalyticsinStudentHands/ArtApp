@@ -95,6 +95,7 @@
             color: #ffffff;
             font-size: 20px;
             text-decoration: none;
+            z-index: 9999;
         }
         #tour-title:hover {
             background: #960C22;
@@ -133,11 +134,11 @@
             <!-- header of UI holding feature buttons -->
             <div id="header-status" data-role="header" data-position="fixed" data-theme="c">
                 <a href="javascript: World.showRange();" data-icon="gear" data-inline="true" data-mini="true">Range</a>
-                <a href="javascript: closeWikitudePlugin();" data-inline="true" data-mini="true">Back</a>
+                <a href="architectsdk://action=closeWikitudePlugin" data-inline="true" data-mini="true">Back</a>
             </div>
             
             <div id="div-art-title">
-                <a href="javascript: World.showInfo();" id="art-title" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
+                <a id="art-title" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
             </div>
 
             <!-- transparent footer-->
@@ -155,14 +156,9 @@
             <div style="position: absolute; left: 0px; bottom: 100px; background: none; display: visible" id="div-poi-detail-distance">
                 <a style="padding: 5px; background:#444444; color:#FFFFFF" id="poi-detail-distance" data-inline="true" data-transition="pop">DISTANCE</a>
             </div>
-<!--
-            <a href="architectsdk://button?action=captureScreen" style="position: absolute; right: 5px; bottom: 5px; background: none; display: visible">
-                <img height="40px" src="assets/camera.svg"/>
-            </a>
--->
 
             <div id="div-tour-title">
-                <a href="javascript: World.showTourInfo();" id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
+                <a id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
             </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->

@@ -162,6 +162,7 @@ var World = {
 
         // update panel values
         $("#art-title .ui-btn-text").text(marker.poiData.title);
+        $("#art-title").attr('href','architectsdk://artInfo?id=' + World.currentMarker.poiData.artwork_id);
         $("#div-art-title").show("fast");
         $("#poi-detail-distance").text(distanceToUserValue);
         $("#div-poi-detail-distance").show("fast");
@@ -178,13 +179,6 @@ var World = {
     onMarkerDeselected: function markerDeselected() {
         $("#div-art-title").hide();
         $("#div-poi-detail-distance").hide();
-    },
-    
-    showInfo: function showInfoFn() {
-        // show panel
-        if(World.currentMarker) {
-            document.location = 'architectsdk://artInfo?id=' + World.currentMarker.poiData.artwork_id;
-        }
     },
 
 	// returns distance in meters of placemark with maxdistance * 1.1
@@ -268,16 +262,13 @@ var World = {
     
     showTour: function showTourFn(tourName, tourID) {
         $("#tour-title .ui-btn-text").text(tourName);
+        $("#tour-title").attr("href", 'architectsdk://tourInfo?id=' + World.tourID);
         $("#div-tour-title").show("fast");
         World.tourID = tourID;
     },
     
     hideTour: function removeTourFn() {
         $("#div-tour-title").hide();
-    },
-    
-    showTourInfo: function showTourFn() {
-        document.location = 'architectsdk://tourInfo?id=' + World.tourID;
     },
 
 	// helper to sort places by distance
