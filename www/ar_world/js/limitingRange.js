@@ -35,7 +35,7 @@ var World = {
         World.markerDrawable_directionIndicator = new AR.ImageResource("assets/indi.png");
 
         PoiRadar.show();
-        $('#radarContainer').unbind('click');
+        $("#radarContainer").unbind('click');
         $("#radarContainer").click(PoiRadar.clickedRadar);
 
         World.currentMarker = null;
@@ -62,7 +62,6 @@ var World = {
         $("#panel-distance-range").val(Math.round(maxRangeMeters/World.getMaxDistance() * 100));
 
         World.updateRangeValues();
-        $("#popupLoading").popup("close");
         // If closeForever LS entry has not been created
         if(!localStorage.getItem("closeForever")){
             $("#popupDialog").popup("open");
@@ -81,7 +80,6 @@ var World = {
 	// location updates, fired every time you call architectView.setLocation() in native environment
 	locationChanged: function locationChangedFn(lat, lon, alt, acc) {
 		// store user's current location in World.userLocation, so you always know where user is
-        
 		World.userLocation = {
 			'latitude': lat,
 			'longitude': lon,
@@ -96,8 +94,6 @@ var World = {
                 var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
                 icon.removeClass();
                 icon.addClass("ui-icon ui-icon-signal-bars-1 ui-icon-shadow");
-                
-                //$("#popupInfo .ui-btn-inner .ui-icon").text("GPS Signal: Weak");
                 break;
                 
             case 2:
@@ -105,8 +101,6 @@ var World = {
                 var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
                 icon.removeClass();
                 icon.addClass("ui-icon ui-icon-signal-bars-2 ui-icon-shadow");
-                
-                //$("#popupInfo #status-message").text("GPS Signal: Weak");
                 break;
                 
             case 3:
@@ -114,8 +108,6 @@ var World = {
                 var icon = $("#popupInfoButton .ui-btn-inner .ui-icon");
                 icon.removeClass();
                 icon.addClass("ui-icon ui-icon-signal-bars-4 ui-icon-shadow");
-                
-                //$("#popupInfo #status-message").text("GPS Signal: Weak");
                 break;
                 
         }
@@ -165,10 +157,6 @@ var World = {
         $("#div-art-title").show("fast");
         $("#poi-detail-distance").text(distanceToUserValue);
         $("#div-poi-detail-distance").show("fast");
-
-        $("#poi-detail-title").html(marker.poiData.title);
-        $("#poi-detail-description").html(marker.poiData.description);
-        $("#poi-detail-image").attr("src","http://www.housuggest.org/images/ARtour/" + marker.poiData.artwork_id +"/"+ marker.poiData.image.split(",")[0]);
 
         $(".ui-panel-dismiss" ).unbind("mousedown");
         
@@ -243,7 +231,7 @@ var World = {
     // display range slider
 	showRange: function showRangeFn() {
         // update labels on every range movement
-        $('#panel-distance-range').change(function() {
+        $("#panel-distance-range").change(function() {
             World.updateRangeValues();
         });
 
@@ -288,11 +276,7 @@ var World = {
 	// helper to sort places by distance, descending
 	sortByDistanceSortingDescending: function(a, b) {
 		return b.distanceToUser - a.distanceToUser;
-	},
-    
-    showLoadingPopup: function() {
-        $("#popupLoading").popup("open");
-    }
+	}
 };
 
 /* forward locationChanges to custom function */

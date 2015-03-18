@@ -156,18 +156,12 @@
             <div style="position: absolute; left: 0px; bottom: 100px; background: none; display: visible" id="div-poi-detail-distance">
                 <a style="padding: 5px; background:#444444; color:#FFFFFF" id="poi-detail-distance" data-inline="true" data-transition="pop">DISTANCE</a>
             </div>
-<!--
-            <a href="architectsdk://button?action=captureScreen" style="position: absolute; right: 5px; bottom: 5px; background: none; display: visible">
-                <img height="40px" src="assets/camera.svg"/>
-            </a>
--->
 
             <div id="div-tour-title">
                 <a href="javascript: World.showTourInfo();" id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
             </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->
-
             <!-- POPUP: First Launch -->
             <div data-history="false" data-role="popup" data-dismissible="false" id="popupDialog" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all ui-popup ui-body-a ui-overlay-shadow">
                 <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner">
@@ -180,7 +174,6 @@
                     <a onclick="closePopupIntro()" data-role="button" data-inline="true" data-theme="a" class="ui-link ui-btn ui-btn-a ui-btn-inline ui-shadow ui-corner-all" role="button">Close</a>
                 </div>
             </div>
-        
             <!-- POPUP: Arrived at destination -->
             <div data-history="false" data-role="popup" data-dismissible="false" id="popupArrived" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all ui-popup ui-body-a ui-overlay-shadow">
                 <div data-role="header" data-theme="a" class="ui-corner-top ui-header ui-bar-a" role="banner">
@@ -193,36 +186,7 @@
                 </div>
             </div>
         
-            <!-- POPUP: Loading... -->
-<!--
-            <div data-history="false" data-role="popup" data-dismissible="false" id="popupLoading" data-overlay-theme="a" data-theme="a" style="max-width:400px;" class="ui-corner-all ui-popup ui-body-a ui-overlay-shadow">
-                <div role="main" class="ui-corner-bottom ui-content">
-                    Loading...
-                </div>
-            </div>
--->
-            
-
             <!-- PANELS, ONLY VISIBLE ON DEMAND -->
-
-            <!-- panel containing POI detail information -->
-            <div data-role="panel" id="panel-poidetail" data-position="right" data-display="overlay" style="background-color:#F0F0F0;" data-theme="c">
-                <!-- header with "close" button -->
-                <div data-role="header" data-theme="c">
-                    <h1>Details</h1>
-                    <a href="#header" data-rel="close">Close</a>
-                </div>
-                <!-- content of POI detail page, you may also add thumbnails etc. here if you like -->
-                 <div data-role="content">
-                    <!-- title -->
-                    <h3 id="poi-detail-title"></h3>
-                    <!-- image -->
-                    <img id="poi-detail-image" style="width: 100%">
-                    <!-- description -->
-                    <h4 id="poi-detail-description"></h4>
-                </div>
-            </div>
-
             <!-- range panel -->
             <div data-role="panel" id="panel-distance" data-position="left" data-display="overlay" style="background-color:#F0F0F0;" data-theme="c">
                 <!-- header with close button -->

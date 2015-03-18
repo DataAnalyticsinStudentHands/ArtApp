@@ -34,11 +34,10 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
-    //
+
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-
         // check if the current device is able to launch ARchitect Worlds
         app.wikitudePlugin = cordova.require("com.wikitude.phonegap.WikitudePlugin.WikitudePlugin");
         app.wikitudePlugin.isDeviceSupported(app.onDeviceSupportedCallback, app.onDeviceNotSupportedCallback);
@@ -46,8 +45,6 @@ var app = {
     onURLInvoked: function (url) {
        if (url.indexOf('closeWikitudePlugin') > -1) {
             app.wikitudePlugin.hide();
-       } else if (url.indexOf('captureScreen') > -1) {
-//            app.wikitudePlugin.captureScreen(true, null, app.onScreenCaptured, app.onScreenCapturedError);
        } else if (url.indexOf('artInfo') > -1) {
             app.wikitudePlugin.hide();
             var id = url.substring(26);
@@ -65,16 +62,6 @@ var app = {
             alert('Unknown Command');
        }
     },
-    
-    // called when the screen was captured successfully
-    onScreenCaptured: function (absoluteFilePath) {
-        alert("snapshot stored at:\n" + absoluteFilePath);
-    },
-    
-    // called when the screen was captured successfully
-    onScreenCapturedError: function (absoluteFilePath) {
-        alert("Error with snapshot capture");
-    },
     // --- Wikitude Plugin ---
     // A callback which gets called if the device is able to launch ARchitect Worlds
     onDeviceSupportedCallback: function() {
@@ -84,7 +71,7 @@ var app = {
 
     // A callback which gets called if the device is not able to start ARchitect Worlds
     onDeviceNotSupportedCallback: function() {
-        alert('Unable to launch ARchitect Worlds on this device');
+        alert('AR is not supported on this device.');
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
     loadARchitectWorld: function(samplePath, tourJSON, tourName, tourID) {
@@ -97,7 +84,6 @@ var app = {
                 app.wikitudePlugin.show();
             }
             if(tourJSON){
-                app.wikitudePlugin.callJavaScript("World.showLoadingPopup();");
                 onLocationUpdated(tourJSON);
             }
             if(tourName == "") {
