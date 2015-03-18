@@ -17,8 +17,7 @@ $dark:                            #444 !default;
 .buttons.right-buttons span {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin-right: -48px; }
+  display: inline-flex; }
 
 .item-input-wrapper {
   max-width: 45%; }
@@ -7823,6 +7822,3 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
 .platform-c:not(.enable-transitions) * {
   -webkit-transition: none !important;
   transition: none !important; }
-
-.buttons.right-buttons span {
-  margin-right: auto !important; }

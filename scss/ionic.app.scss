@@ -26,7 +26,6 @@ $bar-dark-border:                 $dark;
 	display: -webkit-inline-flex;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
-	margin-right: -48px;
 }
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
@@ -36,6 +35,3 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-.buttons.right-buttons span {
-	margin-right: auto !important;
-}
