@@ -80,35 +80,6 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$state) {
-        
-//        var toursLoaded = false;
-//        var artworkLoaded = false;
-//        
-//        if(tourInfo.toursLoaded() && tourInfo.artworkLoaded()){
-//            
-//            $state.go('tour.collage',{tourID:1});
-//        }
-//        
-//        $scope.$on('tours:loaded', function(event,data) {
-//            // you could inspect the data to see if what you care about changed, or just update your own scope
-//            toursLoaded = true;
-//            
-//            if(artworkLoaded){
-//                
-//                $state.go('tour.collage',{tourID:1});
-//            }
-//        });
-//        
-//        $scope.$on('artwork:loaded', function(event,data) {
-//            // you could inspect the data to see if what you care about changed, or just update your own scope
-//            artworkLoaded = true;
-//            
-//            if(toursLoaded){
-//                
-//                $state.go('tour.collage',{tourID:1});
-//            }
-//        });
-        
         $state.go('tour.collage',{tourID:1});
     }]);
 
@@ -221,7 +192,6 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
 
 appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate',
     function($scope,$rootScope,$ionicSideMenuDelegate){
-        
         if($ionicSideMenuDelegate.$getByHandle('main-menu').isOpenLeft()) {
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
         }
