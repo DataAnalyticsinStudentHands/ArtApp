@@ -22,20 +22,27 @@
     var getLocation = function(center, success, error) {
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode( { 'address': center}, function(results, status) {
+//        console.log(center, status);
         if (status === google.maps.GeocoderStatus.OK) {
-          success(results[0].geometry.location);
-        }
-        else {
-//          error('Geocode was not successful for the following reason: ' + status);
+            success(results[0].geometry.location);
+//        }
+//        else if(status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+////            console.log("retrying");
+////            setTimeout(new function(){
+////                getLocation(center, success, error);
+////            }, 1000);
+        } else {
+            error('Geocode was not successful');
         }
       });
     };
 
     $scope.markersArray = [];
     var addMarker = function(address) {
-      getLocation(address.latLong, function(location){
+//        console.log(address.latLong, address.latLong.split(","));
+//      getLocation(address.latLong, function(location){
         var marker = new google.maps.Marker({
-          position: location,
+          position: new google.maps.LatLng(address.latLong.split(",")[0],address.latLong.split(",")[1]),
           title: address.latLong,
           map: $scope.map,
           url: "/#/tour/artDetail/" + address.markerData.artwork_id,
@@ -45,7 +52,7 @@
           window.location.href = marker.url;  
         });
         $scope.markersArray.push(marker);
-      });
+//      });
     };
 
     var removeMarkers = function() {
