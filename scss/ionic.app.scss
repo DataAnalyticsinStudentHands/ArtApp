@@ -36,4 +36,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+.buttons.right-buttons span {
+	margin-right: auto !important;
+}
