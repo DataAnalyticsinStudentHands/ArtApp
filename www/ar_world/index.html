@@ -104,21 +104,21 @@
         .ui-icon-signal-bars-1 {
             background: url("jquery/images/signal-bars-1.png") no-repeat !important;
             background-size: 18px 18px;
-            moz-border-radius: 0px;
+            -moz-border-radius: 0px;
             -webkit-border-radius: 0px;
             border-radius: 0px;
         }
         .ui-icon-signal-bars-2 {
             background: url("jquery/images/signal-bars-2.png") no-repeat !important;
             background-size: 18px 18px;
-            moz-border-radius: 0px;
+            -moz-border-radius: 0px;
             -webkit-border-radius: 0px;
             border-radius: 0px;
         }
         .ui-icon-signal-bars-4 {
             background: url("jquery/images/signal-bars-4.png") no-repeat !important;
             background-size: 18px 18px;
-            moz-border-radius: 0px;
+            -moz-border-radius: 0px;
             -webkit-border-radius: 0px;
             border-radius: 0px;
         }
@@ -138,7 +138,7 @@
             </div>
             
             <div id="div-art-title">
-                <a id="art-title" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
+                <a href="javascript: World.showInfo();" id="art-title" data-role="button" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">More Info</a>
             </div>
 
             <!-- transparent footer-->
@@ -156,9 +156,14 @@
             <div style="position: absolute; left: 0px; bottom: 100px; background: none; display: visible" id="div-poi-detail-distance">
                 <a style="padding: 5px; background:#444444; color:#FFFFFF" id="poi-detail-distance" data-inline="true" data-transition="pop">DISTANCE</a>
             </div>
+<!--
+            <a href="architectsdk://button?action=captureScreen" style="position: absolute; right: 5px; bottom: 5px; background: none; display: visible">
+                <img height="40px" src="assets/camera.svg"/>
+            </a>
+-->
 
             <div id="div-tour-title">
-                <a id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
+                <a href="javascript: World.showTourInfo();" id="tour-title" data-role="button" data-mini="true" class="ui-icon-alt" data-inline="true" data-transition="pop" data-theme="b">Tour Name</a>
             </div>
         
             <!-- POPUPS, ONLY VISIBLE ON DEMAND -->
