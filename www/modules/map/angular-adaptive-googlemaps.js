@@ -26,7 +26,7 @@
           success(results[0].geometry.location);
         }
         else {
-          error('Geocode was not successful for the following reason: ' + status);
+//          error('Geocode was not successful for the following reason: ' + status);
         }
       });
     };
