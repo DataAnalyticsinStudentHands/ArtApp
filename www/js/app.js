@@ -118,7 +118,8 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
             }
             if(window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleDefault();
+                // StatusBar.styleDefault();
+                StatusBar.styleLightContent();
             }
             
             ImgCache.$init();
