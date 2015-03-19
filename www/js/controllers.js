@@ -163,11 +163,6 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
 appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicSideMenuDelegate',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicSideMenuDelegate) {
         $scope.ARModeActive = app.isLoaded;
-        
-        var onBackKeyDown = function() {
-            $scope.returnToAR();
-            document.removeEventListener("backbutton", onBackKeyDown, false);
-        }
 
         $scope.loadAR = function(JSON, TourName, TourID) {
             $stateParams.AR = false;
@@ -183,6 +178,11 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
         
         $scope.returnToAR = function() {
             app.loadARchitectWorld();
+        }
+        
+        var onBackKeyDown = function() {
+            $scope.returnToAR();
+            document.removeEventListener("backbutton", onBackKeyDown, false);
         }
         
         if($scope.ARModeActive) {
