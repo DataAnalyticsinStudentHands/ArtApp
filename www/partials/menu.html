@@ -1,40 +1,16 @@
 <ion-view>
 <ion-content delegate-handle="menuScroll">
     <div class="list">
-<!--
-        <a class="item" ui-sref="tour" menu-close nav-clear>
-            All Artwork
-        </a>
--->
         <a class="item item-icon-left" ui-sref="tour.favorites" menu-close nav-clear>
             <i class="icon ion-star"></i>
             My Favorites
         </a>
         <div class="item item-divider">
-<!--
-            <i ng-show="toursOpen()" class="icon ion-arrow-down-b"></i>
-            <i ng-hide="toursOpen()" class="icon ion-arrow-right-b"></i>
--->
             Tours
         </div>
-<!--
-        <a class="item" ui-sref="tour" menu-close nav-clear>
-            All Artwork
-        </a>
--->
         <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
-<!--
-        <div ng-click="resizeScroll(); setArtworkOpen(!artworkOpen());" class="item item-icon-left item-divider">
-            <i ng-hide="artworkOpen()" class="icon ion-arrow-down-b"></i>
-            <i ng-show="artworkOpen()" class="icon ion-arrow-right-b"></i>
-            Artwork
-        </div>
-        <a ng-hide="artworkOpen()" ui-sref="tour.artDetail({artID:{{item.artwork_id}}})" ng-repeat="item in artworkGet()" class="item" menu-close nav-clear>
-            <h3>{{item.title}}</h3>
-        </a>
--->
     </div>
 </ion-content>
 </ion-view>
