@@ -28,9 +28,9 @@ html, body{
     -webkit-columns: 4 150px;
     -moz-columns: 4 150px;
     columns: 4 150px;
-    -webkit-column-gap:   2px;
-    -moz-column-gap:      2px;
-    column-gap:           2px;
+    -webkit-column-gap:   5px;
+    -moz-column-gap:      5px;
+    column-gap:           5px;
     padding: 0px;
 }
 .box * {
@@ -48,6 +48,7 @@ html, body{
     position: relative;
     right: 0px;
     bottom: 0px;
+    margin-bottom: 0px;
 }
 .photo_container #titleBox {
     position: absolute;
@@ -55,9 +56,9 @@ html, body{
     right: 0;
     bottom: 0;
     height: 70px;
-    margin-bottom: 2px;
-    background: #6798AC;
+    margin-bottom: 7px;
+    background: #30525F;
     color: #FFF;
-    padding: 0px;
+    padding: 5px;
     text-align: center;
 }

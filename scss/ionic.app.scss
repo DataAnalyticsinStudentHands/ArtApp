@@ -19,7 +19,7 @@ $dark:                            #444 !default;
 $font-family-milo:                MiloOTLight !default;
 $font-family-base:                $font-family-milo !default;
 
-$dark:                            #6798AC;
+$dark:                            #30525F;
 $bar-dark-border:                 $dark;  
 
 .buttons.right-buttons span {
@@ -36,3 +36,24 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+.bar-dark {
+	background-color: #30525F;
+}
+label>input {
+	background-color: transparent;
+}
+label.item-input-wrapper {
+	background-color: white;
+}
+input::-webkit-input-placeholder {
+	color: #8D8D8D ;
+}
+input:-moz-placeholder {
+	color: #8D8D8D ;
+}
+input:-ms-input-placeholder { /* IE10+ */
+	color: #8D8D8D ;
+}
+img {
+	// border: none !important;
+}
