@@ -89,7 +89,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
 
 publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore','ngNotify','$ionicPlatform','ImgCache',
     function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore,ngNotify,$ionicPlatform,ImgCache){
-        Restangular.setBaseUrl("http://www.housuggest.org:8080/ArtApp/");
+        Restangular.setBaseUrl("https://www.housuggest.org:8443/ArtApp/");
         //Restangular.setBaseUrl("http://localhost:8080/ArtApp/");
         Restangular.setFullResponse(true);
 
