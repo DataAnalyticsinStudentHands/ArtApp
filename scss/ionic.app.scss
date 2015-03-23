@@ -26,7 +26,18 @@ $bar-dark-border:                 $dark;
 	display: -webkit-inline-flex;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
-	margin-right: 0;
+	margin-right: auto;
+}
+.buttons.right-buttons span > input {
+	height: 23px; 
+	width: 200px; 
+	background-color:white;
+	border-radius: 8px;
+	margin-top: 2px;
+	margin-right: 8px;
+	// text-indent: 5px;
+	padding-left: 15px;
+	padding-top: 4px;
 }
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
@@ -53,7 +64,4 @@ input:-moz-placeholder {
 }
 input:-ms-input-placeholder { /* IE10+ */
 	color: #8D8D8D ;
-}
-img {
-	// border: none !important;
 }

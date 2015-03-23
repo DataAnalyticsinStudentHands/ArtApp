@@ -1,9 +1,9 @@
-<ion-view title="">
+<ion-view>
     <ion-nav-buttons side='right' ng-controller="arCtrl">
-        <label class="item-input-wrapper" style="height: 35px">
-            <i class="icon ion-ios7-search placeholder-icon"></i>
-            <input ng-model="$parent.query" type="search" placeholder="Search" style="height: 23px">
-        </label>
+<!--         <label class="item-input-wrapper" style="height: 35px">
+            <i class="icon ion-ios7-search placeholder-icon"></i> -->
+            <input ng-model="$parent.query" type="search" placeholder="Search">
+        <!-- </label> -->
         <button class="button button-icon button-clear" ng-click="toggleMap()">
             <img src="img/map.svg" height="32px"/>
         </button>
@@ -28,8 +28,3 @@
         </div>
     </ion-content>
 </ion-view>
-<style type="text/css">
-    .buttons.right-buttons span {
-        margin-right: -50px !important;
-    }
-</style>
