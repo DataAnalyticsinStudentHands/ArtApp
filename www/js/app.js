@@ -73,6 +73,15 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                         controller:"aboutCtrl"
                     }
                 }
+            })
+            .state('tour.error',{
+                url:"/error",
+                views:{
+                    "content@":{
+                        templateUrl:"partials/error.html",
+                        controller:"errorCtrl"
+                    }
+                }
             });
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|geo|maps):/);
         // or more options at once
@@ -87,8 +96,8 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
         ImgCacheProvider.manualInit = true;        
     }]);
 
-publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore','ngNotify','$ionicPlatform','ImgCache',
-    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore,ngNotify,$ionicPlatform,ImgCache){
+publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$ionicSideMenuDelegate','appStateStore','ngNotify','$ionicPlatform','ImgCache', '$state',
+    function($rootScope, $http, Restangular, Auth, tourInfo, $ionicSideMenuDelegate,appStateStore,ngNotify,$ionicPlatform,ImgCache,$state){
         Restangular.setBaseUrl("https://www.housuggest.org:8443/ArtApp/");
         //Restangular.setBaseUrl("http://localhost:8080/ArtApp/");
         Restangular.setFullResponse(true);
@@ -130,6 +139,11 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         }
 
         document.addEventListener("deviceready", onDeviceReady, false);
+        
+        // If resolve fails, handles error by redirecting to error state
+        $rootScope.$on('$stateChangeError', function(event, current, previous, error) {
+            $state.go('tour.error');
+        });
     }]);
 
 publicArtApp.constant('$ionicLoadingConfig', {

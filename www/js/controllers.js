@@ -3,6 +3,12 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
+appControllers.controller('errorCtrl', ['$rootScope',
+    function($rootScope) {
+        
+        
+}]);
+
 appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate',
     function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate) {
         $scope.showAdd = false;
@@ -31,7 +37,7 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('menuScroll').resize();
         }
-    }]);
+}]);
 
 appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate) {
