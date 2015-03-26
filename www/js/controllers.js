@@ -214,8 +214,6 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
 appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate','$state','$cordovaInAppBrowser',
     function($scope,$rootScope,$ionicSideMenuDelegate,$state,$cordovaInAppBrowser){
         
-        window.open('http://www.hotmail.com', '_system');
-        
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         
