@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="dash.summerofapps.artapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>ARTour</name>
-  <description>
+  <description>
+
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="hi@ionicframework" href="http://ionicframework.com/">
+
+      Ionic Framework Team
+
   </author>
   <icon src="resources/ios/icon/icon-40@2x.png"/>
   <preference name="SplashScreen" value="screen"/>
@@ -37,6 +40,10 @@
   <feature name="FileTransfer">
     <param name="ios-package" value="CDVFileTransfer"/>
     <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
+  </feature>
+  <feature name="InAppBrowser">
+  	<param name="ios-package" value="CDVInAppBrowser" />
+  	<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
   </feature>
   <platform name="android">
     <icon src="resources\android\icon\drawable-ldpi-icon.png" density="ldpi"/>

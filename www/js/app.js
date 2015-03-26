@@ -10,7 +10,8 @@ var publicArtApp = angular.module('publicArtApp', [
     'utilModule',
     'adaptive.googlemaps',
     'ngNotify',
-    'ImgCache'
+    'ImgCache',
+    'ngCordova'
 ]);
 
 publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','ImgCacheProvider',

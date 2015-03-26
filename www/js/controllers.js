@@ -46,6 +46,7 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
 
 appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate,$state) {
+        
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;
@@ -96,8 +97,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         $state.go('tour.collage',{tourID:1});
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$state',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$state) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$state','$cordovaInAppBrowser',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$state,$cordovaInAppBrowser) {
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         $scope.art_id = $stateParams.artID;
@@ -210,8 +211,11 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
         }
     }]);
 
-appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate','$state',
-    function($scope,$rootScope,$ionicSideMenuDelegate,$state){
+appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate','$state','$cordovaInAppBrowser',
+    function($scope,$rootScope,$ionicSideMenuDelegate,$state,$cordovaInAppBrowser){
+        
+        window.open('http://www.hotmail.com', '_system');
+        
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         
