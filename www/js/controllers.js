@@ -82,6 +82,10 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
                 $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
             }
         }
+        
+        $scope.$watch('query', function(){
+            $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+        });
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state',
