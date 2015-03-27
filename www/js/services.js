@@ -53,10 +53,14 @@ var outOb = {
                 $rootScope.$broadcast('artwork:loaded',true);
             },
             function(error){
-
                 console.log("Artwork GET Request Failed");
                 $ionicLoading.hide();
-                deferred.reject(true);
+                if(localStorage.getObject("artwork")) {
+                    artwork = tempArtwork;
+                    deferred.resolve(true);
+                } else {
+                    deferred.reject(true);
+                }
             });
         }
         else{
@@ -77,11 +81,15 @@ var outOb = {
                 deferred.resolve(true);
             },
             function(error){
-
                 // Change to ngNotify
                 console.log("Artwork GET request failed");
                 $ionicLoading.hide();
-                deferred.reject(true);
+                if(localStorage.getObject("artwork")) {
+                    artwork = tempArtwork;
+                    deferred.resolve(true);
+                } else {
+                    deferred.reject(true);
+                }
             });
         }
         
@@ -96,23 +104,15 @@ var outOb = {
         // CHECK LOCAL STORAGE FOR TOURS AND ARTWORK
         // IF PRESENT
         if(tempTours){
-
             var tempDate = localStorage.getItem("toursUpdated");
-
             var tourProm = Restangular.all('tours').getList({updated:tempDate});
-
             tourProm.then(function(success){
-
 
                 // 304 Not Modified
                 if(success.status == 304){
-
                     tours = tempTours;
-
                     tours.forEach(function(curVal, ind, arr){
-
                         if(curVal.artwork_included){
-
                             curVal.artwork_included = curVal.artwork_included.split(",");
                         }
                     });
@@ -121,15 +121,12 @@ var outOb = {
                     deferred.resolve(true);
                 }
                 else{
-
                     tours = Restangular.stripRestangular(success.data);
                     localStorage.setItem("tours",JSON.stringify(tours));
 
                     // Changes artwork_included CSV to array
                     tours.forEach(function(curVal, ind, arr){
-
                         if(curVal.artwork_included){
-
                             curVal.artwork_included = curVal.artwork_included.split(",");
                         }
                     });
@@ -145,10 +142,19 @@ var outOb = {
                 deferred.resolve(true);
             },
             function(error){
-
                 console.log("Tour GET Request Failed");
                 $ionicLoading.hide();
-                deferred.reject(true);
+                if(localStorage.getObject("tours")) {
+                    tours = tempTours;
+                    tours.forEach(function(curVal, ind, arr){
+                        if(curVal.artwork_included){
+                            curVal.artwork_included = curVal.artwork_included.split(",");
+                        }
+                    });
+                    deferred.resolve(true);
+                } else {
+                    deferred.reject(true);
+                }
             });
 
         }
@@ -185,10 +191,19 @@ var outOb = {
                 deferred.resolve(true);
             },
             function(error){
-
                 console.log("Tour GET Request Failed");
                 $ionicLoading.hide();
-                deferred.reject(true);
+                if(localStorage.getObject("tours")) {
+                    tours = tempTours;
+                    tours.forEach(function(curVal, ind, arr){
+                        if(curVal.artwork_included){
+                            curVal.artwork_included = curVal.artwork_included.split(",");
+                        }
+                    });
+                    deferred.resolve(true);
+                } else {
+                    deferred.reject(true);
+                }
             });
         }
         

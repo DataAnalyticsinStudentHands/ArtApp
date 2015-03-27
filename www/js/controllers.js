@@ -3,6 +3,17 @@
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
 
+appControllers.controller('errorCtrl', ['$rootScope','$state',
+    function($rootScope,$state) {
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
+        
+//        $ionicHistory.nextViewOptions({
+//            disableAnimate: true,
+//            disableBack: true
+//        });
+}]);
+
 appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate',
     function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate) {
         $scope.showAdd = false;
@@ -31,16 +42,21 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('menuScroll').resize();
         }
-    }]);
+}]);
 
-appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate) {
+appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate','$state',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate,$state) {
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
-            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            
+            var primeImage = artOb.image.split(",")[0].replace(/.png/g, '_thumb.png');
+            
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ primeImage;
             return outStr;
         }
         
@@ -73,44 +89,21 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
                 $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
             }
         }
+        
+        $scope.$watch('query', function(){
+            $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+        });
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,$state) {
-        
-//        var toursLoaded = false;
-//        var artworkLoaded = false;
-//        
-//        if(tourInfo.toursLoaded() && tourInfo.artworkLoaded()){
-//            
-//            $state.go('tour.collage',{tourID:1});
-//        }
-//        
-//        $scope.$on('tours:loaded', function(event,data) {
-//            // you could inspect the data to see if what you care about changed, or just update your own scope
-//            toursLoaded = true;
-//            
-//            if(artworkLoaded){
-//                
-//                $state.go('tour.collage',{tourID:1});
-//            }
-//        });
-//        
-//        $scope.$on('artwork:loaded', function(event,data) {
-//            // you could inspect the data to see if what you care about changed, or just update your own scope
-//            artworkLoaded = true;
-//            
-//            if(toursLoaded){
-//                
-//                $state.go('tour.collage',{tourID:1});
-//            }
-//        });
-        
         $state.go('tour.collage',{tourID:1});
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$state',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$state) {
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
         $scope.art_id = $stateParams.artID;
         $scope.detailArt = tourInfo.getArtworkByID($scope.art_id);
         
@@ -153,12 +146,16 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         };
     }]);
 
-appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService) {
+appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$state',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$state) {
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
         $scope.getArtByArtID = tourInfo.getArtworkByID;
         
         $scope.genImList = function(artOb){
-            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ artOb.image.split(",")[0];
+            var primeImage = artOb.image.split(",")[0].replace(/.png/g, '_thumb.png');
+            
+            var outStr = "http://www.housuggest.org/images/ARtour/" + artOb.artwork_id +"/"+ primeImage;
             return outStr;
         }
         
@@ -184,14 +181,12 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
         }
     }]);
 
-appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicSideMenuDelegate) {
-        $scope.ARModeActive = app.isLoaded;
+appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicSideMenuDelegate','$state',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$ionicSideMenuDelegate,$state) {
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
         
-        var onBackKeyDown = function() {
-            $scope.returnToAR();
-            document.removeEventListener("backbutton", onBackKeyDown, false);
-        }
+        $scope.ARModeActive = app.isLoaded;
 
         $scope.loadAR = function(JSON, TourName, TourID) {
             $stateParams.AR = false;
@@ -209,13 +204,20 @@ appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo',
             app.loadARchitectWorld();
         }
         
+        var onBackKeyDown = function() {
+            $scope.returnToAR();
+            document.removeEventListener("backbutton", onBackKeyDown, false);
+        }
+        
         if($scope.ARModeActive) {
             document.addEventListener("backbutton", onBackKeyDown, false);
         }
     }]);
 
-appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$ionicSideMenuDelegate){
+appControllers.controller('aboutCtrl', ['$scope','$rootScope','$ionicSideMenuDelegate','$state',
+    function($scope,$rootScope,$ionicSideMenuDelegate,$state){
+        $rootScope.prevState = $rootScope.curState;
+        $rootScope.curState = $state.current.name;
         
         if($ionicSideMenuDelegate.$getByHandle('main-menu').isOpenLeft()) {
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
