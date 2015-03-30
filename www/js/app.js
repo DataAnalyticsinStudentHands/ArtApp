@@ -105,6 +105,11 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         
         $rootScope.curState = 'none';
         $rootScope.prevState = 'none';
+        
+        $rootScope.goToLink = function(url){
+            
+            window.open(url,"_system");
+        }
 
         Auth.setCredentials("Admin", "a91646d0a63e7511327e40cd2e31b297e8094e4f22e9c0a866549e4621bff8c190c71c7e9e9a9f40700209583130828f638247d6c080a67b865869ce902bb285");
 
