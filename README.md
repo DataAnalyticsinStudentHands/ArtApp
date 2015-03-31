@@ -34,6 +34,7 @@ org.apache.cordova.file
 org.apache.cordova.file-transfer
 org.apache.cordova.geolocation
 org.apache.cordova.statusbar
+org.apache.cordova.inappbrowser
 https://github.com/Wikitude/wikitude-phonegap.git
 
 6. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
