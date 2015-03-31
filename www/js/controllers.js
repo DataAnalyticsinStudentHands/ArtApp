@@ -51,6 +51,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
+        $scope.curTour = $scope.tourGet($scope.tourID);
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
