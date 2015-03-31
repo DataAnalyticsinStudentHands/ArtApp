@@ -22,11 +22,14 @@ $font-family-base:                $font-family-milo !default;
 $dark:                            #30525F;
 $bar-dark-border:                 $dark;  
 
+ion-nav-back-button {
+	margin-right:15px !important;
+}
 .buttons.right-buttons span {
-	display: -webkit-inline-flex;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
-	margin-right: auto;
+	display: -webkit-inline-flex !important;
+	display: -ms-inline-flexbox !important;
+	display: inline-flex !important;
+	margin-right: auto !important;
 }
 .buttons.right-buttons span > input {
 	height: 23px; 
