@@ -14,7 +14,8 @@
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1)">
         <div class="card" ng-show="tourGet(tourID).description!=null">
             <div class="item item-text-wrap">
-                {{tourGet(tourID).description}}
+                <h1>{{curTour.tour_title}}</h1>
+                {{curTour.description}}
             </div>
         </div>
         <div class="box">
