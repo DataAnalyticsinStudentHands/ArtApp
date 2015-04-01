@@ -11,7 +11,7 @@
             <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
-    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1)">
+    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:0px;">
         <div class="card" ng-show="tourGet(tourID).description!=null">
             <div class="item item-text-wrap">
                 <h1>{{curTour.tour_title}}</h1>
@@ -24,6 +24,7 @@
                 <div id="titleBox">{{artOb.title}}</div>
             </div>
         </div>
+<!--
         <div ng-click="toggleMap()" class="item item-icon-left item-divider">
             <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
             <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
@@ -32,5 +33,16 @@
         <div ng-show="mapShow">
             <googlemaps class="google-maps" options="map"></googlemaps>
         </div>
+-->
     </ion-content>
+    <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
+        <div ng-click="toggleMap()" class="item item-icon-left item-divider">
+            <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
+            <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
+            Map
+        </div>
+        <div ng-show="mapShow">
+            <googlemaps class="google-maps" options="map"></googlemaps>
+        </div>
+</ion-footer-bar>
 </ion-view>

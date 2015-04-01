@@ -85,11 +85,11 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.toggleMap = function() {
             $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
             $scope.mapShow = !$scope.mapShow;
-            if($scope.mapShow) {
-                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
-            } else {
-                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
-            }
+//            if($scope.mapShow) {
+//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
+//            } else {
+//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+//            }
         }
     }]);
 
