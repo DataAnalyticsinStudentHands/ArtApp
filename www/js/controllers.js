@@ -14,8 +14,8 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
 //        });
 }]);
 
-appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate',
-    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate) {
+appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate','$location',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate,$location) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -41,6 +41,10 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         }
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('menuScroll').resize();
+        }
+        
+        $scope.isActive = function(route) {
+            return route === $location.path();
         }
 }]);
 

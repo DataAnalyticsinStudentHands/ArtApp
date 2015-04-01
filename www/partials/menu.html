@@ -8,7 +8,7 @@
         <div class="item item-divider">
             Tours
         </div>
-        <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
+        <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear ng-class="{active:isActive('/tour/collage/{{tour.tour_id}}')}">
             <h3>{{tour.tour_title}}</h3>
         </a>
     </div>

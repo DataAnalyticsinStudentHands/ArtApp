@@ -11,10 +11,10 @@
             <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
-    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:0px;">
-        <div class="card" ng-show="tourGet(tourID).description!=null">
+    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:30px;">
+        <div class="card" ng-show="curTour.description!=null" style="margin: 5px">
             <div class="item item-text-wrap">
-                <h1>{{curTour.tour_title}}</h1>
+<!--                <h1>{{curTour.tour_title}}</h1>-->
                 {{curTour.description}}
             </div>
         </div>
