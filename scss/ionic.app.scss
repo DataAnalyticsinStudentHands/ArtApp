@@ -23,9 +23,9 @@ $dark:                            #30525F;
 $bar-dark-border:                 $dark;  
 
 .buttons.right-buttons span {
-	display: -webkit-inline-flex;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
+	display: -webkit-inline-flex !important;
+	display: -ms-inline-flexbox !important;
+	display: inline-flex !important;
 	margin-right: auto;
 }
 .buttons.right-buttons span > input {
