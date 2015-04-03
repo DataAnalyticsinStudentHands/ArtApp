@@ -15,11 +15,11 @@
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="detailScroll">
-        <div class="list card">
-            <img img-cache class="item" ic-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
+        <div class="">
+            <img img-cache class="item" ic-src="{{genImList(detailArt)}}" style="max-height:84%;max-width:100%; min-width: 250px; margin:auto; border:none;">
             <div class="item item-text-wrap">
                 <h1 ng-controller="favoriteCtrl">
-                    {{detailArt.title}}
+                    <span style="margin:auto">{{detailArt.title}}</span>
                     <button class="button button-icon button-clear" ng-click="toggleFavorite()" style="float: right;">
                         <img src="img/fav_no.svg" height="40px" ng-show="!isFavorite"/>
                         <img src="img/fav_yes.svg" height="40px" ng-show="isFavorite"/>

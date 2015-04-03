@@ -14,10 +14,6 @@ $assertive:                       #ef4e3a !default;
 $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
 */
-h1 {
-  color: #30525F !important;
-  font-weight: bolder !important; }
-
 .buttons.right-buttons span {
   display: -webkit-inline-flex !important;
   display: -ms-inline-flexbox !important;
@@ -7625,12 +7621,19 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.card {
+  padding: 8px; }
+
+h1 {
+  color: #30525F !important;
+  font-weight: bolder !important; }
+
 .description, .description > div {
   background-color: transparent !important;
   box-shadow: none; }
 
 .description > div {
-  padding: 0;
+  padding: 5px;
   margin: 0; }
 
 .bar-dark {
