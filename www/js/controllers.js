@@ -14,8 +14,8 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
 //        });
 }]);
 
-appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate',
-    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate) {
+appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate','$location',
+    function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate,$location) {
         $scope.showAdd = false;
         
         //Uses local storage instead of http requests
@@ -42,6 +42,10 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         $scope.resizeScroll = function(){
             $ionicScrollDelegate.$getByHandle('menuScroll').resize();
         }
+        
+        $scope.isActive = function(route) {
+            return route === $location.path();
+        }
 }]);
 
 appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate','$state',
@@ -51,6 +55,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;
         $scope.tourGet = tourInfo.getTourByID;
+        $scope.curTour = $scope.tourGet($scope.tourID);
         $scope.artworkGet = tourInfo.getArtworkByTourID;
         
         $scope.genImList = function(artOb){
@@ -84,11 +89,11 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.toggleMap = function() {
             $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
             $scope.mapShow = !$scope.mapShow;
-            if($scope.mapShow) {
-                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
-            } else {
-                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
-            }
+//            if($scope.mapShow) {
+//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
+//            } else {
+//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+//            }
         }
         
         $scope.$watch('query', function(){

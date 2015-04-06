@@ -21,23 +21,24 @@ $font-family-base:                $font-family-milo !default;
 
 $dark:                            #30525F;
 $bar-dark-border:                 $dark;  
-
-ion-nav-back-button {
-	margin-right:15px !important;
+h1 {
+	color: $dark !important;
+	font-weight: bolder !important;
 }
 .buttons.right-buttons span {
 	display: -webkit-inline-flex !important;
 	display: -ms-inline-flexbox !important;
 	display: inline-flex !important;
-	margin-right: auto !important;
+	margin-right: auto;
 }
 .buttons.right-buttons span > input {
 	height: 23px; 
-	width: 160px; 
+	width: 200px; 
 	background-color:white;
 	border-radius: 8px;
 	margin-top: 2px;
 	margin-right: 8px;
+	// text-indent: 5px;
 	padding-left: 15px;
 	padding-top: 4px;
 }
@@ -49,6 +50,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+.description, .description>div {
+	background-color: transparent !important;
+	box-shadow: none;
+}
+.description>div {
+	padding: 0;
+	margin: 0;
+}
 .bar-dark {
 	background-color: #30525F;
 }
