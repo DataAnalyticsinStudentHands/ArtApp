@@ -21,10 +21,6 @@ $font-family-base:                $font-family-milo !default;
 
 $dark:                            #30525F;
 $bar-dark-border:                 $dark;  
-h1 {
-	color: $dark !important;
-	font-weight: bolder !important;
-}
 .buttons.right-buttons span {
 	display: -webkit-inline-flex !important;
 	display: -ms-inline-flexbox !important;
@@ -50,12 +46,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+.card {
+	padding: 8px;
+}
+h1 {
+	color: $dark !important;
+	font-weight: bolder !important;
+}
 .description, .description>div {
 	background-color: transparent !important;
 	box-shadow: none;
 }
 .description>div {
-	padding: 0;
+	padding: 5px;
 	margin: 0;
 }
 .bar-dark {
