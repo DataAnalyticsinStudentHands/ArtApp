@@ -1,21 +1,17 @@
 <ion-view>
     <ion-nav-buttons side='right' ng-controller="arCtrl">
-<!--         <label class="item-input-wrapper" style="height: 35px">
-            <i class="icon ion-ios7-search placeholder-icon"></i> -->
-            <input ng-model="$parent.query" type="search" placeholder="Search">
-        <!-- </label> -->
-<!--         <button class="button button-icon button-clear" ng-click="toggleMap()">
-            <img src="img/map.svg" height="32px"/>
-        </button> -->
+        <input ng-model="$parent.query" type="search" placeholder="Search">
         <button class="button button-icon button-clear" ng-click="loadAR(artworkGet(tourID), tourGet(tourID).tour_title, tourID)">
             <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:30px;">
-        <div class="card description" ng-show="curTour.description!=null" style="margin: 5px">
+        <div class="card description" style="margin: 5px">
             <div class="item item-text-wrap">
                 <h1>{{curTour.tour_title}}</h1>
-                {{curTour.description}}
+                <div ng-show="curTour.description!=null">
+                    {{curTour.description}}
+                </div>
             </div>
         </div>
         <div class="box">
@@ -24,22 +20,11 @@
                 <div id="titleBox">{{artOb.title}}</div>
             </div>
         </div>
-<!--
-        <div ng-click="toggleMap()" class="item item-icon-left item-divider">
-            <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
-            <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
-            Map
-        </div>
-        <div ng-show="mapShow">
-            <googlemaps class="google-maps" options="map"></googlemaps>
-        </div>
--->
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
         <div ng-click="toggleMap()" class="item item-icon-left item-divider">
             <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
             <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
-            <!-- <img src="img/map.svg" height="32px"/> -->
             Map
         </div>
         <div ng-show="mapShow">
