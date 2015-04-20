@@ -2,7 +2,24 @@
 
 /* Controllers */
 var appControllers = angular.module('controllerModule', []);
+appControllers.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+ 
+  // Called to navigate to the main app
+  $scope.startApp = function() {
+    $state.go('tour.collage',{tourID:1});
+  };
+  $scope.next = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
 
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
+});
 appControllers.controller('errorCtrl', ['$rootScope','$state',
     function($rootScope,$state) {
         $rootScope.prevState = $rootScope.curState;
@@ -45,7 +62,9 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
 
 appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate,$state) {
-        
+        $scope.toIntro = function(){
+            $state.go('intro');
+        }
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;

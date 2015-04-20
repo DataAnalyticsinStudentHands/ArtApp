@@ -75,6 +75,15 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                     }
                 }
             })
+            .state('tour.intro',{
+                url:"/intro",
+                views:{
+                    "content@":{
+                        templateUrl:"partials/intro.html",
+                        controller:"IntroCtrl"
+                    }
+                }
+            })
             .state('tour.error',{
                 url:"/error",
                 views:{
