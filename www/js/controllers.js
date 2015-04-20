@@ -8,10 +8,6 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         
-//        $ionicHistory.nextViewOptions({
-//            disableAnimate: true,
-//            disableBack: true
-//        });
 }]);
 
 appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate','$location',
@@ -89,15 +85,17 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.toggleMap = function() {
             $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
             $scope.mapShow = !$scope.mapShow;
-//            if($scope.mapShow) {
-//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollBottom(true);
-//            } else {
-//                $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
-//            }
+
+        }
+        
+        $scope.hideMap = function(){
+            $ionicScrollDelegate.$getByHandle('sliderScroll').resize();
+            $scope.mapShow = false;
         }
         
         $scope.$watch('query', function(){
-            $ionicScrollDelegate.$getByHandle('sliderScroll').scrollTop(true);
+            if($scope.query && $scope.query !== "")
+                $scope.hideMap();
         });
     }]);
 
