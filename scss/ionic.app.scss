@@ -55,7 +55,8 @@ h1 {
 }
 .description, .description>div {
 	background-color: transparent !important;
-	box-shadow: none;
+	box-shadow: none !important;
+	border: none !important;
 }
 .description>div {
 	padding: 5px;
