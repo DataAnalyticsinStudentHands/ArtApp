@@ -80,7 +80,7 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                 views:{
                     "content@":{
                         templateUrl:"partials/intro.html",
-                        controller:"IntroCtrl"
+                        controller:"introCtrl"
                     }
                 }
             })
