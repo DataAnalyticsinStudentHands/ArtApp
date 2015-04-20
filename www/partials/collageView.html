@@ -22,13 +22,15 @@
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
-        <div ng-click="toggleMap()" class="item item-icon-left item-divider">
-            <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
-            <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
+        <div ng-click="openModal()" class="item item-icon-left item-divider">
+            <i class="icon ion-earth"></i>
+            
             Map
         </div>
+<!--
         <div ng-show="mapShow">
             <googlemaps class="google-maps" options="map"></googlemaps>
         </div>
+-->
 </ion-footer-bar>
 </ion-view>
