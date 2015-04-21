@@ -9,3 +9,4 @@ plugins/
 resources/
 hooks/
 .brackets.json
+npm-debug.log
