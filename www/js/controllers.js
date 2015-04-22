@@ -7,9 +7,8 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
 }]);
-appControllers.controller('introCtrl', ['$rootScope','$scope', '$state', '$ionicSlideBoxDelegate',
+appControllers.controller('introCtrl', ['$rootScope','$scope','$state', '$ionicSlideBoxDelegate',
     function($rootScope, $scope, $state, $ionicSlideBoxDelegate) {
-        // ['$rootScope','$state', '$scope', '$ionicSlideBoxDelegate',
         $rootScope.curState = $state.current.name;
         $rootScope.prevState = $rootScope.curState;
         console.log($rootScope.curState);
@@ -41,10 +40,12 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         
         $scope.tourArt = [];
         
-        
         $rootScope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
             appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
+            if ($rootScope.curState=='tour.intro') {
+                $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(false);
+            };
         };
         
         if(appStateStore.getMenuOpen()){
