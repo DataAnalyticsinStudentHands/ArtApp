@@ -66,7 +66,7 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
 appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', '$timeout','artworkIn','toursIn', '$ionicScrollDelegate','$state',
     function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$timeout,artworkIn,toursIn,$ionicScrollDelegate,$state) {
         $scope.toIntro = function(){
-            $state.go('intro');
+            $state.go('tour.intro');
         }
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
