@@ -11,7 +11,6 @@ appControllers.controller('introCtrl', ['$rootScope','$scope','$state', '$ionicS
     function($rootScope, $scope, $state, $ionicSlideBoxDelegate) {
         $rootScope.curState = $state.current.name;
         $rootScope.prevState = $rootScope.curState;
-        console.log($rootScope.curState);
         // Called to navigate to the main app
         $scope.startApp = function() {
             $state.go('tour.collage',{tourID:1});
@@ -39,13 +38,12 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         $scope.selectedMarker = null;
         
         $scope.tourArt = [];
-        
+        if ($rootScope.curState=='tour.intro') {
+            $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(false);
+        };
         $rootScope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
             appStateStore.setMenuOpen(!$ionicSideMenuDelegate.isOpenLeft());
-            if ($rootScope.curState=='tour.intro') {
-                $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(false);
-            };
         };
         
         if(appStateStore.getMenuOpen()){
@@ -68,6 +66,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.toIntro = function(){
             $state.go('tour.intro');
         }
+
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
         $scope.tourID = $stateParams.tourID;
