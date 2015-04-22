@@ -10,6 +10,26 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
         
 }]);
 
+appControllers.controller('introCtrl', ['$rootScope','$scope','$state', '$ionicSlideBoxDelegate',
+    function($rootScope, $scope, $state, $ionicSlideBoxDelegate) {
+        $rootScope.curState = $state.current.name;
+        $rootScope.prevState = $rootScope.curState;
+        // Called to navigate to the main app
+        $scope.startApp = function() {
+            $state.go('tour.collage',{tourID:1});
+        };
+        $scope.next = function() {
+            $ionicSlideBoxDelegate.next();
+        };
+        $scope.previous = function() {
+            $ionicSlideBoxDelegate.previous();
+        };
+        // Called each time the slide changes
+        $scope.slideChanged = function(index) {
+            $scope.slideIndex = index;
+        };
+}]);
+
 appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate','$location',
     function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate,$location) {
         $scope.showAdd = false;
@@ -23,6 +43,12 @@ appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo',
         
         $scope.tourArt = [];
         
+        if ($rootScope.curState=='tour.intro') {
+            $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(false);
+        }
+        else{
+            $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(true);
+        }
         
         $rootScope.menuToggle = function(){
             $ionicSideMenuDelegate.$getByHandle('main-menu').toggleLeft();
