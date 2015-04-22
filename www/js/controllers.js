@@ -7,7 +7,7 @@ appControllers.controller('errorCtrl', ['$rootScope','$state',
         $rootScope.prevState = $rootScope.curState;
         $rootScope.curState = $state.current.name;
 }]);
-appControllers.controller('introCtrl', 
+appControllers.controller('introCtrl', ['$rootScope','$scope', '$state', '$ionicSlideBoxDelegate',
     function($rootScope, $scope, $state, $ionicSlideBoxDelegate) {
         // ['$rootScope','$state', '$scope', '$ionicSlideBoxDelegate',
         $rootScope.curState = $state.current.name;
@@ -27,7 +27,7 @@ appControllers.controller('introCtrl',
         $scope.slideChanged = function(index) {
             $scope.slideIndex = index;
         };
-});
+}]);
 appControllers.controller('menuCtrl', ['$rootScope','$scope','$http','tourInfo','Restangular','$ionicSlideBoxDelegate','$state','appStateStore','$ionicSideMenuDelegate','$timeout','$ionicScrollDelegate','$location',
     function($rootScope, $scope, $http, tourInfo, Restangular, $ionicSlideBoxDelegate,$state,appStateStore,$ionicSideMenuDelegate,$timeout,$ionicScrollDelegate,$location) {
         $scope.showAdd = false;
