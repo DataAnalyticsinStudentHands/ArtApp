@@ -17,7 +17,7 @@
         <div class="box">
             <div class="photo_container" ng-repeat="artOb in artworkGet(tourID) | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                 <img img-cache ic-src="{{genImList(artOb)}}" />
-                <div id="titleBox">{{artOb.title}}</div>
+                <h4 id="titleBox">{{artOb.title}}</h4>
             </div>
         </div>
     </ion-content>
