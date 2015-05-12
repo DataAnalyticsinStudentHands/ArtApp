@@ -38,6 +38,12 @@ $bar-dark-border:                 $dark;
 	padding-left: 15px;
 	padding-top: 4px;
 }
+a>.isFavorite {
+	font-size:1.5em;
+}
+.isFavorite {
+	color : red;
+}
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
 
