@@ -20,7 +20,10 @@ $font-family-milo:                MiloOTLight !default;
 $font-family-base:                $font-family-milo !default;
 
 $dark:                            #30525F;
-$bar-dark-border:                 $dark;  
+$bar-dark-border:                 $dark;
+.item {
+	border:none !important;
+}  
 .buttons.right-buttons span {
 	display: -webkit-inline-flex !important;
 	display: -ms-inline-flexbox !important;
@@ -43,6 +46,9 @@ a>.isFavorite {
 }
 .isFavorite {
 	color : red;
+}
+.tourCurrent {
+	background-color:black;
 }
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
