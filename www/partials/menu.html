@@ -2,12 +2,12 @@
 <ion-content delegate-handle="menuScroll">
     <div class="list">
         <a class="item" ui-sref="tour.favorites" menu-close nav-clear>
-            My Favorites
+            <i class="icon ion-heart isFavorite"></i>  My Favorites
         </a>
         <div class="item item-divider">
             Tours
         </div>
-        <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear ng-class="{active:isActive('/tour/collage/{{tour.tour_id}}')}">
+        <a ui-sref="tour.collage({tourID:{{tour.tour_id}}})" ng-repeat="tour in toursGet()" class="item" menu-close nav-clear>
             <h3>{{tour.tour_title}}</h3>
         </a>
     </div>

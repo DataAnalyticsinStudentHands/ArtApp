@@ -5,9 +5,9 @@
             <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
-    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:30px;">
-        <div class="description" style="margin: 5px">
-            <div class="item-text-wrap">
+    <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:64px;">
+        <div class=" description" style="margin: 5px">
+            <div class=" item-text-wrap">
                 <h1>{{curTour.tour_title}}</h1>
                 <div ng-show="curTour.description!=null">
                     {{curTour.description}}
@@ -17,18 +17,14 @@
         <div class="box">
             <div class="photo_container" ng-repeat="artOb in artworkGet(tourID) | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                 <img img-cache ic-src="{{genImList(artOb)}}" />
-                <div id="titleBox">{{artOb.title}}</div>
+                <h4 id="titleBox">{{artOb.title}}</h4>
             </div>
         </div>
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
-        <div ng-click="toggleMap()" class="item item-icon-left item-divider">
-            <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
-            <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
+        <div ng-click="openModal()" class="item item-icon-left item-divider">
+            <i class="icon ion-earth"></i>
             Map
-        </div>
-        <div ng-show="mapShow">
-            <googlemaps class="google-maps" options="map"></googlemaps>
         </div>
 </ion-footer-bar>
 </ion-view>

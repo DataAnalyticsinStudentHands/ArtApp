@@ -42,7 +42,7 @@ html, body{
     width: 100% !important;
     height: auto !important;
     margin-bottom: 0px;
-    margin-bottom: 50px;
+    margin-bottom: 48px;
 }
 .photo_container {
     position: relative;
@@ -55,9 +55,9 @@ html, body{
     left: 0;
     right: 0;
     bottom: 0;
-    height: 70px;
+    height: 48px;
     margin-bottom: 7px;
-    background: #30525F;
+    background: #233C45;
     color: #FFF;
     padding: 5px;
     text-align: center;

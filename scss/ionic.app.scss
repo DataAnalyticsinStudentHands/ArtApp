@@ -19,12 +19,11 @@ $dark:                            #444 !default;
 $font-family-milo:                MiloOTLight !default;
 $font-family-base:                $font-family-milo !default;
 
-$dark:                            #30525F;
-$bar-dark-border:                 $dark;  
-h1 {
-	color: $dark !important;
-	font-weight: bolder !important;
-}
+$dark:                            #233C45;
+$bar-dark-border:                 $dark;
+.item {
+	border:none !important;
+}  
 .buttons.right-buttons span {
 	display: -webkit-inline-flex !important;
 	display: -ms-inline-flexbox !important;
@@ -33,13 +32,23 @@ h1 {
 }
 .buttons.right-buttons span > input {
 	height: 23px; 
-	width: 160px; 
+	width: 200px; 
 	background-color:white;
 	border-radius: 8px;
 	margin-top: 2px;
 	margin-right: 8px;
+	// text-indent: 5px;
 	padding-left: 15px;
 	padding-top: 4px;
+}
+a>.isFavorite {
+	font-size:1.5em;
+}
+.isFavorite {
+	color : red;
+}
+.tourCurrent {
+	background-color:black;
 }
 // .clearbothFix {clear:both;}
 .item-input-wrapper {max-width:45%}
@@ -49,12 +58,62 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+.button-positive {
+	color: white !important;
+}
+.slider-pager {
+	bottom: 54px;
+}
+.slider {
+  height: 100% !important;
+  z-index: 10;
+}
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+}
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}
+
+.button.ng-hide{
+  display:none;
+}
+
+.card {
+	padding: 8px;
+}
+h1 {
+	color: $dark !important;
+	font-weight: bolder !important;
+}
 .description, .description>div {
 	background-color: transparent !important;
-	box-shadow: none;
+	box-shadow: none !important;
+	border: none !important;
 }
 .description>div {
-	padding: 0;
+	padding: 5px;
 	margin: 0;
 }
 .bar-dark {

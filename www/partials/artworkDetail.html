@@ -2,36 +2,29 @@
     <ion-nav-buttons side='right' ng-controller="arCtrl">
         <label class="item-input-wrapper" style="display:none">
         </label>
-        <button class="button button-icon button-clear" ng-click="toggleMap()">
-            <img src="img/map.svg" height="32px"/>
-        </button>
-<!--
-        <button class="button button-icon button-clear" ng-hide="ARModeActive" ng-click="loadAR()">
-            <img src="img/aricon.png" height="32px"/>
-        </button>
--->
         <button class="button button-icon button-clear" ng-show="ARModeActive" ng-click="returnToAR()">
             <img src="img/aricon.png" height="32px"/>
         </button>
     </ion-nav-buttons>
-    <ion-content delegate-handle="detailScroll">
-        <div class="list card">
-            <img img-cache class="item" ic-src="{{genImList(detailArt)}}" style="width:100%; min-width: 250px;">
+    <ion-content delegate-handle="detailScroll" style="bottom:79px;">
+        <div class="">
+            <img img-cache class="item" ic-src="{{genImList(detailArt)}}" style="max-height:84%;max-width:100%; min-width: 250px; margin:auto; border:none;">
+
             <div class="item item-text-wrap">
                 <h1 ng-controller="favoriteCtrl">
-                    {{detailArt.title}}
+                    <span style="margin:auto">{{detailArt.title}}</span>
                     <button class="button button-icon button-clear" ng-click="toggleFavorite()" style="float: right;">
-                        <img src="img/fav_no.svg" height="40px" ng-show="!isFavorite"/>
-                        <img src="img/fav_yes.svg" height="40px" ng-show="isFavorite"/>
+<!--                         <img src="img/fav_no.svg" height="40px" ng-show="!isFavorite"/>
+                        <img src="img/fav_yes.svg" height="40px" ng-show="isFavorite"/> -->
+                        <i class="icon ion-heart" ng-class="{'isFavorite':isFavorite}"></i>
                     </button>
                 </h1>
                 <h2>{{detailArt.artist_name}}</h2>
                 <br/>
                 <p ng-hide="!detailArt.description || detailArt.description==''">{{detailArt.description}}</p>
             </div>
-            <div ng-click="resizeScroll(); artistInfo=!artistInfo;" class="item item-icon-left item-divider" ng-init="artistInfo=false">
-                <i ng-show="artistInfo" class="icon ion-arrow-down-b"></i>
-                <i ng-hide="artistInfo" class="icon ion-arrow-right-b"></i>
+            <div ng-click="resizeScroll(); artistInfo=!artistInfo;" class="item item-icon-left item-divider" ng-init="artistInfo=true">
+                <i class="icon ion-person"></i>
                 Artist Info
             </div>
             <div class="item item-text-wrap" ng-show="artistInfo">
@@ -40,19 +33,17 @@
                 <p ng-hide="!detailArt.artist_pob || detailArt.artist_pob==''">Place of Birth: {{detailArt.artist_pob}}</p>
                 <p ng-hide="!detailArt.artist_website || detailArt.artist_website==''">Website: <a ng-click="goToLink('{{detailArt.artist_website}}')" style="color:blue;text-decoration: underline;">{{detailArt.artist_website}}</a></p>
             </div>
-            <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=false">
-                <i ng-show="locationInfo" class="icon ion-arrow-down-b"></i>
-                <i ng-hide="locationInfo" class="icon ion-arrow-right-b"></i>
-                Location Info
+            <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=true">
+                <i class="icon ion-location"></i>
+                Location
             </div>
             <div class="item item-text-wrap" ng-show="locationInfo">
                 <p ng-hide="!detailArt.location_name || detailArt.location_name==''">Location: {{detailArt.location_name}}</p>
                 <p ng-hide="!detailArt.location_campus || detailArt.location_campus==''">Campus: {{detailArt.location_campus}}</p>
                 <p ng-hide="!detailArt.availability || detailArt.availability==''">Availability: {{detailArt.availability}}</p>
             </div>
-            <div ng-click="resizeScroll(); charInfo=!charInfo;" class="item item-icon-left item-divider" ng-init="charInfo=false">
-                <i ng-show="charInfo" class="icon ion-arrow-down-b"></i>
-                <i ng-hide="charInfo" class="icon ion-arrow-right-b"></i>
+            <div ng-click="resizeScroll(); charInfo=!charInfo;" class="item item-icon-left item-divider" ng-init="charInfo=true">
+                <i class="icon ion-clipboard"></i>
                 Characteristics
             </div>
             <div class="item item-text-wrap" ng-show="charInfo">
@@ -60,6 +51,7 @@
                 <p ng-hide="!detailArt.medium || detailArt.medium==''">Medium: {{detailArt.medium}}</p>
                 <p ng-hide="!detailArt.dimensions || detailArt.dimensions==''">Dimensions: {{detailArt.dimensions}}</p>
             </div>
+<!--
             <div ng-click="toggleMap()" class="item item-icon-left item-divider">
                 <i ng-hide="!mapShow" class="icon ion-arrow-down-b"></i>
                 <i ng-show="!mapShow" class="icon ion-arrow-right-b"></i>
@@ -68,6 +60,18 @@
             <div ng-show="mapShow">
                 <googlemaps class="google-maps" options="map"></googlemaps>
             </div>
+-->
         </div>
     </ion-content>
+    <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
+        <div ng-click="openModal()" class="item item-icon-left item-divider">
+            <i class="icon ion-earth"></i>
+            Show in Map
+        </div>
+<!--
+        <div ng-show="mapShow">
+            <googlemaps class="google-maps" options="map"></googlemaps>
+        </div>
+-->
+</ion-footer-bar>
 </ion-view>
