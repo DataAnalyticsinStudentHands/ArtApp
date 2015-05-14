@@ -35,7 +35,7 @@
             </div>
             <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=true">
                 <i class="icon ion-location"></i>
-                Location Info
+                Location
             </div>
             <div class="item item-text-wrap" ng-show="locationInfo">
                 <p ng-hide="!detailArt.location_name || detailArt.location_name==''">Location: {{detailArt.location_name}}</p>
@@ -66,8 +66,7 @@
     <ion-footer-bar align-title="left" class="bar-subfooter" style="height:auto;padding:0px;">
         <div ng-click="openModal()" class="item item-icon-left item-divider">
             <i class="icon ion-earth"></i>
-            
-            Map
+            Show in Map
         </div>
 <!--
         <div ng-show="mapShow">
