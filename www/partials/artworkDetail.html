@@ -23,7 +23,7 @@
                 <br/>
                 <p ng-hide="!detailArt.description || detailArt.description==''">{{detailArt.description}}</p>
             </div>
-            <div ng-click="resizeScroll(); artistInfo=!artistInfo;" class="item item-icon-left item-divider" ng-init="artistInfo=false">
+            <div ng-click="resizeScroll(); artistInfo=!artistInfo;" class="item item-icon-left item-divider" ng-init="artistInfo=true">
                 <i class="icon ion-person"></i>
                 Artist Info
             </div>
@@ -33,7 +33,7 @@
                 <p ng-hide="!detailArt.artist_pob || detailArt.artist_pob==''">Place of Birth: {{detailArt.artist_pob}}</p>
                 <p ng-hide="!detailArt.artist_website || detailArt.artist_website==''">Website: <a ng-click="goToLink('{{detailArt.artist_website}}')" style="color:blue;text-decoration: underline;">{{detailArt.artist_website}}</a></p>
             </div>
-            <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=false">
+            <div ng-click="resizeScroll(); locationInfo=!locationInfo;" class="item item-icon-left item-divider" ng-init="locationInfo=true">
                 <i class="icon ion-location"></i>
                 Location Info
             </div>
@@ -42,7 +42,7 @@
                 <p ng-hide="!detailArt.location_campus || detailArt.location_campus==''">Campus: {{detailArt.location_campus}}</p>
                 <p ng-hide="!detailArt.availability || detailArt.availability==''">Availability: {{detailArt.availability}}</p>
             </div>
-            <div ng-click="resizeScroll(); charInfo=!charInfo;" class="item item-icon-left item-divider" ng-init="charInfo=false">
+            <div ng-click="resizeScroll(); charInfo=!charInfo;" class="item item-icon-left item-divider" ng-init="charInfo=true">
                 <i class="icon ion-clipboard"></i>
                 Characteristics
             </div>
