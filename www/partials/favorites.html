@@ -5,27 +5,21 @@
     </button>
 </ion-nav-buttons>
 <ion-content>
-<div class="item" ng-show="favoriteArt.length==0">
-    No favorites selected
-</div>
-<div class="box">
     <div class=" description" style="margin: 5px; width:100%;">
         <div class=" item-text-wrap">
             <h1>My Favorites <i class="icon ion-heart isFavorite"></i></h1>
         </div>
     </div>
-    <div class="photo_container" ng-repeat="artOb in favoriteArt | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
-        <img img-cache ic-src="{{genImList(artOb)}}" />
-        <div id="titleBox">
-            {{artOb.title}}
-<!--
-            <br/>
-            <button class="button button-clear button-dark" ng-click="deleteFavorite(item.artwork_id)">
-                <i class="icon ion-ios-trash-outline" style="color:white"></i>
-            </button>
--->
+    <div class="box">
+        <div class="photo_container" ng-repeat="artOb in favoriteArt | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
+            <img img-cache ic-src="{{genImList(artOb)}}" />
+            <div id="titleBox">
+                {{artOb.title}}
+            </div>
         </div>
     </div>
-</div>
+    <div class="item" ng-show="favoriteArt.length==0">
+        No favorites selected
+    </div>
 </ion-content>
 </ion-view>
