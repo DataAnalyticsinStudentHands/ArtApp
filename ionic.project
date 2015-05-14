@@ -1,6 +1,6 @@
 {
   "name": "PublicArtApp",
-  "app_id": "",
+  "app_id": "8f427f07",
   "gulpStartupTasks": [
     "sass",
     "watch"
