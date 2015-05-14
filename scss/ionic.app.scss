@@ -21,6 +21,10 @@ $font-family-base:                $font-family-milo !default;
 
 $dark:                            #233C45;
 $bar-dark-border:                 $dark;
+ion-header-bar, .bar-header, .bar-header>h1 {
+	background-color: $dark !important;
+	color:white !important;
+}
 .item {
 	border:none !important;
 }  
