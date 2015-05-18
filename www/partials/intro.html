@@ -11,23 +11,18 @@
         </ion-nav-buttons>
         <ion-nav-buttons side="right"> 
           <button class="button button-positive button-clear no-animation"
-                  ng-click="next()" ng-show="slideIndex != 5">
+                  ng-click="next()" ng-show="slideIndex != 4">
             Next
           </button>
           <button class="button button-positive button-clear no-animation"
-                  ng-click="startApp()" ng-show="slideIndex == 5">
+                  ng-click="startApp()" ng-show="slideIndex == 4">
             Start using MyApp
           </button>
         </ion-nav-buttons>
         <ion-slide-box on-slide-changed="slideChanged(index)">
-          
-          <ion-slide>
-            <h3>Thank you for using the UH Public Art App!</h3>
-            <h4>The following intro slideshow will show you how to use the Public Art App.</h4>
-          </ion-slide>
 
           <ion-slide>
-            <h4 class="intro">The main page would show every art piece</h4>
+            <h4 class="intro">The main page shows every art piece</h4>
             <img src="img/intro_main.png" alt="Main Page" style="max-width:90%!important">
           </ion-slide>
                  
