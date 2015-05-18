@@ -11,57 +11,43 @@
         </ion-nav-buttons>
         <ion-nav-buttons side="right"> 
           <button class="button button-positive button-clear no-animation"
-                  ng-click="next()" ng-show="slideIndex != 3">
+                  ng-click="next()" ng-show="slideIndex != 4">
             Next
           </button>
           <button class="button button-positive button-clear no-animation"
-                  ng-click="startApp()" ng-show="slideIndex == 3">
+                  ng-click="startApp()" ng-show="slideIndex == 4">
             Start using MyApp
           </button>
         </ion-nav-buttons>
         <ion-slide-box on-slide-changed="slideChanged(index)">
           <ion-slide>
-            <h3>Thank you for choosing this Awesome Public Art App!</h3>
+            <h3>Thank you for using the UH Public Art App!</h3>
+            <h4>This is the main page!</h4>
             <div id="logo">
-              <img src="http://code.ionicframework.com/assets/img/app_icon.png">
+            <img src="img/IMG_1833.jpg" alt="Main Page" style="max-height:400px">
             </div>
-            <p>
-              We've worked super hard to make you happy.
-            </p>
-            <p>
-              But if you are angry, too bad.
-            </p>
+          </ion-slide>
+                 
+          <ion-slide>
+            <img src="img/IMG_1834.jpg" alt="Menu Page" style="max-height:400px">  
+            <h4>The Menu page allows you to access the artwork by searching within specific categories.</h4>
           </ion-slide>
 
-
-          <ion-slide>
-            <h3>Using Awesome</h3>
+            <ion-slide>
+                <img src="img/IMG_1836.jpg" alt="Help Page" style="max-height:400px">
+                <h4>The help page gives you more information about the app and how to use it.</h4>
+            </ion-slide>
             
-            <div id="list">
-              <h5>Just three steps:</h5>
-              <ol>
-                <li>Be awesome</li>
-                <li>Stay awesome</li>
-                <li>There is no step 3</li>
-              </ol>
-            </div>
-          </ion-slide>
-
-
+            
           <ion-slide>
-            <h3>Any questions?</h3>
-            <p>
-              Alright!
-            </p>
+            <img src="img/IMG_1837.jpg" alt="AR Mode Page" style="max-height:400px">
+            <h4>The AR Mode page directs you to the artwork. The Range button allows you to set a range.</h4>
           </ion-slide>
 
           <ion-slide>
-            <h3>Are you sure?</h3>
-            <p>
-              Awesome!
-            </p>
+            <img src="img/IMG_1838.jpg" alt="Map Page" style="max-height:400px">
+            <h4>This page allows you to see the locations of all of the artwork.</h4>
           </ion-slide>
-
 
         </ion-slide-box>
       </ion-view>
