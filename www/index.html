@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>University of Houston Public Art App</title>
-
     <link href="fonts/MiloOTLight.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
     <link href="css/ionic.app.min.css" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="dist/ng-notify/src/styles/ng-notify.css" rel="stylesheet">
@@ -67,7 +67,7 @@
             <ion-nav-view animation="slide-left-right" name="menu"></ion-nav-view>
         </ion-side-menu>
     </ion-side-menus>
-    <ion-footer-bar align-title="right" class="bar-dark">
+    <ion-footer-bar align-title="right" class="bar-dark" ng-hide="curState=='tour.intro'">
         <button class="button button-icon button-clear ion-ios-information" ui-sref="tour.about" ng-hide="curState=='tour.error'"></button>
         <img style="height: 100%; width: auto" class="center-img" src="img/public-art-collection-secondary-white.png"/>
     </ion-footer-bar>

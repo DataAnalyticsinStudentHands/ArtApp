@@ -11,42 +11,58 @@
         </ion-nav-buttons>
         <ion-nav-buttons side="right"> 
           <button class="button button-positive button-clear no-animation"
-                  ng-click="next()" ng-show="slideIndex != 4">
+                  ng-click="next()" ng-show="slideIndex != 5">
             Next
           </button>
           <button class="button button-positive button-clear no-animation"
-                  ng-click="startApp()" ng-show="slideIndex == 4">
+                  ng-click="startApp()" ng-show="slideIndex == 5">
             Start using MyApp
           </button>
         </ion-nav-buttons>
         <ion-slide-box on-slide-changed="slideChanged(index)">
+          
           <ion-slide>
             <h3>Thank you for using the UH Public Art App!</h3>
-            <h4>This is the main page!</h4>
-            <div id="logo">
-            <img src="img/IMG_1833.jpg" alt="Main Page" style="max-height:400px">
-            </div>
+            <h4>The following intro slideshow will show you how to use the Public Art App.</h4>
+          </ion-slide>
+
+          <ion-slide>
+            <h4 class="intro">The main page would show every art piece</h4>
+            <img src="img/intro_main.png" alt="Main Page" style="max-width:90%!important">
           </ion-slide>
                  
           <ion-slide>
-            <img src="img/IMG_1834.jpg" alt="Menu Page" style="max-height:400px">  
-            <h4>The Menu page allows you to access the artwork by searching within specific categories.</h4>
+            <div class="intro">
+              <h3>
+                To Access the Menu:
+              </h3>
+              <h4>
+                Swipe to the right<br>
+                or<br>
+                Tap the Menu Button<br>
+              </h4>
+            </div>
+            <img src="img/intro_menu.png" alt="Menu Page" style="max-width:95%">  
           </ion-slide>
 
             <ion-slide>
                 <img src="img/IMG_1836.jpg" alt="Help Page" style="max-height:400px">
-                <h4>The help page gives you more information about the app and how to use it.</h4>
+                <div class="intro">
+                  <h4>The help page gives you more information about the app and how to use it.</h4>
+                </div>
             </ion-slide>
-            
-            
           <ion-slide>
             <img src="img/IMG_1837.jpg" alt="AR Mode Page" style="max-height:400px">
-            <h4>The AR Mode page directs you to the artwork. The Range button allows you to set a range.</h4>
+            <div class="intro">
+              <h4>The AR Mode page directs you to the artwork. The Range button allows you to set a range.</h4>
+            </div>
           </ion-slide>
 
           <ion-slide>
             <img src="img/IMG_1838.jpg" alt="Map Page" style="max-height:400px">
-            <h4>This page allows you to see the locations of all of the artwork.</h4>
+            <div class="intro">
+              <h4>This page allows you to see the locations of all of the artwork.</h4>
+            </div>
           </ion-slide>
 
         </ion-slide-box>

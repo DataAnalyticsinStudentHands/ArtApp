@@ -25,6 +25,12 @@ ion-header-bar, .bar-header, .bar-header>h1 {
 	background-color: $dark !important;
 	color:white !important;
 }
+.intro,.intro>h2,.intro>h3 {
+	font-family: 'Coming Soon';
+}
+.intro>h2 {
+	font-weight:bold;
+}
 .item {
 	border:none !important;
 }  
@@ -66,14 +72,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	color: white !important;
 }
 .slider-pager {
-	bottom: 54px;
+	bottom: 4px;
 }
 .slider {
   height: 100% !important;
   z-index: 10;
 }
 .slider-slide {
-  padding-top: 80px;
+  padding-top: 54px;
   color: #000;
   background-color: #fff;
   text-align: center;
