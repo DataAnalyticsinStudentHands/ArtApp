@@ -18,6 +18,13 @@ ion-header-bar, .bar-header, .bar-header > h1 {
   background-color: #233C45 !important;
   color: white !important; }
 
+ion-slide > img {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
 .intro, .intro > h2, .intro > h3 {
   font-family: 'Coming Soon'; }
 
