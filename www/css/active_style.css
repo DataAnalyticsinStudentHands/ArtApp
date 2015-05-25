@@ -62,3 +62,9 @@ html, body{
     padding: 5px;
     text-align: center;
 }
+.collageView {
+    padding-top: 108px;
+}
+.description {
+    position: absolute;
+}

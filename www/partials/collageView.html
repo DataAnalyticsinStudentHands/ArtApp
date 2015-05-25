@@ -6,7 +6,7 @@
         </button>
     </ion-nav-buttons>
     <ion-content delegate-handle="sliderScroll" style="background: rgba(104, 152, 172, 0.1);bottom:64px;">
-        <div class=" description" style="margin: 5px">
+        <div class="description">
             <div class=" item-text-wrap">
                 <h1>{{curTour.tour_title}}</h1>
                 <div ng-show="curTour.description!=null">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box collageView">
             <div class="photo_container" ng-repeat="artOb in artworkGet(tourID) | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
                 <img img-cache ic-src="{{genImList(artOb)}}" />
                 <h4 id="titleBox">{{artOb.title}}</h4>
