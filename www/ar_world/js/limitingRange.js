@@ -112,8 +112,6 @@ var World = {
                 
         }
         
-        console.log(World.userLocation);
-
 		// helper used to update placemark information every now and then (e.g. every 10 location upadtes fired)
 		World.locationUpdateCounter = (++World.locationUpdateCounter % World.updatePlacemarkDistancesEveryXLocationUpdates);
         if(World.locationUpdateCounter == 0) {
@@ -129,6 +127,7 @@ var World = {
                     for (var i = 0; i < World.markerList.length; i++) {
                         if(World.markerList[i].isSelected) {
                             World.currentMarker.setDeselected(World.markerList[i]);
+                            World.onMarkerDeselected();
                         }
                     };
                 }                
