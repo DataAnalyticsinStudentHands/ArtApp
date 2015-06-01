@@ -11,11 +11,11 @@
   </ion-nav-buttons>
   <ion-nav-buttons side="right"> 
     <button class="button button-positive button-clear no-animation"
-            ng-click="next()" ng-show="slideIndex != 4">
+            ng-click="next()" ng-show="slideIndex != 5">
       Next
     </button>
     <button class="button button-positive button-clear no-animation"
-            ng-click="startApp()" ng-show="slideIndex == 4">
+            ng-click="startApp()" ng-show="slideIndex == 5">
       Start using Public Art
     </button>
   </ion-nav-buttons>
@@ -35,5 +35,9 @@
     <ion-slide> 
        <img src="img/intro_help.jpg" alt="Help Page" style="max-width:99%; max-height:80%">      
     </ion-slide>
+    <ion-slide> 
+       <div ng-include src="'partials/about.html'"></div>    
+    </ion-slide>  
+
   </ion-slide-box>
 </ion-view>
