@@ -141,7 +141,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
                 $scope.hideMap();
         });
         
-        $ionicModal.fromTemplateUrl('partials/mapModal.html', {
+        $ionicModal.fromTemplateUrl('partials/mapModal.html', { //use
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
@@ -165,6 +165,20 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.$on('modal.removed', function() {
             // Execute action
         });
+        
+        
+        $ionicModal.fromTemplateUrl('partials/arModal.html', {
+            scope: $scope,
+            animation: 'slide-in-down'
+        }).then(function(modal) {
+            $scope.modal2 = modal;
+        });
+        $scope.openModal2 = function() {
+            $scope.modal2.show();
+        };
+        $scope.closeModal2 = function() {
+            $scope.modal2.hide();
+        };
     }]);
 
 appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$timeout','$state','$ionicSideMenuDelegate',

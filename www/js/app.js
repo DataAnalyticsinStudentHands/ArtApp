@@ -160,7 +160,7 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         
         // If resolve fails, handles error by redirecting to error state
         $rootScope.$on('$stateChangeError', function(event, current, previous, error) {
-            
+            alert("Device not supported");
             $state.go('tour.error');
         });
     }]);
