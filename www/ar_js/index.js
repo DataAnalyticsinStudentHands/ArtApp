@@ -71,12 +71,9 @@ var app = {
 
     // A callback which gets called if the device is not able to start ARchitect Worlds
     onDeviceNotSupportedCallback: function() {
-       var r = confirm('AR is not supported on this device. Do you wish to download the plugin?', "Unsupported" ,['Download', 'Cancel']);
-            if(r){
-                var e = angular.element(document.getElementById("openOn"));
+       var e = angular.element(document.getElementById("openOn"));
                 scope = angular.element(e).scope();         
                 scope.openModal2();
-            }
     },
     // Use this method to load a specific ARchitect World from either the local file system or a remote server
     loadARchitectWorld: function(samplePath, tourJSON, tourName, tourID) {
@@ -97,13 +94,9 @@ var app = {
                 app.wikitudePlugin.callJavaScript("World.showTour('" + tourName + "'," + tourID + ");");
             }
         } else {
-            var r = confirm('AR is not supported on this device. Do you wish to download the plugin?', "Unsupported" ,['Download', 'Cancel']);
-            if(r){
                 var e = angular.element(document.getElementById("openOn"));
                 scope = angular.element(e).scope();         
                 scope.openModal2();
-            }
-            
         }
     }
 };
