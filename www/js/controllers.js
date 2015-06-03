@@ -189,8 +189,8 @@ appControllers.controller('mainCtrl', ['$scope','$rootScope','$window','tourInfo
         $state.go('tour.collage',{tourID:1});
     }]);
 
-appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$state','$cordovaInAppBrowser','$ionicModal','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$state,$cordovaInAppBrowser,$ionicModal,$ionicSideMenuDelegate) {
+appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams','$ionicScrollDelegate','$state','$cordovaInAppBrowser','$ionicModal','$ionicSideMenuDelegate', 'artworkIn',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,$ionicScrollDelegate,$state,$cordovaInAppBrowser,$ionicModal,$ionicSideMenuDelegate,artworkIn) {
         
         $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(true);
         

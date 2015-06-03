@@ -55,8 +55,12 @@ publicArtApp.config(['$stateProvider','$urlRouterProvider', '$compileProvider','
                         templateUrl:"partials/artworkDetail.html",
                         controller:"artDetailCtrl"
                     }
-                }
-            })
+                },
+            resolve: {
+                    artworkIn: function(tourInfo) {
+                        return tourInfo.loadArtwork();
+                    }
+            }})
             .state('tour.favorites',{
                 url:"/favorites",
                 views:{

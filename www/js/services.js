@@ -261,7 +261,7 @@ var outOb = {
     }
   
   outOb.getArtworkByID = function(art_id){
-
+      
       return $filter('getByArtworkId')(artwork, art_id);
     }
   
