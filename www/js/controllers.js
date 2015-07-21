@@ -260,7 +260,7 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         // Execute action on remove modal
         $scope.$on('modal.removed', function() {
             // Execute action
-        });
+        }); 
     }]);
 
 appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$state','$ionicSideMenuDelegate',
