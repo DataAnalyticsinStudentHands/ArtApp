@@ -15,7 +15,6 @@ $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
 */
 
-
 $font-family-milo:                MiloOTLight !default;
 $font-family-base:                $font-family-milo !default;
 
@@ -24,6 +23,9 @@ $bar-dark-border:                 $dark;
 ion-header-bar, .bar-header, .bar-header>h1 {
 	background-color: $dark !important;
 	color:white !important;
+}
+.bar .button.back-button {
+	margin-right: 8px;
 }
 ion-slide>img {
    position: relative;
