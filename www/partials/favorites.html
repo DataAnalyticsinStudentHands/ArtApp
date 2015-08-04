@@ -10,7 +10,7 @@
             <h1>My Favorites <i class="icon ion-heart isFavorite"></i></h1>
         </div>
     </div>
-    <div class="box">
+    <div class="box collageView">
         <div class="photo_container" ng-repeat="artOb in favoriteArt | filter:query" ui-sref="tour.artDetail({artID:{{artOb.artwork_id}}})">
             <img img-cache ic-src="{{genImList(artOb)}}" />
             <div id="titleBox">
