@@ -56,7 +56,7 @@
 
 <body ng-app="publicArtApp">
     <ion-nav-bar class="bar-dark">
-        <ion-nav-back-button class="button-icon ion-ios-arrow-back" ng-hide="prevState=='tour.intro' || curState=='tour.intro'"></ion-nav-back-button>
+        <ion-nav-back-button class="button-icon ion-ios-arrow-back" ng-hide="curState=='tour.intro'"></ion-nav-back-button>
         <button class="button button-icon button-clear ion-navicon" ng-click="menuToggle()" ng-hide="curState=='tour.error' || curState=='tour.intro'"></button>
     </ion-nav-bar>
     <ion-side-menus delegate-handle="main-menu">
@@ -68,7 +68,7 @@
         </ion-side-menu>
     </ion-side-menus>
     <ion-footer-bar align-title="right" class="bar-dark" ng-hide="curState=='tour.intro'">
-        <button class="button button-icon button-clear ion-ios-information" ui-sref="tour.intro" ng-hide="curState=='tour.error'"></button>
+        <button class="button button-icon button-clear ion-ios-information" ui-sref="tour.about" ng-hide="curState=='tour.error'"></button>
         <img style="height: 100%; width: auto" class="center-img" src="img/public-art-collection-secondary-white.png"/>
     </ion-footer-bar>
 </body>

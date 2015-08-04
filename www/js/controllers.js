@@ -83,7 +83,6 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         var isFirst = localStorage.getItem("ARTourFirstLaunch");
         
         if(isFirst!="true"){
-            
             localStorage.setItem("ARTourFirstLaunch","true");
             $state.go('tour.intro');
         }
