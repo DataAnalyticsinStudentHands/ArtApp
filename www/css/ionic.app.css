@@ -28,6 +28,11 @@ ion-slide > img {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); }
 
+.arModal img {
+  padding: 10px;
+  float: left;
+  width: 50%; }
+
 .intro, .intro > h2, .intro > h3 {
   font-family: 'Coming Soon'; }
 

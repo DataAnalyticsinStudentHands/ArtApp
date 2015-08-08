@@ -164,8 +164,6 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         $scope.$on('modal.removed', function() {
             // Execute action
         });
-        
-        
         $ionicModal.fromTemplateUrl('partials/arModal.html', {
             scope: $scope,
             animation: 'slide-in-down'
@@ -262,8 +260,8 @@ appControllers.controller('artDetailCtrl', ['$scope','$rootScope','$window','tou
         }); 
     }]);
 
-appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$state','$ionicSideMenuDelegate',
-    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$state,$ionicSideMenuDelegate) {
+appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$state','$ionicSideMenuDelegate','$ionicModal',
+    function($scope,$rootScope,$window,tourInfo,$ionicSlideBoxDelegate,$stateParams,favoriteService,$state,$ionicSideMenuDelegate,$ionicModal) {
         
         $ionicSideMenuDelegate.$getByHandle('main-menu').canDragContent(true);
         
@@ -298,6 +296,18 @@ appControllers.controller('favoriteCtrl', ['$scope','$rootScope','$window','tour
             favoriteService.setFavorite(art_id, false);
             $scope.updateFavorites();
         }
+        $ionicModal.fromTemplateUrl('partials/arModal.html', {
+            scope: $scope,
+            animation: 'slide-in-down'
+        }).then(function(modal) {
+            $scope.modal2 = modal;
+        });
+        $scope.openModal2 = function() {
+            $scope.modal2.show();
+        };
+        $scope.closeModal2 = function() {
+            $scope.modal2.hide();
+        };
     }]);
 
 appControllers.controller('arCtrl', ['$scope','$rootScope','$window','tourInfo','$ionicSlideBoxDelegate','$stateParams', 'favoriteService','$ionicSideMenuDelegate','$state',
