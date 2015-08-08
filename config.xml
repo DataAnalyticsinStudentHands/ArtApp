@@ -3,11 +3,9 @@
   <name>ARTour</name>
   <description>
 
-    </description>
+  </description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">
-
-      Ionic Framework Team
-
+    Ionic Framework Team
   </author>
   <icon src="resources/ios/icon/icon-40@2x.png"/>
   <preference name="SplashScreen" value="screen"/>
