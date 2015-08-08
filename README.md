@@ -8,13 +8,13 @@ The code is using [Ionic Framework](http://ionicframework.com/) and [Wikitude SD
 
 bower `npm install -g bower`
 
-gulp `npm install -g gulp`
 
-npm packages `npm install`
 
 ##Getting started for Development:
 
-1. Run `bower install`. Reads bower.json and installs local dependencies into the folder `www/lib`
+1. Run `npm install` Reads package.json and installs node packges into node_modules.
+
+2. Run `bower install`. Reads bower.json and installs local dependencies into the folder `www/lib`
 
 2. Run `cordova restore plugins ios --experimental`
 
