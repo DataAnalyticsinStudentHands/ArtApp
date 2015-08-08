@@ -18,33 +18,7 @@
   <preference name="SplashScreenDelay" value="3000"/>
   <content src="index.html"/>
   <access origin="*"/>
-  <feature name="StatusBar">
-    <param name="ios-package" onload="true" value="CDVStatusBar"/>
-  </feature>
-  <feature name="KeepScreenOn">
-    <param name="id" value="com.mediamatrixdoo.keepscreenon"/>
-    <param name="url" value="git://github.com/zoxxx/PhoneGap-KeepScreenOn-plugin.git#:."/>
-  </feature>
-  <feature name="Augmented Reality - Wikitude SDK Plugin">
-    <param name="id" value="com.wikitude.phonegap.WikitudePlugin"/>
-    <param name="url" value="https://github.com/Wikitude/wikitude-phonegap.git#:."/>
-  </feature>
-  <feature name="Device">
-    <param name="ios-package" value="CDVDevice"/>
-    <param name="android-package" value="org.apache.cordova.device.Device"/>
-  </feature>
-  <feature name="File">
-    <param name="ios-package" value="CDVFile"/>
-    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
-  </feature>
-  <feature name="FileTransfer">
-    <param name="ios-package" value="CDVFileTransfer"/>
-    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
-  </feature>
-  <feature name="InAppBrowser">
-  	<param name="ios-package" value="CDVInAppBrowser" />
-  	<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-  </feature>
+  
   <platform name="android">
     <icon src="resources\android\icon\drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="resources\android\icon\drawable-mdpi-icon.png" density="mdpi"/>
