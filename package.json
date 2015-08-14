@@ -19,10 +19,11 @@
     "org.apache.cordova.file-transfer",
     "org.apache.cordova.geolocation",
     "org.apache.cordova.statusbar",
-    "org.apache.cordova.inappbrowser"
+    "org.apache.cordova.inappbrowser",
+    "cordova-plugin-whitelist",
+    "com.mediamatrixdoo.keepscreenon"
   ],
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "ios"
   ]
 }
