@@ -16,20 +16,18 @@ bower `npm install -g bower`
 
 2. Run `bower install`. Reads bower.json and installs local dependencies into the folder `www/lib`
 
-3. Set environment variable `ANDROID_BUILD` to `ant`.
-
-4. Run `cordova platform add android@3.7.1` or `cordova platform add ios@3.8.0` Plugins are automatically installed via script in `hooks/before_platform_add`
-
-5. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
-
-6. Run `ionic resources` to generate icons and splash screen assets.
-
 ###Run in browser or Phonegap Developer App
  
 7. Run `ionic serve`.
 This uses `ionic.xml` and will serve as local node server. Live updates when you make changes to the code. This works with Phonegap Developer App. Wikitude will NOT function
 
 ###Running on a iOS/Android Device:
-8. Run `cordova platform add ios` or `cordova platform add android`
+3. Set environment variable `ANDROID_BUILD` to `ant`.
 
-9. Run `cordova platform build ios` or `cordova platform build android` and use appropriate cordova commands to test/build/deploy.
+6. Run `ionic resources` to generate icons and splash screen assets.
+
+4. Run `cordova platform add android@3.7.1` or `cordova platform add ios@3.8.0` Plugins are automatically installed via script in `hooks/before_platform_add`
+
+5. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
+
+7. Run `cordova platform build ios` or `cordova platform build android` and use appropriate cordova commands to test/build/deploy.
