@@ -16,28 +16,11 @@ bower `npm install -g bower`
 
 2. Run `bower install`. Reads bower.json and installs local dependencies into the folder `www/lib`
 
-2. Run `cordova restore plugins ios --experimental`
+2. Run `cordova platform add android@3.7.1` or `cordova platform add ios@3.8.0`
 
-3. Run `cordova plugin add <PACKAGE_NAME>` for the following plugins
-com.mediamatrixdoo.keepscreenon
+3. Set environment variable `ANDROID_BUILD` to `ant`.
 
-org.apache.cordova.device
-
-org.apache.cordova.file
-
-org.apache.cordova.file-transfer
-
-org.apache.cordova.geolocation
-
-org.apache.cordova.statusbar
-
-org.apache.cordova.inappbrowser
-
-https://github.com/Wikitude/wikitude-phonegap.git
-
-org.apache.cordova.inappbrowser
-
-6. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
+4. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
 
 ###Run in browser or Phonegap Developer App
  
