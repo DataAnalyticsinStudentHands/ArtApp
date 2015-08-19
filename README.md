@@ -24,10 +24,11 @@ This uses `ionic.xml` and will serve as local node server. Live updates when you
 ###Running on a iOS/Android Device:
 3. Set environment variable `ANDROID_BUILD` to `ant`.
 
-6. Run `ionic resources` to generate icons and splash screen assets.
-
 4. Run `cordova platform add android@3.7.1` or `cordova platform add ios@3.8.0` Plugins are automatically installed via script in `hooks/before_platform_add`
+NOTE: Please ignore warnings regarding outdated plugins. We are using fixed older versions of plugins to ensure that Wikitude functions properly.
 
 5. Edit `\plugins\com.wikitude.phonegap.WikitudePlugin\www\WikitudePlugin.js` and add the plugin key. A free trial key can be requested from Wikitude for development purposes.
+
+6. Run `ionic resources` to generate icons and splash screen assets.
 
 7. Run `cordova platform build ios` or `cordova platform build android` and use appropriate cordova commands to test/build/deploy.
