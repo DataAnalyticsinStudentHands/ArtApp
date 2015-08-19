@@ -31,4 +31,4 @@ NOTE: Please ignore warnings regarding outdated plugins. We are using fixed olde
 
 6. Run `ionic resources` to generate icons and splash screen assets.
 
-7. Run `cordova platform build ios` or `cordova platform build android` and use appropriate cordova commands to test/build/deploy.
+7. Run `cordova platform build ios` or `cordova platform build android` and use appropriate cordova commands to test/build/deploy. NOTE: android-21 SDK Platform must be installed via SDKManager for a successful android build.
