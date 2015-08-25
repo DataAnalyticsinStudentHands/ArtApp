@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="dash.summerofapps.artapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>ARTour</name>
-  <description>&#xD;&#xD;
-&#xD;&#xD;
+  <description>&#xD;&#xD;&#xD;
+&#xD;&#xD;&#xD;
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;&#xD;
-&#xD;&#xD;
-      Ionic Framework Team&#xD;&#xD;
-&#xD;&#xD;
+  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;&#xD;&#xD;
+&#xD;&#xD;&#xD;
+      Ionic Framework Team&#xD;&#xD;&#xD;
+&#xD;&#xD;&#xD;
   </author>
-  <icon src="resources/ios/icon/icon-small@3x.png"/>
+  <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>

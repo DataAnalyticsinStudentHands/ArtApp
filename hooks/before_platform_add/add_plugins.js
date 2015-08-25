@@ -13,7 +13,7 @@ var pluginlist = [
     "cordova-plugin-geolocation",
     "cordova-plugin-statusbar",
     "org.apache.cordova.inappbrowser@0.6.0",
-    "https://github.com/Wikitude/wikitude-phonegap.git#699a81f"
+    "https://github.com/Wikitude/wikitude-phonegap.git#9b8cd90"
 ];
  
 // no need to configure below
