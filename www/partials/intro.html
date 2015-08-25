@@ -11,11 +11,11 @@
   </ion-nav-buttons>
   <ion-nav-buttons side="right"> 
     <button class="button button-positive button-clear no-animation"
-            ng-click="next()" ng-show="slideIndex != 4">
+            ng-click="next()" ng-show="slideIndex != 3">
       Next
     </button>
     <button class="button button-positive button-clear no-animation"
-            ng-click="startApp()" ng-show="slideIndex == 4">
+            ng-click="startApp()" ng-show="slideIndex == 3">
       Start using Public Art
     </button>
   </ion-nav-buttons>
@@ -32,8 +32,8 @@
     <ion-slide>  
        <img src="img/intro_menu.jpg" alt="Menu Page" style="max-width:99%; max-height:80%">     
     </ion-slide>
-    <ion-slide> 
+    <!-- <ion-slide> 
         <div ng-include src="'partials/about.html'" style="text-align: left"></div>        
-    </ion-slide>  
+    </ion-slide>  -->
   </ion-slide-box>
 </ion-view>
