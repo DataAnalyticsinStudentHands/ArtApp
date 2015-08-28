@@ -120,7 +120,6 @@ publicArtApp.run(['$rootScope', '$http', 'Restangular', 'Auth', 'tourInfo', '$io
         $rootScope.prevState = 'none';
         
         $rootScope.goToLink = function(url){
-            
             window.open(url,"_blank");
         }
 

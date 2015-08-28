@@ -146,6 +146,7 @@ appControllers.controller('collageCtrl', ['$scope','$rootScope','$window','tourI
         }).then(function(modal) {
             $scope.modal = modal;
         });
+        
         $scope.openModal = function() {
             $scope.modal.show();
         };
